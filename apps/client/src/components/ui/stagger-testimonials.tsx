@@ -194,7 +194,7 @@ export interface StaggerTestimonialsHandle {
   handleMove: (steps: number) => void;
 }
 
-export const StaggerTestimonials = forwardRef<StaggerTestimonialsHandle, {}>((props, ref) => {
+export const StaggerTestimonials = forwardRef<StaggerTestimonialsHandle, React.HTMLAttributes<HTMLDivElement>>((props, ref) => {
   const [cardSize, setCardSize] = useState(365);
   const [testimonialsList, setTestimonialsList] = useState(testimonials);
 
