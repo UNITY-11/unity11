@@ -168,7 +168,7 @@ export function IconCloud({ icons, images }: IconCloudProps) {
       });
     }
     setIconPositions(newIcons);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [icons, images]);
 
   // Handle mouse events
