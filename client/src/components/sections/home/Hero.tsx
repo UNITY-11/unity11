@@ -21,112 +21,8 @@ export const Hero: React.FC = () => {
   ];
 
   return (
-    <div className="relative w-full min-h-screen bg-white p-3 md:p-6 overflow-x-hidden">
-      {/* Top Hero Text Section */}
-      <div className="max-w-[1800px] mx-auto mb-3 md:mb-4 relative px-2 md:px-4">
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-8">
-          {/* Left-aligned Main Text Block */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex-1 w-full lg:w-auto"
-          >
-            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-thin uppercase text-black leading-tight tracking-tight flex flex-wrap items-center gap-2">
-              <span>THE DREAM</span>
-              <svg
-                className="w-4 h-4 md:w-5 md:h-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" />
-              </svg>
-              <span>NAVIGATOR IS YOUR</span>
-              <span>P</span>
-              <div className="relative inline-flex items-center">
-                <div className="px-4 py-1.5 bg-blue-500 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-12 h-7 md:w-14 md:h-8"
-                    viewBox="0 0 200 100"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="1.5"
-                  >
-                    {/* World map outline - continents */}
-                    <path d="M30 50 Q40 35, 50 40 Q60 45, 70 40 Q80 35, 90 40 Q100 45, 110 40 Q120 35, 130 40" />
-                    <path d="M35 55 Q45 50, 55 55 Q65 60, 75 55 Q85 50, 95 55 Q105 60, 115 55" />
-                    <path d="M50 30 Q60 25, 70 30 Q80 35, 90 30" />
-                    <path d="M120 45 Q130 40, 140 45 Q150 50, 160 45 Q170 40, 180 45" />
-                    <path d="M125 60 Q135 55, 145 60 Q155 65, 165 60" />
-                    {/* Landmasses */}
-                    <ellipse cx="60" cy="42" rx="8" ry="6" fill="white" opacity="0.3" />
-                    <ellipse cx="100" cy="45" rx="10" ry="7" fill="white" opacity="0.3" />
-                    <ellipse cx="145" cy="50" rx="9" ry="6" fill="white" opacity="0.3" />
-                  </svg>
-                </div>
-              </div>
-              <span>ATH TO INSPIRATION</span>
-              <span>AND INNOVATION</span>
-              <svg
-                className="w-4 h-4 md:w-5 md:h-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" />
-              </svg>
-            </div>
-          </motion.div>
-
-          {/* Right-aligned Text Block */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-left lg:text-right max-w-md w-full lg:w-auto"
-          >
-            <div className="flex flex-col items-end gap-2">
-              <svg
-                className="w-4 h-4 text-black"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                style={{ transform: 'rotate(15deg)' }}
-              >
-                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" />
-              </svg>
-              <p className="text-sm md:text-base font-light text-gray-600 leading-relaxed">
-                <span className="text-gray-800 font-medium">Marketing analytics:</span>{' '}
-                Illuminating your path to digital triumph by decoding data intricacies.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Top Right Explore Button - White pill-shaped button with text */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="absolute top-3 right-3 md:top-6 md:right-6 px-3 md:px-5 py-1.5 md:py-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow flex items-center gap-2 text-gray-700 font-medium z-50 text-xs md:text-sm"
-      >
-        Explore
-        <svg
-          className="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </motion.button>
-
-      <div className="max-w-[1800px] mx-auto mt-2 md:mt-4 px-2 md:px-4 flex flex-col lg:flex-row items-center gap-2 md:gap-4 lg:gap-6 overflow-x-hidden">
-        {/* Left Panel - Section 01 - Taller */}
+    <section className="relative min-h-screen justify-center items-center w-full bg-black overflow-x-hidden">
+      <div className="h-screen flex justify-between items-center container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -526,14 +422,29 @@ export const Hero: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Card 2 - Conversion */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex-1 bg-gray-100 rounded-lg p-2 md:p-3 flex items-center gap-2 md:gap-3 min-w-0"
+            {/* Main Headline */}
+            <motion.h1
+              variants={fadeUpVariants}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent leading-[1.1] mb-6 max-w-5xl pr-80"
+              style={{ fontFamily: 'var(--font-geist-sans), sans-serif' }}
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
+              <span className="inline-flex items-center">
+                THE{' '}
+                <span className="relative inline-block mx-1.5">
+                  DREAM
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                    className="absolute -top-0.5 -right-1.5 text-white"
+                  >
+                    <path d="M6 0L7.5 4.5L12 6L7.5 7.5L6 12L4.5 7.5L0 6L4.5 4.5L6 0Z" />
+                  </svg>
+                </span>
+              </span>
+              <br />
+              <span className="inline-flex items-center">
                 <svg
                   className="w-4 h-4 md:w-5 md:h-5 text-gray-700"
                   fill="none"
