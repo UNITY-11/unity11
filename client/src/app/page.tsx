@@ -1,12 +1,11 @@
-import Image from "next/image";
 import { Hero } from "@/components/sections/home/Hero";
-import Navbar from "@/components/layout/Navbar";
+import Clients from "@/components/sections/home/Clients";
 
 export default function Home() {
   return (
     <>
-
     <Hero />
+    <Clients/>
     </>
   );
 }
