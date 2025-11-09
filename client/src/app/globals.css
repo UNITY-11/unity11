@@ -38,3 +38,14 @@ body {
     var(--animation-direction, forwards) linear infinite;
 }
 
+
+/* Hide scrollbar globally */
+::-webkit-scrollbar {
+  display: none;
+}
+html {
+  scrollbar-width: none;
+}
+body {
+  -ms-overflow-style: none;
+}
