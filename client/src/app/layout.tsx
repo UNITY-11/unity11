@@ -23,9 +23,7 @@ export const metadata: Metadata = {
   },
   description:
     'Your expert partner for custom software development, cloud solutions, and technology services.',
-  icons: {
-    icon: '/favicon.ico', 
-  },
+
 };
 
 export default function RootLayout({
