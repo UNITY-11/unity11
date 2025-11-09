@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { IoIosArrowForward, IoIosMenu, IoIosClose   } from "react-icons/io";
+import { IoIosArrowForward, IoIosMenu, IoIosClose } from "react-icons/io";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,10 +21,35 @@ const navLinks: NavLink[] = [
 const Navbar: React.FC = () => {
   const [activeLink, setActiveLink] = useState("Home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showNav, setShowNav] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling down
+        setShowNav(false);
+      } else {
+        // Scrolling up
+        setShowNav(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <nav className="w-full bg-black py-4 fixed top-0 z-50">
-      <div className="container mx-auto flex items-center justify-center sm:justify-between px-4">
+    <motion.nav
+      initial={{ y: 0 }}
+      animate={{ y: showNav ? 0 : -100 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black border-white/10 shadow-lg"
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -47,16 +72,16 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <ul className="flex items-center gap-2 bg-gray-900 p-1 rounded-full shadow-md">
+          <ul className="flex items-center gap-2 bg-black/40 backdrop-blur-md p-1 rounded-full shadow-md border-2 border-[#185fca]">
             {navLinks.map((link) => (
               <li key={link.name} className="relative">
                 <Link
                   href={link.href}
                   onClick={() => setActiveLink(link.name)}
-                  className={`relative z-10 block rounded-full px-6 py-2 text-sm font-medium transition-colors ${
+                  className={`relative z-10 block rounded-full px-6 py-2 text-sm font-medium transition-colors text-white ${
                     activeLink === link.name
                       ? "text-white"
-                      : "text-gray-200 hover:text-white"
+                      : "hover:text-[#185fca]"
                   }`}
                 >
                   {link.name}
@@ -89,9 +114,9 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-blue-600 focus:outline-none absolute left-5"
-        > 
-          {menuOpen ? <IoIosClose  size={40} /> : <IoIosMenu size={26} />}
+          className="md:hidden text-white absolute left-5"
+        >
+          {menuOpen ? <IoIosClose size={40} /> : <IoIosMenu size={28} />}
         </button>
       </div>
 
@@ -112,7 +137,7 @@ const Navbar: React.FC = () => {
                     setActiveLink(link.name);
                     setMenuOpen(false);
                   }}
-                  className={`text-sm font-medium ${
+                  className={`text-lg font-medium ${
                     activeLink === link.name
                       ? "text-[#7fcbe4]"
                       : "text-gray-300 hover:text-white"
@@ -134,7 +159,7 @@ const Navbar: React.FC = () => {
           </ul>
         </motion.div>
       )}
-    </nav>
+    </motion.nav>
   );
 };
 
