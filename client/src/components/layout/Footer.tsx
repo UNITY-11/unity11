@@ -2,6 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
+import FooterCTA from '@/components/layout/FooterCTA'
+
 // Importing icons from react-icons
 import {
   FaCode,
@@ -52,7 +54,8 @@ const socialLinks: SocialLink[] = [
 const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-gray-300">
-      <div className="container mx-auto pt-16  px-4">
+      <FooterCTA/>
+      <div className="container mx-auto pt-16 px-4">
         {/* Top section: Brand and Links */}
         <div className="flex flex-col md:flex-row justify-between gap-12">
           {/* Left Section: Brand & Slogan */}
