@@ -5,6 +5,7 @@ import './globals.css';
 // Import your Navbar and the new Footer component
 import  Navbar  from '@/components/layout/Navbar';
 import  Footer  from '@/components/layout/Footer';
+import  CustomeCursor from '@/components/ui/CustomeCursor'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans bg-white text-gray-900 antialiased`}
       >
+        <CustomeCursor/>
         <div className="flex min-h-screen flex-col">
           <Navbar />
           <main>{children}</main>
