@@ -80,8 +80,8 @@ export const Hero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-screen w-full bg-white overflow-x-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-16 pb-12 lg:pb-20">
+    <section className="relative min-h-screen justify-center items-center w-full bg-black overflow-x-hidden">
+      <div className="h-screen flex justify-between items-center container mx-auto px-4">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -114,7 +114,7 @@ export const Hero: React.FC = () => {
             {/* Main Headline */}
             <motion.h1
               variants={fadeUpVariants}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-black leading-[1.1] mb-6 max-w-5xl pr-80"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent leading-[1.1] mb-6 max-w-5xl pr-80"
               style={{ fontFamily: 'var(--font-geist-sans), sans-serif' }}
             >
               <span className="inline-flex items-center">
@@ -126,7 +126,7 @@ export const Hero: React.FC = () => {
                     height="10"
                     viewBox="0 0 12 12"
                     fill="currentColor"
-                    className="absolute -top-0.5 -right-1.5 text-[#2a408c]"
+                    className="absolute -top-0.5 -right-1.5 text-white"
                   >
                     <path d="M6 0L7.5 4.5L12 6L7.5 7.5L6 12L4.5 7.5L0 6L4.5 4.5L6 0Z" />
                   </svg>
