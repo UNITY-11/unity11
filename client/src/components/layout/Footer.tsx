@@ -10,6 +10,7 @@ import {
   FaTwitter,
   FaDribbble,
 } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -51,7 +52,7 @@ const socialLinks: SocialLink[] = [
 const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-gray-300">
-      <div className="container mx-auto pt-16 px-8 sm:px-12">
+      <div className="container mx-auto pt-16  px-4">
         {/* Top section: Brand and Links */}
         <div className="flex flex-col md:flex-row justify-between gap-12">
           {/* Left Section: Brand & Slogan */}
@@ -74,10 +75,10 @@ const Footer: React.FC = () => {
                 priority
               />
             </Link>
-            <h2 className="text-3xl md:text-5xl bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent mt-3">
-              Building the Future,
+            <h2 className="text-3xl md:text-5xl leading-13  tracking-wide bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent py-4">
+              Transforming Ideas
               <br />
-              One Line a Time
+              Into Digital Reality.
             </h2>
           </div>
 
@@ -90,13 +91,17 @@ const Footer: React.FC = () => {
               </h3>
               <ul className="mt-4 space-y-3">
                 {exploreLinks.map((link) => (
-                  <li key={link.name}>
+                  <li
+                    key={link.name}
+                    className="flex justify-between items-center text-transparent hover:text-[#2052bd]"
+                  >
                     <Link
                       href={link.href}
                       className="bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent hover:text-[#2052bd] transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
+                    <IoIosArrowForward />
                   </li>
                 ))}
               </ul>
@@ -109,13 +114,17 @@ const Footer: React.FC = () => {
               </h3>
               <ul className="mt-4 space-y-3">
                 {supportLinks.map((link) => (
-                  <li key={link.name}>
+                  <li
+                    key={link.name}
+                    className="flex justify-between text-transparent hover:text-[#2052bd] items-center"
+                  >
                     <Link
                       href={link.href}
                       className="bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent hover:text-[#2052bd] transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
+                    <IoIosArrowForward />
                   </li>
                 ))}
               </ul>
@@ -134,10 +143,11 @@ const Footer: React.FC = () => {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 bg-linear-to-tr from-[#4077ef] to-[#7fcbe4] bg-clip-text text-transparent hover:text-[#2052bd] transition-colors duration-200"
+                      className="flex items-center gap-3 bg-linear-to-tr from-[#073ba9] to-[#7fcbe4] bg-clip-text text-transparent hover:text-[#2052bd] transition-colors duration-200"
                     >
-                      <span className="text-[#3067dd]"> {link.icon}</span>
+                      <span className="text-[#3bceffdd]"> {link.icon}</span>
                       <span>{link.name}</span>
+                      <IoIosArrowForward />
                     </a>
                   </li>
                 ))}
@@ -146,7 +156,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-full h-[30vh]  flex items-center justify-center overflow-hidden">
+        <div className="w-full h-[10vh] sm:h-[20vh] flex items-center justify-center overflow-hidden sm:mt-20">
           <motion.div
             initial={{ y: 80, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -162,16 +172,16 @@ const Footer: React.FC = () => {
               alt="unity11"
               width={1200}
               height={400}
-              className="w-full h-auto mt-[20vh]"
+              className="w-full h-auto mt-10 sm:mt-[10vh]"
               priority
             />
           </motion.div>
         </div>
 
         {/* Bottom section: Copyright */}
-        <div className="flex justify-center items-center border-t-2 border-gray-800 py-10">
+        <div className="flex justify-center items-center border-t-2 border-gray-800 py-4 sm:py-10">
           <p className="text-xs text-gray-500 text-center">
-            © {new Date().getFullYear()} Tech Solutions. All Rights Reserved.
+            © {new Date().getFullYear()} Unity11 Solutions. All Rights Reserved.
           </p>
         </div>
       </div>
