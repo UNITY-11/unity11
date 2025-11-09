@@ -1,0 +1,16 @@
+# Unity11 Software Development & Solutions - robots.txt
+# This file tells search engines what to crawl or ignore.
+
+User-agent: *
+Allow: /
+
+# Block unnecessary or sensitive paths
+Disallow: /admin/
+Disallow: /api/
+Disallow: /server/
+Disallow: /private/
+Disallow: /drafts/
+Disallow: /tmp/
+
+# Link to sitemap for better indexing
+Sitemap: https://unity11.com/sitemap.xml
