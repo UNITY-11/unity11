@@ -8,22 +8,26 @@ export default function ProcessSection() {
     {
       number: "01",
       title: "Discovery & Strategy",
-      desc: "We understand your goals, analyze your market, and craft a solid roadmap for your digital product.",
+      desc:
+        "We understand your goals, analyze your market, and craft a solid roadmap for your digital product.",
     },
     {
       number: "02",
       title: "Design & Prototyping",
-      desc: "Our design team turns ideas into interactive prototypes with modern UI and seamless UX flows.",
+      desc:
+        "Our design team turns ideas into interactive prototypes with modern UI and seamless UX flows.",
     },
     {
       number: "03",
       title: "Development & Integration",
-      desc: "We build scalable, high-performance software using cutting-edge technologies and best practices.",
+      desc:
+        "We build scalable, high-performance software using cutting-edge technologies and best practices.",
     },
     {
       number: "04",
       title: "Testing & Deployment",
-      desc: "From QA to production, we ensure flawless performance and smooth deployment across all environments.",
+      desc:
+        "From QA to production, we ensure flawless performance and smooth deployment across all environments.",
     },
   ];
 
@@ -32,10 +36,9 @@ export default function ProcessSection() {
       id="process"
       className="relative bg-black text-white py-20 lg:py-28 overflow-hidden"
     >
-              {/* linear accents */}
+      {/* linear accents */}
       <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-linear-to-tr from-cyan-500 to-blue-400 opacity-20 blur-3xl" />
-
 
       <div className="container mx-auto px-6 lg:px-8">
         {/* Heading */}
@@ -53,8 +56,9 @@ export default function ProcessSection() {
             </span>
           </h2>
           <p className="mt-4 text-slate-400 text-lg max-w-2xl mx-auto">
-            Every successful product starts with a process that blends creativity,
-            technology, and collaboration. Here’s how we build world-class software.
+            Every successful product starts with a process that blends
+            creativity, technology, and collaboration. Here’s how we build
+            world-class software.
           </p>
         </motion.div>
 
@@ -67,14 +71,20 @@ export default function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className="relative bg-blue-600 text-black rounded-3xl p-8 h-52 flex justify-between overflow-hidden"
+              className={`group relative bg-blue-600 text-black rounded-3xl p-8 h-52 flex justify-between overflow-hidden ${
+                index > 1 ? "flex-row-reverse" : ""
+              }`}
             >
-              <div className="relative h-full bg-amber-200">
-                <h3 className="absolute top-0 text-[90px] sm:text-[180px] mt-18 leading-none opacity-90">
-                {step.number}
-              </h3>
+              <div className="relative h-full w-full ">
+                <h3
+                  className={`absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
+                    index > 1 ? "-right-6" : "-left-6"
+                  }`}
+                >
+                  {step.number}
+                </h3>
               </div>
-              <div>
+              <div className="h-full w-full group-hover:mt-6 transition-all duration-500">
                 <p className="text-base sm:text-xl text-white font-semibold">
                   {step.title}
                 </p>
