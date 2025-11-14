@@ -6,6 +6,7 @@ import WhyChooseUs from "@/components/sections/home/WhyChooseUs";
 import ProcessSection from "@/components/sections/home/ProcessSection";
 import TestimonialSection from "@/components/sections/home/TestimonialSection"
 import Technologies from "@/components/sections/home/Technologies";
+import BlogSection from "@/components/sections/home/BlogSection";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
     <ProcessSection/>
     <TestimonialSection/>
     <Technologies/>
+    <BlogSection/>
     </>
   );
 }
