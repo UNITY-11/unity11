@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function Technologies() {
   return (
-    <section className="relative h-vh py-20 bg-white">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 gap-10">
+    <section className="relative h-screen py-20 bg-white">
+      <div className="max-w-7xl h-full mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 gap-10">
         {/* Left side text */}
         <div className="flex-1 text-center lg:text-left">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-2 text-blue-400">
