@@ -60,7 +60,7 @@ function FlowCards({
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20 w-screen overflow-hidden bg-black [mask:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller relative z-20 w-screen overflow-hidden bg-linear-to-t from-blue-400 to-blue-600 p-10 [mask:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className
       )}
     >

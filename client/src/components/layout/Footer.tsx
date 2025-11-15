@@ -53,7 +53,7 @@ const socialLinks: SocialLink[] = [
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-gray-300">
+    <footer className="bg-white text-gray-300">
       <FooterCTA/>
       <div className="container mx-auto pt-16 px-4">
         {/* Top section: Brand and Links */}
@@ -182,7 +182,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom section: Copyright */}
-        <div className="flex justify-center items-center border-t-2 border-gray-800 py-4 sm:py-10">
+        <div className="flex justify-center items-center border-t-2 border-gray-200 py-4 sm:py-10">
           <p className="text-xs text-gray-500 text-center">
             © {new Date().getFullYear()} Unity11 Solutions. All Rights Reserved.
           </p>

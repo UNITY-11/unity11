@@ -1,16 +1,12 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import {posts} from "@/data/blogs"
-
+import { posts } from "@/data/blogs";
 
 export default function BlogSection() {
   return (
     <section
-      className="py-20 h-screen  bg-[url('/images/blog/bg.jpg')] bg-cover 
-    bg-center 
-    bg-no-repeat
-    relative
+      className="py-20
 "
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -30,7 +26,7 @@ export default function BlogSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => (
             <Link key={post.id} href={`/blog/${post.slug}`}>
-              <div className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-4xl p-4 hover:bg-white/10 transition-all duration-300">
+              <div className="group bg-white/5 backdrop-blur-xl shadow-2xl rounded-4xl p-4 hover:bg-white/10 transition-all duration-300">
                 <div className="relative w-full h-52 rounded-xl overflow-hidden mb-4">
                   <Image
                     src={post.image}
@@ -40,21 +36,21 @@ export default function BlogSection() {
                   />
                 </div>
 
-                <div className="flex items-center gap-2 mb-3 text-sm text-white/60">
+                <div className="flex items-center gap-2 mb-3 text-sm text-blue-300">
                   <span>{post.category}</span>
                   <span>•</span>
                   <span>{post.readTime}</span>
                 </div>
 
-                <h3 className="text-xl font-semibold text-white group-hover:text-blue-500 transition">
+                <h3 className="text-xl font-semibold text-blue-400 transition">
                   {post.title}
                 </h3>
 
-                <p className="mt-2 text-white/70 text-sm leading-relaxed">
+                <p className="mt-2 text-blue-300 text-sm leading-relaxed">
                   {post.excerpt}
                 </p>
 
-                <div className="mt-4 text-blue-600 text-sm opacity-0 group-hover:opacity-100 transition">
+                <div className="mt-4 text-blue-400 text-sm opacity-0 group-hover:opacity-100 transition">
                   Read more →
                 </div>
               </div>

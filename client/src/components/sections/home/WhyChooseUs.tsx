@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
   return (
     <section
       id="why-choose-us"
-      className="relative bg-black py-20 lg:py-28 overflow-hidden"
+      className="relative bg-white py-20 overflow-hidden"
     >
       {/* linear accents */}
       <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />
@@ -55,7 +55,7 @@ export default function WhyChooseUs() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-4xl sm:text-6xl text-white">
+          <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
             Why{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
               Choose Us

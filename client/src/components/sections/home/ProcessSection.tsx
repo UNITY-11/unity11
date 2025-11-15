@@ -34,7 +34,7 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-black text-white py-20 lg:py-28 overflow-hidden"
+      className="relative bg-white text-white py-20 lg:py-28 overflow-hidden"
     >
       {/* linear accents */}
       <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />
@@ -49,7 +49,7 @@ export default function ProcessSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-6xl text-white">
+          <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
             Our{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
               Process
@@ -71,7 +71,7 @@ export default function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className={`group relative bg-blue-600 text-black rounded-3xl p-8 h-52 flex justify-between overflow-hidden ${
+              className={`group relative bg-linear-to-b from-blue-400 to-blue-700 text-white rounded-3xl p-8 h-52 flex justify-between overflow-hidden ${
                 index > 1 ? "flex-row-reverse" : ""
               }`}
             >

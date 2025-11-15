@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { IoIosArrowForward } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import React from "react";
-import { CardSpotlight } from "@/components/ui/cards/card-spotlight";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+
 
 export default function TestimonialSection() {
     const router = useRouter();
@@ -46,19 +46,30 @@ export default function TestimonialSection() {
     ];
 
     return (
-        <section className="relative bg-black text-white py-20 px-6 overflow-hidden">
-            <div className="container max-w-7xl mx-auto text-center">
-                <h2 className="text-4xl sm:text-6xl text-white">
-                    What{" "}
-                    <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
-                        People Say
-                    </span>
-                </h2>
+        <section className="relative bg-blue-50 text-blue-500 py-20 px-6 overflow-hidden rounded-b-[5%]">
+            <div className="container max-w-7xl mx-auto text-start">
+                <div className="relative w-full flex flex-col text-start">
+                    <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
+                        What{" "}
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
+                            People Say
+                        </span>
+                    </h2>
 
-                <p className="text-gray-400 max-w-2xl mx-auto mb-12 mt-6">
-                    Hear from our clients who trusted Unity11 to bring their digital
-                    visions to life with scalable, future-ready software solutions.
-                </p>
+                    <p className="text-gray-400 mb-12 mt-6">
+                        Hear from our clients who trusted Unity11 to bring their digital <br />
+                        visions to life with scalable, future-ready software solutions.
+                    </p>
+
+                    <div className="absolute bottom-10 right-0 flex justify-end gap-5 text-blue-500">
+                        <button className="w-8 h-8 rounded-full border-2 flex items-center justify-center">
+                            <IoIosArrowBack className="text-lg" />
+                        </button>
+                        <button className="w-8 h-8 rounded-full border-2 flex items-center justify-center">
+                            <IoIosArrowForward className="text-lg" />
+                        </button>
+                    </div>
+                </div>
 
                 <div className="grid md:grid-cols-4 gap-6">
                     {testimonials.map((testimonial, index) => (
@@ -76,21 +87,19 @@ export default function TestimonialSection() {
                     </button>
                 </div>
             </div>
-
-            <div className="absolute inset-0 bg-[url('/images/bg-grid.svg')] bg-center bg-cover opacity-5 pointer-events-none"></div>
         </section>
     );
 }
 
 function TestimonialCard({ testimonial }) {
     return (
-        <CardSpotlight
+        <div
             radius={350}
             color="#262626"
-            className="w-full p-1 rounded-4xl bg-black backdrop-blur-lg border-2 border-t-blue-500 border-r-blue-500 border-b-blue-300 border-l-blue-300 transition-all duration-300"
+            className="w-full p-1 rounded-4xl bg-linear-to-tr from-blue-600 to-blue-300 backdrop-blur-lg transition-all duration-300 hover:scale-105"
         >
             <div className="relative inset-1 flex flex-col text-start space-y-4 p-4 rounded-3xl">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-b-3 border-blue-600">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-3 border-white">
                     <Image
                         src={testimonial.image}
                         alt={testimonial.name}
@@ -100,8 +109,8 @@ function TestimonialCard({ testimonial }) {
                     />
                 </div>
                 <div>
-                    <h3 className="font-semibold text-lg">{testimonial.name}</h3>
-                    <p className="text-sm text-gray-400">{testimonial.role}</p>
+                    <h3 className="font-semibold text-lg text-white">{testimonial.name}</h3>
+                    <p className="text-sm text-gray-100">{testimonial.role}</p>
                 </div>
 
                 {/* Star Rating */}
@@ -109,16 +118,16 @@ function TestimonialCard({ testimonial }) {
                     {Array.from({ length: 5 }, (_, i) => (
                         <FaStar
                             key={i}
-                            className={`text-sm ${i < testimonial.rating ? "text-blue-600" : "text-blue-950"
+                            className={`text-sm ${i < testimonial.rating ? "text-white" : "text-blue-900"
                                 }`}
                         />
                     ))}
                 </div>
 
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-gray-100 text-sm leading-relaxed">
                     {testimonial.feedback}
                 </p>
             </div>
-        </CardSpotlight>
+        </div>
     );
 }
