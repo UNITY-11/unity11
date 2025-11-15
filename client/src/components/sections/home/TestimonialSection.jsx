@@ -76,8 +76,6 @@ export default function TestimonialSection() {
                     </button>
                 </div>
             </div>
-
-            <div className="absolute inset-0 bg-[url('/images/bg-grid.svg')] bg-center bg-cover opacity-5 pointer-events-none"></div>
         </section>
     );
 }
