@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
   return (
     <>
       {/* ===== HERO CARD SECTION (BLACK BACKGROUND) ===== */}
-      <section className="relative h-screen justify-center items-center w-full bg-black overflow-x-hidden pt-[100px]">
+      <section className="relative h-screen justify-center items-center w-full bg-white overflow-x-hidden pt-[100px]">
         <div className="flex justify-between items-center container mx-auto px-4 gap-2">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -407,8 +407,8 @@ export const Hero: React.FC = () => {
                 style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
               >
                 <span className="inline-flex items-center">
-                  THE{" "}
-                  <span className="relative inline-block mx-1.5 text-white">
+                  YOUR{" "}
+                  <span className="relative inline-block mx-1.5 text-black">
                     DREAM
                     <svg
                       width="10"
