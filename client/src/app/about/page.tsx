@@ -103,69 +103,69 @@ const excellenceHighlights: HighlightCard[] = [
 
 const contractTiles = [
   {
-    title: "All Your Contracts in One Secure Place",
-    description: "Easily organize and store every agreement inside a single, secure repository.",
+    title: "All Your Campaign Intelligence in One Place",
+    description: "Centralize briefs, research, and creative assets for every launch in a single, secure hub.",
   },
   {
-    title: "AI-Powered Contract Assistance",
-    description: "Contextual suggestions, smart summaries, and clause insights in real time.",
+    title: "AI-Powered Campaign Assistance",
+    description: "Generate headlines, audience insights, and testing plans with contextual AI copilots.",
   },
   {
-    title: "Timely Reminders & Notifications",
-    description: "Never miss milestones with automated tracking of contract deadlines.",
+    title: "Lifecycle Reminders & Notifications",
+    description: "Automated alerts keep SEO audits, sprint demos, and nurture journeys on schedule.",
   },
   {
-    title: "AI-Powered Contract Data Extraction",
-    description: "Automate clause extraction and structure legal data effortlessly.",
+    title: "AI-Powered Asset Insights",
+    description: "Surface performance signals across content, ads, and product drops to plan the next sprint.",
   },
 ];
 
 const dashboardChips = [
-  { label: "Senior" },
-  { label: "Junior" },
+  { label: "Strategy Pods" },
+  { label: "Build Pods" },
 ];
 
 const dashboardPeople = [
-  { name: "Luisa Dzen", status: "In progress", detail: "Yes, I’m working on it", minutes: "3 min" },
-  { name: "Tomas Levi", status: "Certified", detail: "Created dark mode variables", minutes: "7 h" },
-  { name: "Rosie Shein", status: "In progress", detail: "Working on components", minutes: "3 h" },
+  { name: "Luisa Dzen", status: "In progress", detail: "Leading brand refresh sprint", minutes: "3 min ago" },
+  { name: "Tomas Levi", status: "Live", detail: "Shipping Next.js storefront", minutes: "7 hrs ago" },
+  { name: "Rosie Shein", status: "QA", detail: "Validating CRM automations", minutes: "3 hrs ago" },
 ];
 
 const insightsTiles = [
   {
-    title: "Effortless affiliate management",
-    description: "Manage advertisers, affiliates, offers, and billing in one place.",
+    title: "Effortless project orchestration",
+    description: "Manage strategy, design, engineering, and marketing workstreams inside one command center.",
   },
-  { title: "Reliable tracking", description: "Track impressions, clicks, and conversions in real time." },
-  { title: "Analyze & predict", description: "Get deep insight into network performance with AI." },
-  { title: "Detect", description: "Industry-leading fraud detection meets automated protection." },
-  { title: "Scale", description: "Pay for what you use with elastic cloud resources." },
+  { title: "Reliable tracking & analytics", description: "Monitor impressions, CAC, and retention in real time." },
+  { title: "Analyze & predict", description: "Use AI forecasting to prioritize roadmaps and media budgets." },
+  { title: "Detect issues early", description: "Guard releases with automated QA, accessibility, and perf checks." },
+  { title: "Scale on demand", description: "Spin up cross-functional pods whenever your roadmap expands." },
 ];
 
 const revenueTiles = [
   {
-    title: "Predictable, Recurring Revenue",
-    description: "Turn one-time buyers into members with zero friction.",
+    title: "Predictable, Retained Revenue",
+    description: "Membership, subscription, and loyalty programs managed end-to-end.",
   },
   {
-    title: "Real-Time Revenue Insights",
-    description: "Track performance and growth from one dashboard.",
+    title: "Real-Time Growth Insights",
+    description: "Track pipeline, revenue, and conversion movements inside one dashboard.",
   },
   {
     title: "Fewer Failed Payments",
-    description: "Recover failed transactions automatically with smart retries.",
+    description: "Smart retries and billing automation keep recurring revenue intact.",
   },
   {
     title: "Higher Conversion at Checkout",
-    description: "Smart upsells and incentives raise the average order value.",
+    description: "Personalized upsells and incentives drive AOV gains across commerce builds.",
   },
   {
     title: "Fast Setup, No Headaches",
-    description: "Launch in days, not months, with guided integration.",
+    description: "Launch new funnels and digital products in weeks with managed implementation.",
   },
   {
-    title: "Enhance Profits Via Memberships",
-    description: "Drive conversion & retention rates that skyrocket profits.",
+    title: "Grow Profits via Memberships",
+    description: "Pair product ecosystems with retention programs tailored to your audience.",
   },
 ];
 
@@ -180,16 +180,16 @@ export default function AboutPage() {
               Why Choose Unity11
             </span>
             <h1 className="text-3xl font-semibold leading-tight text-[#0e1228] sm:text-4xl">
-              Unique, Human-Centered Approach To Your Product & Growth Needs
+              Unique, Outcome-Driven Approach to Marketing, Product, and Growth
             </h1>
             <p className="text-base text-[#5b6073]">
-              The partner care was comprehensive, and the support we received from the Unity11 studio set us up for
-              a confident launch. Unity11 truly prioritizes the well-being of every outcome.
+              From SEO and brand systems to full-stack engineering and lifecycle automation, Unity11 pairs every
+              engagement with measurable traction and premium craft.
             </p>
             <div className="rounded-3xl bg-white p-5 shadow-[0_18px_40px_rgba(15,23,42,0.08)]">
               <p className="text-sm text-[#101425]">
-                “The process was seamless—strategy, design, and engineering were aligned from day one. We will be back
-                for the next release.”
+                “Unity11 kept strategy, design, and code in sync from day one. Our campaign, platform release, and CRM
+                automation shipped faster than any prior vendor.”
               </p>
               <div className="mt-4 flex items-center gap-3">
                 <Image
@@ -357,7 +357,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Contract Intelligence Grid */}
+      {/* Campaign Intelligence Grid */}
       <section className="bg-[#f8f7fb] py-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-6 md:grid-cols-3">
@@ -372,21 +372,19 @@ export default function AboutPage() {
                       P
                     </span>
                   </div>
-                  <span className="text-sm font-semibold text-[#717b9e]">Reading data…</span>
+                  <span className="text-sm font-semibold text-[#717b9e]">Syncing insights…</span>
                 </div>
-                <span className="text-xs uppercase tracking-[0.3em] text-[#c0c4d9]">Integrations</span>
+                <span className="text-xs uppercase tracking-[0.3em] text-[#c0c4d9]">Marketing Stack</span>
               </div>
-              <p className="mt-8 text-xl font-semibold text-[#0f1224]">All Your Contracts in One Secure Place</p>
+              <p className="mt-8 text-xl font-semibold text-[#0f1224]">All Your Campaign Intelligence in One Place</p>
               <p className="mt-3 text-sm text-[#69708a]">
-                Easily organize and store all your contracts in a single repository, making them simple to access.
+                Briefs, roadmaps, and creative systems live together so product, marketing, and growth teams stay aligned.
               </p>
             </div>
             <div className="rounded-[32px] bg-white p-6 shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
-              <div className="rounded-2xl bg-[#fff7f5] px-5 py-4 text-sm font-semibold text-[#ff6b5f]">Searching…</div>
-              <p className="mt-8 text-xl font-semibold text-[#0f1224]">AI-Powered Contract Data Extraction</p>
-              <p className="mt-3 text-sm text-[#69708a]">
-                Automatically extract and structure key contract details.
-              </p>
+              <div className="rounded-2xl bg-[#fff7f5] px-5 py-4 text-sm font-semibold text-[#ff6b5f]">Orchestrating...</div>
+              <p className="mt-8 text-xl font-semibold text-[#0f1224]">AI-Powered Asset Insights</p>
+              <p className="mt-3 text-sm text-[#69708a]">Automatically surface learnings across content, ads, and releases.</p>
             </div>
           </div>
           <div className="mt-6 grid gap-6 md:grid-cols-3">
