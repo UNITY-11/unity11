@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { IoIosArrowForward, IoIosMenu, IoIosClose } from "react-icons/io";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavLink {
   name: string;
@@ -23,6 +24,7 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const pathname = usePathname();
 
   // Scroll behavior
   useEffect(() => {
@@ -41,6 +43,15 @@ const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  useEffect(() => {
+    const current = navLinks.find((link) => link.href === pathname);
+    if (current) {
+      setActiveLink(current.name);
+    } else if (pathname === "/") {
+      setActiveLink("Home");
+    }
+  }, [pathname]);
 
   return (
     <motion.nav
