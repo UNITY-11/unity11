@@ -7,8 +7,8 @@ const FooterCTA: React.FC = () => {
       className="
         relative w-full  mx-auto
         flex flex-col items-center justify-center
-        overflow-hidden rounded-2xl bg-black
-        py-5 text-center px-10"
+        overflow-hidden rounded-2xl bg-white
+        text-center px-10 py-30"
     >
       <div className="w-full flex flex-col justify-center items-center pb-[10vh] z-10">
         {/* Heading */}

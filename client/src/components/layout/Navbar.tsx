@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
         duration: 1.4,
         ease: [0.25, 1, 0.5, 1],
       }}
-      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black border-white/10 shadow-lg"
+      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/50"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
         {/* Logo */}
@@ -75,13 +75,13 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <ul className="flex items-center gap-2 bg-black/40 backdrop-blur-md p-1 rounded-full shadow-md border-2 border-[#185fca]">
+          <ul className="flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border-2 border-blue-300">
             {navLinks.map((link) => (
               <li key={link.name} className="relative">
                 <Link
                   href={link.href}
                   onClick={() => setActiveLink(link.name)}
-                  className={`relative z-10 block rounded-full px-6 py-2 text-sm font-medium transition-colors text-white ${
+                  className={`relative z-10 block rounded-full px-6 py-2 text-sm font-medium transition-colors text-blue-400 ${
                     activeLink === link.name
                       ? "text-white"
                       : "hover:text-[#185fca]"
@@ -108,7 +108,7 @@ const Navbar: React.FC = () => {
         {/* CTA Button (Desktop) */}
         <Link
           href="/get-started"
-          className="hidden sm:flex items-center gap-1.5 rounded-full bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] px-5 py-2.5 text-sm font-medium text-white shadow-md hover:opacity-90 transition"
+          className="hidden sm:flex items-center gap-1.5 rounded-full bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 transition"
         >
           Get started
           <IoIosArrowForward size={16} />

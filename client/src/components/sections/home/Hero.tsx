@@ -248,8 +248,8 @@ export const Hero: React.FC = () => {
         className={cn(
           "relative w-12 md:w-14 h-full rounded-full flex items-center justify-center cursor-pointer transition-all duration-300",
           gradientDirection === "to-t"
-            ? "bg-gradient-to-t from-[#2052bd] to-[#7fcbe4]"
-            : "bg-gradient-to-b from-[#2052bd] to-[#7fcbe4]",
+            ? "bg-linear-to-t from-[#2052bd] to-[#7fcbe4]"
+            : "bg-linear-to-b from-[#2052bd] to-[#7fcbe4]",
           isBold ? "shadow-lg" : "shadow-md",
           "hover:shadow-xl"
         )}
@@ -479,7 +479,7 @@ export const Hero: React.FC = () => {
           {/* Glassmorphism Background with gradient - Light blue at top to white at bottom */}
           <div className="absolute inset-0 bg-white backdrop-blur-3xl border border-white/40 rounded-2xl md:rounded-3xl shadow-2xl">
             {/* Gradient Background behind glass */}
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-200/40 via-blue-100/20 to-white rounded-2xl md:rounded-3xl">
+            <div className="absolute inset-0 bg-linear-to-b from-blue-200/40 via-blue-100/20 to-white rounded-2xl md:rounded-3xl">
                 {/* Abstract swirling blue patterns */}
                 <div className="absolute inset-0 opacity-60">
                   <div className="absolute top-0 left-0 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl"></div>
@@ -529,7 +529,7 @@ export const Hero: React.FC = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-[1.1] tracking-tight px-2 bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent"
+                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-[1.1] tracking-tight px-2 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent"
                   >
                     SPARK YOUR CREATIVITY
                   </motion.h1>
@@ -569,7 +569,7 @@ export const Hero: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.9 }}
-                  className="self-start px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-t from-[#2052bd] to-[#7fcbe4] backdrop-blur-sm rounded-full border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-1.5 md:gap-2 text-white text-xs md:text-sm font-semibold hover:opacity-90"
+                  className="self-start px-3 py-1.5 md:px-4 md:py-2 bg-linear-to-t from-[#2052bd] to-[#7fcbe4] backdrop-blur-sm rounded-full border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-1.5 md:gap-2 text-white text-xs md:text-sm font-semibold hover:opacity-90"
                   type="button"
                   aria-label="Explore now"
                 >
@@ -669,7 +669,7 @@ export const Hero: React.FC = () => {
                 initial="hidden"
                 animate="visible"
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent leading-[1.1] mb-4 md:mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent leading-[1.1] mb-4 md:mb-6"
                 style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
               >
                 <span className="inline-flex items-center">
@@ -699,7 +699,7 @@ export const Hero: React.FC = () => {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 md:px-5 md:py-2.5 bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] text-white rounded-full font-semibold flex items-center gap-2 hover:gap-4 transition-all duration-300 shadow-lg text-xs md:text-sm"
+                  className="px-4 py-2 md:px-5 md:py-2.5 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] text-white rounded-full font-semibold flex items-center gap-2 hover:gap-4 transition-all duration-300 shadow-lg text-xs md:text-sm"
                   type="button"
                   aria-label="Create project"
                 >
@@ -786,7 +786,7 @@ export const Hero: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 + idx * 0.1 }}
-                  className="flex-1 bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] rounded-xl p-3 md:p-4 flex items-center gap-2 md:gap-3 min-w-0 shadow-lg"
+                  className="flex-1 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] rounded-xl p-3 md:p-4 flex items-center gap-2 md:gap-3 min-w-0 shadow-lg"
                   role="listitem"
                 >
                   <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center shrink-0">

@@ -9,7 +9,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-black py-20 lg:py-28"
+      className="relative bg-white py-20 lg:py-28"
     >
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -38,7 +38,7 @@ export default function AboutSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl text-white sm:text-6xl">
+            <h2 className="text-4xl text-[#2052bd] sm:text-6xl">
               About{" "}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
                 Company
@@ -51,37 +51,41 @@ export default function AboutSection() {
               and powerful engineering to create real impact.
             </p>
 
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 ">
               {/* Mission Card */}
-              <div
-                className="relative overflow-hidden rounded-3xl h-64 sm:h-50 border-2 border-blue-400 shadow-md bg-[url('/images/about/mission.png')] bg-cover bg-center"
+              <div className="bg-linear-to-tr from-blue-500 to-blue-100 rounded-[20%]">
+                <div
+                className="relative overflow-hidden rounded-4xl h-64 sm:h-50 shadow-md bg-[url('/images/about/mission.png')] bg-cover bg-center"
               >
                 <div className="relative inset-0 z-10" />
-                <div className="absolute z-20 p-2 flex flex-col justify-bottom bottom-0 backdrop-blur-xs rounded-t-2xl">
+                <div className="h-full z-20 p-4 flex flex-col justify-center">
                   <h3 className="text-xl font-semibold drop-shadow-md text-white">
                     Our Mission
                   </h3>
-                  <p className="mt-2 text-sm text-white/70 drop-shadow-sm max-w-xs">
+                  <p className="mt-2 text-sm text-white/90 drop-shadow-sm max-w-xs">
                     Empower startups and enterprises to achieve digital
                     excellence through human-centered technology.
                   </p>
                 </div>
               </div>
+              </div>
 
               {/* Vision Card */}
-              <div
-                className="relative overflow-hidden rounded-3xl h-64 sm:h-50 border-2 border-blue-300 shadow-md bg-[url('/images/about/vision.png')] bg-cover bg-center"
+              <div className="bg-linear-to-tl from-blue-500 to-blue-100 rounded-[20%]">
+                <div
+                className="relative overflow-hidden rounded-3xl h-64 sm:h-50 shadow-md bg-[url('/images/about/vision.png')] bg-cover bg-center"
               >
                 <div className="relative inset-0 z-10" />
-                <div className="absolute z-20 p-2 flex flex-col justify-bottom bottom-0 backdrop-blur-xs">
+                <div className="h-full z-20 p-2 flex flex-col justify-center bottom-0 backdrop-blur-">
                   <h3 className="text-xl font-semibold drop-shadow-md text-white">
                     Our Vision
                   </h3>
-                  <p className="mt-2 text-sm text-white/70 drop-shadow-sm max-w-xs">
+                  <p className="mt-2 text-sm text-white/90 drop-shadow-sm max-w-xs">
                     To be a global leader in software development, known for
                     innovation, reliability, and customer trust.
                   </p>
                 </div>
+              </div>
               </div>
             </div>
 
