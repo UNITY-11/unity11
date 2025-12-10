@@ -33,7 +33,7 @@ const FooterCTA: React.FC = () => {
           Start Your Project
           <span className="text-2xl"><IoIosArrowForward /></span>
         </button>
-        <div className="container absolute left-o bottom-0 h-[10vh] rounded-b-full bg-linear-to-t from-[#2052bd] via-[#207ebd] to-transparent"></div>
+        {/* <div className="container absolute left-o bottom-0 h-[10vh] rounded-b-full bg-linear-to-t from-[#2052bd] via-[#207ebd] to-transparent"></div> */}
       </div>
     </div>
   );
