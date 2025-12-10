@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 interface ProjectCardProps {
   tag1: string;
@@ -52,11 +53,13 @@ const projects: ProjectCardProps[] = [
 ];
 
 export default function FeaturedProjectsSection() {
+  const router = useRouter();
+
   return (
     <section className="w-full py-20 bg-linear-to-br from-blue-50 to-rose-50 rounded-t-[5%]">
       <div className="max-w-7xl mx-auto px-6">
         {/* heading */}
-        <div className="mb-10">
+        <div className="mb-10 flex flex-col justify-center items-center text-center">
           <p className="text-xs tracking-wider text-blue-500">
             FEATURED PROJECTS
           </p>
@@ -66,15 +69,6 @@ export default function FeaturedProjectsSection() {
               Engineering Real-World
               <br /> Digital Impact
             </h2>
-
-            <div className="flex justify-end gap-5 text-blue-500">
-              <button className="w-8 h-8 rounded-full border-2 flex items-center justify-center">
-                <IoIosArrowBack className="text-lg" />
-              </button>
-              <button className="w-8 h-8 rounded-full border-2 flex items-center justify-center">
-                <IoIosArrowForward className="text-lg" />
-              </button>
-            </div>
           </div>
         </div>
 
@@ -83,6 +77,23 @@ export default function FeaturedProjectsSection() {
           {projects.map((p, i) => (
             <ProjectCard key={i} {...p} />
           ))}
+        </div>
+      </div>
+
+      <div className="mt-10 right-0 flex justify-center text-blue-500">
+        <div className="flex justify-between items-center mx-5">
+          <button className="w-10 h-10 rounded-full border-2 flex items-center justify-center">
+            <IoIosArrowBack className="text-lg" />
+          </button>
+          <button
+            onClick={() => router.push("/projects")}
+            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
+          >
+            See More
+          </button>
+          <button className="w-10 h-10 rounded-full border-2 flex items-center justify-center">
+            <IoIosArrowForward className="text-lg" />
+          </button>
         </div>
       </div>
     </section>
