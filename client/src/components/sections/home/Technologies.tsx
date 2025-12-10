@@ -12,7 +12,7 @@ export default function Technologies() {
           <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-2 text-blue-400">
             Our Technologies
           </p>
-          <h2 className="text-3xl md:text-6xl text- leading-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
+          <h2 className="text-3xl md:text-6xl leading-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
             TECHNOLOGIES OUR TEAM USES
           </h2>
           <p className="text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0">
