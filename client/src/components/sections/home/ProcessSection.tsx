@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 import React from "react";
 
 export default function ProcessSection() {
@@ -67,9 +67,9 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50, scale:0.5 }}
-              whileInView={{ opacity: 1, y: 0, scale:1 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              initial={{ opacity: 0, y: 50, }}
+              whileInView={{ opacity: 1, y: 0, }}
+              transition={{  duration: 0.3, ease:easeInOut }}
               className={`group relative bg-linear-to-b from-blue-400 to-blue-700 text-white rounded-3xl p-8 h-52 flex justify-between overflow-hidden ${
                 index > 1 ? "flex-row-reverse" : ""
               }`}
@@ -78,7 +78,7 @@ export default function ProcessSection() {
                 <motion.h3
                 initial={{y:"50%"}}
                 whileInView={{y:0}}
-                transition={{duration:0.5, type:"spring", delay: index * 0.1}}
+                transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
                   className={`absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
                     index > 1 ? "-right-6" : "-left-6"
                   }`}
@@ -89,7 +89,7 @@ export default function ProcessSection() {
               <motion.div
               initial={{y:"-50%"}}
                 whileInView={{y:0}}
-                transition={{duration:0.5, type:"spring", delay: index * 0.1}}
+                transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
                className="h-full w-full group-hover:mt-6 transition-all duration-500">
                 <p className="text-base sm:text-xl text-white font-semibold">
                   {step.title}
