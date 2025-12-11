@@ -32,10 +32,15 @@ export default function Technologies() {
           className="grid grid-cols-4 grid-rows-4 gap-2  justify-center items-center w-110 h-110 "
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          transition={{ duration: 5 }}
+          // viewport={{ once: true }}
         >
-          <div className="col-span-2 row-span-2  bg-white border shadow-2xl w-full h-full rounded-2xl flex justify-center items-center">
+          <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}}
+          className="col-span-2 row-span-2  bg-white border shadow-2xl w-full h-full rounded-2xl flex justify-center items-center">
             <Image
               src="/images/technologies/nextJs.png"
               alt="next.js"
@@ -43,9 +48,14 @@ export default function Technologies() {
               height={150}
               className="object-contain"
             />
-          </div>
+          </motion.div>
           <div className="grid grid-cols-2 grid-rows-2 col-span-2 row-span-2 w-full h-full gap-2">
-            <div className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}}
+            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/js.png"
                 alt="js"
@@ -53,11 +63,16 @@ export default function Technologies() {
                 height={60}
                 className="object-contain"
               />
-            </div>
+            </motion.div>
             <div className="col-span-1 row-span-1 rounded-2xl flex justify-center items-center">
              
             </div>
-            <div className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}} 
+            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/reacta.png"
                 alt="react"
@@ -65,8 +80,14 @@ export default function Technologies() {
                 height={60}
                 className="object-contain"
               />
-            </div>
-            <div className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            </motion.div>
+            <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}}
+
+            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/nodeJs.png"
                 alt="node Js"
@@ -74,11 +95,16 @@ export default function Technologies() {
                 height={60}
                 className="object-contain"
               />
-            </div>{" "}
+            </motion.div>{" "}
           </div>
           <div className="grid grid-cols-2 grid-rows-2 col-span-2 row-span-2 w-full h-full gap-2">
             <div className="col-span-1 row-span-1"></div>
-            <div className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}}
+            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/mongoDB.png"
                 alt="mongoDB"
@@ -86,12 +112,17 @@ export default function Technologies() {
                 height={60}
                 className="object-contain"
               />
-            </div>
+            </motion.div>
             <div className="col-span-1 row-span-1"></div>
             <div className="col-span-1 row-span-1"></div>
           </div>
           <div className="grid grid-cols-2 grid-rows-2 col-span-2 row-span-2 w-full h-full gap-2">
-            <div className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}}
+            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/tailwind.png"
                 alt="tailwind"
@@ -99,8 +130,13 @@ export default function Technologies() {
                 height={60}
                 className="object-contain"
               />
-            </div>{" "}
-            <div className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            </motion.div>{" "}
+            <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}}
+            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/aws.png"
                 alt="aws"
@@ -108,8 +144,13 @@ export default function Technologies() {
                 height={60}
                 className="object-contain"
               />
-            </div>{" "}
-            <div className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            </motion.div>{" "}
+            <motion.div 
+            initial={{scale:0.3, x:20}}
+            whileInView={{scale:1, x:0}}
+            whileHover={{scale:0.9}}
+            transition={{duration:0.5}}
+            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/ts.png"
                 alt="ts"
@@ -117,7 +158,7 @@ export default function Technologies() {
                 height={60}
                 className="object-contain rounded-2xl"
               />
-            </div>
+            </motion.div>
             <div className="col-span-1 row-span-1  rounded-2xl flex justify-center items-center"></div>{" "}
           </div>
         </motion.div>
