@@ -67,31 +67,37 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 50, scale:0.5 }}
+              whileInView={{ opacity: 1, y: 0, scale:1 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              viewport={{ once: true }}
               className={`group relative bg-linear-to-b from-blue-400 to-blue-700 text-white rounded-3xl p-8 h-52 flex justify-between overflow-hidden ${
                 index > 1 ? "flex-row-reverse" : ""
               }`}
             >
               <div className="relative h-full w-full ">
-                <h3
+                <motion.h3
+                initial={{y:"50%"}}
+                whileInView={{y:0}}
+                transition={{duration:0.5, type:"spring", delay: index * 0.1}}
                   className={`absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
                     index > 1 ? "-right-6" : "-left-6"
                   }`}
                 >
                   {step.number}
-                </h3>
+                </motion.h3>
               </div>
-              <div className="h-full w-full group-hover:mt-6 transition-all duration-500">
+              <motion.div
+              initial={{y:"-50%"}}
+                whileInView={{y:0}}
+                transition={{duration:0.5, type:"spring", delay: index * 0.1}}
+               className="h-full w-full group-hover:mt-6 transition-all duration-500">
                 <p className="text-base sm:text-xl text-white font-semibold">
                   {step.title}
                 </p>
                 <p className="text-sm text-slate-200 mt-3 max-w-xs">
                   {step.desc}
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
