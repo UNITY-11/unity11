@@ -1,5 +1,6 @@
 "use client";
 
+import { Particles } from "@/components/ui/MagicUi/Particles";
 import { motion, Transition } from "framer-motion"; // Added Transition import
 import {
   ShieldCheck,
@@ -122,24 +123,24 @@ export default function WhyChooseUs() {
   return (
     <section id="why-choose-us" className="relative py-30 overflow-hidden">
       <motion.div
-      initial={{y:50}}
-      whileInView={{y:0}}
-      transition={{duration:1}}
-      className="absolute top-60 w-[150vw] h-[150vw] -ml-[25vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3">
+        initial={{ y: 50 }}
+        whileInView={{ y: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute top-60 w-[150vw] h-[150vw] -ml-[25vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3"
+      >
         <div className="w-full h-full rounded-full bg-black"></div>
       </motion.div>
 
       <div className="absolute bottom-0 bg-linear-to-t from-black to-blue-700 w-screen h-16" />
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-blue-500 opacity-10 blur-3xl" />
-      <div className="container mx-auto px-6 lg:px-8 relative z-10 mt-20">
+      <div className="container mx-auto px-6 lg:px-8 relative z-10 mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 1 }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl sm:text-6xl text-[#0062ff]">
+          <h2 className="text-4xl sm:text-6xl text-white">
             Why{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">
               Choose Us
@@ -150,7 +151,11 @@ export default function WhyChooseUs() {
             driven by technology, design, and results.
           </p>
         </motion.div>
-
+        <Particles 
+        className="absolute inset-0 z-0" 
+        quantity={1111}
+        color="#0062ff" 
+      />
         <div className="flex flex-col mb-20">
           {reasons.map((item, index) => (
             <ReasonItem key={index} item={item} index={index} />
