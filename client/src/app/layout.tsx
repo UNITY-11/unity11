@@ -5,7 +5,7 @@ import './globals.css';
 // Import your Navbar and the new Footer component
 import  Navbar  from '@/components/layout/Navbar';
 import  Footer  from '@/components/layout/Footer';
-import  CustomeCursor from '@/components/ui/CustomeCursor'
+import  {CustomeCursor} from '@/components/ui/CustomeCursor'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
