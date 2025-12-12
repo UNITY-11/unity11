@@ -30,9 +30,9 @@ export default function Technologies() {
         {/* Right side logos grid */}
         <motion.div
           className="grid grid-cols-4 grid-rows-4 gap-2  justify-center items-center w-110 h-110 "
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 5 }}
+          initial={{  y: 30 }}
+          whileInView={{  y: 0 }}
+          transition={{ duration: 1 }}
           // viewport={{ once: true }}
         >
           <motion.div 
