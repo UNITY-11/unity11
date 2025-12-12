@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
         duration: 1.4,
         ease: [0.25, 1, 0.5, 1],
       }}
-      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/50"
+      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
         {/* Logo */}

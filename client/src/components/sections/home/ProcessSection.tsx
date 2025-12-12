@@ -34,7 +34,7 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-white text-white py-20 lg:py-28 overflow-hidden"
+      className="relative text-black py-20 lg:py-28 overflow-hidden"
     >
       {/* linear accents */}
       <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />
@@ -79,7 +79,7 @@ export default function ProcessSection() {
                 initial={{y:"50%"}}
                 whileInView={{y:0}}
                 transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
-                  className={`absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
+                  className={`text-black absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
                     index > 1 ? "-right-6" : "-left-6"
                   }`}
                 >
@@ -90,11 +90,11 @@ export default function ProcessSection() {
               initial={{y:"-50%"}}
                 whileInView={{y:0}}
                 transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
-               className="h-full w-full group-hover:mt-6 transition-all duration-500">
-                <p className="text-base sm:text-xl text-white font-semibold">
+               className="h-full w-full group-hover:mt-6 transition-all duration-500 text-black">
+                <p className="text-base sm:text-xl font-semibold">
                   {step.title}
                 </p>
-                <p className="text-sm text-slate-200 mt-3 max-w-xs">
+                <p className="text-sm mt-3 max-w-xs">
                   {step.desc}
                 </p>
               </motion.div>

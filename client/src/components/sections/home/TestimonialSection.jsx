@@ -47,7 +47,7 @@ export default function TestimonialSection() {
     ];
 
     return (
-        <section className="relative bg-blue-50 text-blue-500 py-20 px-6 overflow-hidden rounded-b-[5%]">
+        <section className="relative  text-blue-500 py-20 px-6 overflow-hidden rounded-b-[5%]">
             <div className="container max-w-7xl mx-auto text-start">
                 <div className="relative w-full flex flex-col justify-center items-center text-start">
                     <h2 className="text-4xl sm:text-6xl text-[#2052bd]">

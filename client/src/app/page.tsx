@@ -11,7 +11,7 @@ import FeaturesProjects from "@/components/sections/home/FeaturedProjects";
 
 export default function Home() {
   return (
-    <div className="bg-white">
+    <div className="bg-black">
       <Hero />
       <Clients />
       <AboutSection />

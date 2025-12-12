@@ -57,7 +57,7 @@ export default function FeaturedProjectsSection() {
   const router = useRouter();
 
   return (
-    <section className="w-full py-20 bg-linear-to-br from-blue-50 to-rose-50 rounded-t-[5%]">
+    <section className="w-full py-20 bg-black rounded-t-[5%]">
       <div className="max-w-7xl mx-auto px-6">
         {/* heading */}
         <div className="mb-10 flex flex-col justify-center items-center text-center">

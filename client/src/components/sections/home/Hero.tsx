@@ -279,7 +279,7 @@ export const Hero: React.FC = () => {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center items-center w-full bg-white overflow-x-hidden pt-[100px] pb-8"
+      className="relative min-h-screen flex flex-col justify-center items-center w-full overflow-x-hidden pt-[100px] pb-8"
       aria-label="Hero section"
     >
       {/* Animated Background Effects - Bent Lines Only */}

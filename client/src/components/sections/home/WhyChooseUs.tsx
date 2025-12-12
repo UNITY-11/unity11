@@ -61,7 +61,7 @@ export default function WhyChooseUs() {
   return (
     <section
       id="why-choose-us"
-      className="relative bg-white py-20 overflow-hidden"
+      className="relative py-20 overflow-hidden"
     >
       {/* linear accents */}
       <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />

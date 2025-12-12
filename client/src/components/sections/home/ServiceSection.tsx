@@ -54,7 +54,7 @@ export default function seServiceSection() {
   return (
     <section
       id="services"
-      className="relative bg-white py-20 lg:py-28 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden"
     >
       <div className="absolute inset-0" />
 
@@ -100,17 +100,17 @@ export default function seServiceSection() {
               />
 
               <div className="relative z-10 h-full flex flex-col justify-between">
-                <div className="h-full flex flex-col justify-between bg-white/50 mt-30 rounded-4xl p-4 backdrop-blur-md">
+                <div className="h-full flex flex-col justify-between bg-blue-500/60 mt-30 rounded-4xl p-4 backdrop-blur-md">
                   {/* Top content wrapper (Title & Desc) */}
                   <div className="w-70">
-                    <h3 className="text-xl font-semibold text-blue-500">
+                    <h3 className="text-xl font-semibold text-white">
                       {service.title}
                     </h3>
-                    <p className="mt-2 text-blue-500 text-sm leading-relaxed">
+                    <p className="mt-2 text-white text-sm leading-relaxed">
                       {service.desc}
                     </p>
                   </div>
-                   <div className="absolute top-6 right-6 rounded-full p-3 bg-white/20 backdrop-blur-xs text-blue-500">
+                   <div className="absolute top-6 right-6 rounded-full p-3 bg-white/20 backdrop-blur-xs text-white">
                     {service.icon}
                   </div>
                   {/* Bottom content wrapper (Icon & Button) */}

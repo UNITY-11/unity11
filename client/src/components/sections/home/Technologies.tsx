@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Technologies() {
   return (
-    <section className="relative h-screen py-20 bg-white">
+    <section className="relative h-screen py-20">
       <div className="max-w-7xl h-full mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 gap-10">
         {/* Left side text */}
         <div className="flex-1 text-center lg:text-left">
@@ -40,9 +40,9 @@ export default function Technologies() {
             whileInView={{scale:1, x:0}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
-          className="col-span-2 row-span-2  bg-white border shadow-2xl w-full h-full rounded-2xl flex justify-center items-center">
+          className="col-span-2 row-span-2  bg-slate-950 shadow-blue-500/80 shadow-md w-full h-full rounded-2xl flex justify-center items-center">
             <Image
-              src="/images/technologies/nextJs.png"
+              src="/images/technologies/reacta.png"
               alt="next.js"
               width={150}
               height={150}
@@ -55,7 +55,7 @@ export default function Technologies() {
             whileInView={{scale:1, x:0}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
-            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/js.png"
                 alt="js"
@@ -72,7 +72,7 @@ export default function Technologies() {
             whileInView={{scale:1, x:0}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}} 
-            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/reacta.png"
                 alt="react"
@@ -87,7 +87,7 @@ export default function Technologies() {
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
 
-            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/nodeJs.png"
                 alt="node Js"
@@ -104,7 +104,7 @@ export default function Technologies() {
             whileInView={{scale:1, x:0}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
-            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/mongoDB.png"
                 alt="mongoDB"
@@ -122,7 +122,7 @@ export default function Technologies() {
             whileInView={{scale:1, x:0}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
-            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/tailwind.png"
                 alt="tailwind"
@@ -136,7 +136,7 @@ export default function Technologies() {
             whileInView={{scale:1, x:0}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
-            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/aws.png"
                 alt="aws"
@@ -150,7 +150,7 @@ export default function Technologies() {
             whileInView={{scale:1, x:0}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
-            className="col-span-1 row-span-1  bg-white border shadow-2xl rounded-2xl flex justify-center items-center">
+            className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
               <Image
                 src="/images/technologies/ts.png"
                 alt="ts"

@@ -41,13 +41,6 @@ export default function BlogSection() {
           <h2 className="text-3xl md:text-6xl text-transparent bg-clip-text bg-linear-to-r pb-1 from-[#2052bd] to-[#7fcbe4]">
             Our Blogs
           </h2>
-
-          <Link
-            href="/blog"
-            className="absolute right-0 text-sm md:text-base text-white/70 hover:text-white transition"
-          >
-            View All
-          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
