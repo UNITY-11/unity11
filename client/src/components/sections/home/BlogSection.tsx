@@ -4,6 +4,33 @@ import Link from "next/link";
 import { posts } from "@/data/blogs";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+
+const sideDistance = 200;
+
+const getCardVariants = (i: number) => { 
+  if (i === 0) {
+    return {
+      initial: {x: sideDistance, scale:1},
+      animate: {x: 0, scale:0.85},
+    };
+  } else if (i === 1) {
+    return {
+      initial: { x: 0,},
+      animate: {x:0,},
+    };
+  } else if (i === 2) {
+    return {
+      initial: {x: -sideDistance, scale:1,},
+      animate: {x: 0, scale:0.85},
+    };
+  } else {
+    return {
+      initial: {x: 30 },
+      animate: {x: 0 },
+    };
+  }
+};
 
 export default function BlogSection() {
   const router = useRouter();
@@ -12,7 +39,7 @@ export default function BlogSection() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="relative flex items-center justify-center mb-10">
           <h2 className="text-3xl md:text-6xl text-transparent bg-clip-text bg-linear-to-r pb-1 from-[#2052bd] to-[#7fcbe4]">
-              Our Blogs
+            Our Blogs
           </h2>
 
           <Link
@@ -24,38 +51,48 @@ export default function BlogSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <Link key={post.id} href={`/blog/${post.slug}`}>
-              <div className={`group bg-linear-to-t  backdrop-blur-xl shadow-2xl rounded-4xl p-4 hover:bg-white/10 transition-all duration-300 ${post.bgColor}`}>
-                <div className="relative w-full h-52 rounded-2xl overflow-hidden mb-4">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
+          {posts.map((post, i) => {
+            const cardVariants = getCardVariants(i);
 
-                <div className="flex items-center gap-2 mb-3 text-sm ">
-                  <span>{post.category}</span>
-                  <span>•</span>
-                  <span>{post.readTime}</span>
-                </div>
+            return (
+                <motion.div
+                  className={`group bg-linear-to-t backdrop-blur-xl shadow-2xl rounded-4xl p-4 hover:bg-white/10 transition-all duration-300 ${post.bgColor} ${i == 1 ? 'z-20' : 'z-10'}`}
+                  initial={cardVariants.initial}
+                  whileInView={cardVariants.animate}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeOut",
+                  }}
+                >
+                  <div className="relative w-full h-52 rounded-2xl overflow-hidden mb-4">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
 
-                <h3 className="text-xl font-semibold transition">
-                  {post.title}
-                </h3>
+                  <div className="flex items-center gap-2 mb-3 text-sm ">
+                    <span>{post.category}</span>
+                    <span>•</span>
+                    <span>{post.readTime}</span>
+                  </div>
 
-                <p className="mt-2  text-sm leading-relaxed">
-                  {post.excerpt}
-                </p>
+                  <h3 className="text-xl font-semibold transition">
+                    {post.title}
+                  </h3>
 
-                <div className="mt-4 text-white text-sm opacity-0 group-hover:opacity-100 transition">
-                  Read more →
-                </div>
-              </div>
-            </Link>
-          ))}
+                  <p className="mt-2 text-sm leading-relaxed">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="mt-4 text-white text-sm opacity-0 group-hover:opacity-100 transition">
+                    Read more →
+                  </div>
+                </motion.div>
+            );
+          })}
         </div>
       </div>
       <div className="mt-10 right-0 flex justify-center text-blue-500">
