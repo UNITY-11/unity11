@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 import React from "react";
 
 export default function ProcessSection() {
@@ -34,7 +34,7 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-white text-white py-20 lg:py-28 overflow-hidden"
+      className="relative text-black py-20 lg:py-28 overflow-hidden"
     >
       {/* linear accents */}
       <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />
@@ -67,31 +67,37 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 50, }}
+              whileInView={{ opacity: 1, y: 0, }}
+              transition={{  duration: 0.3, ease:easeInOut }}
               className={`group relative bg-linear-to-b from-blue-400 to-blue-700 text-white rounded-3xl p-8 h-52 flex justify-between overflow-hidden ${
                 index > 1 ? "flex-row-reverse" : ""
               }`}
             >
               <div className="relative h-full w-full ">
-                <h3
-                  className={`absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
+                <motion.h3
+                initial={{y:"50%"}}
+                whileInView={{y:0}}
+                transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
+                  className={`text-black absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
                     index > 1 ? "-right-6" : "-left-6"
                   }`}
                 >
                   {step.number}
-                </h3>
+                </motion.h3>
               </div>
-              <div className="h-full w-full group-hover:mt-6 transition-all duration-500">
-                <p className="text-base sm:text-xl text-white font-semibold">
+              <motion.div
+              initial={{y:"-50%"}}
+                whileInView={{y:0}}
+                transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
+               className="h-full w-full group-hover:mt-6 transition-all duration-500 text-black">
+                <p className="text-base sm:text-xl font-semibold">
                   {step.title}
                 </p>
-                <p className="text-sm text-slate-200 mt-3 max-w-xs">
+                <p className="text-sm mt-3 max-w-xs">
                   {step.desc}
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

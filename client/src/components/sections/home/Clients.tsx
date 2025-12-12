@@ -5,7 +5,7 @@ import { companies } from "@/data/companies";
 
 function Clients() {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4 md:gap-16 py-20 bg-white">
+    <div className="flex flex-wrap items-center justify-center gap-4 md:gap-16 py-20">
       <h2 className="text-center text-2xl md:text-4xl lg:text-7xl text-blue-400 tracking-tight space-x-2">
         <span className="inline-block text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
           Trusted

@@ -5,7 +5,7 @@ import { Code2, Layers, Smartphone, Cloud, Cpu, Palette } from "lucide-react";
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
-export default function ServiceSection() {
+export default function seServiceSection() {
   const services = [
     {
       icon: <Layers />,
@@ -54,13 +54,13 @@ export default function ServiceSection() {
   return (
     <section
       id="services"
-      className="relative bg-white py-20 lg:py-28 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden"
     >
       <div className="absolute inset-0" />
 
       {/* Blur background accent */}
-      <div className="absolute top-20 -left-20 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-30 blur-3xl" />
-      <div className="absolute bottom-10 -right-20 h-64 w-64 bg-linear-to-tr from-cyan-500 to-sky-400 opacity-30 blur-3xl" />
+      <div className="absolute top-50 -left-20 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-30 blur-3xl" />
+      <div className="absolute bottom-20 -right-20 h-64 w-64 bg-linear-to-tr from-cyan-500 to-sky-400 opacity-30 blur-3xl" />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <motion.div
@@ -100,7 +100,7 @@ export default function ServiceSection() {
               />
 
               <div className="relative z-10 h-full flex flex-col justify-between">
-                <div className="h-full flex flex-col justify-between bg-black/20 mt-30 rounded-4xl p-4 backdrop-blur-sm">
+                <div className="h-full flex flex-col justify-between bg-blue-500/60 mt-30 rounded-4xl p-4 backdrop-blur-md">
                   {/* Top content wrapper (Title & Desc) */}
                   <div className="w-70">
                     <h3 className="text-xl font-semibold text-white">
@@ -110,7 +110,7 @@ export default function ServiceSection() {
                       {service.desc}
                     </p>
                   </div>
-                   <div className="absolute top-6 right-6 rounded-full p-3 bg-white/20 backdrop-blur-xs">
+                   <div className="absolute top-6 right-6 rounded-full p-3 bg-white/20 backdrop-blur-xs text-white">
                     {service.icon}
                   </div>
                   {/* Bottom content wrapper (Icon & Button) */}

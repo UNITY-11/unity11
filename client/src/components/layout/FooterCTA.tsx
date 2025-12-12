@@ -7,12 +7,12 @@ const FooterCTA: React.FC = () => {
       className="
         relative w-full  mx-auto
         flex flex-col items-center justify-center
-        overflow-hidden rounded-2xl bg-white
+        overflow-hidden rounded-2xl
         text-center px-10 py-30"
     >
       <div className="w-full flex flex-col justify-center items-center pb-[10vh] z-10">
         {/* Heading */}
-        <h2 className="max-w-5xl text-4xl md:text-6xl bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent mb-4">
+        <h2 className="max-w-5xl text-4xl md:text-6xl bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent mb-4 pb-2">
           Don't just build. Build to last.
         </h2>
 
@@ -24,16 +24,16 @@ const FooterCTA: React.FC = () => {
         {/* Call to Action Button */}
         <button
           className="
-          bg-white text-[#1a7ae1] hover:bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] hover:text-white font-semibold
+           text-[#1a7ae1] hover:bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] hover:text-white font-semibold
           py-3 px-6 rounded-full
           transition-all duration-300 
-          z-10 flex justify-center items-center gap-2 hover:gap-4
+          z-10 flex justify-center items-center gap-2 hover:gap-4 border-2 hover:border-black
         "
         >
           Start Your Project
           <span className="text-2xl"><IoIosArrowForward /></span>
         </button>
-        <div className="container absolute left-o bottom-0 h-[10vh] rounded-b-full bg-linear-to-t from-[#2052bd] via-[#207ebd] to-transparent"></div>
+        {/* <div className="container absolute left-o bottom-0 h-[10vh] rounded-b-full bg-linear-to-t from-[#2052bd] via-[#207ebd] to-transparent"></div> */}
       </div>
     </div>
   );

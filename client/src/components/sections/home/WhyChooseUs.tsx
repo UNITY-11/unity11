@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Particles } from "@/components/ui/MagicUi/Particles";
+import { motion, Transition } from "framer-motion"; // Added Transition import
 import {
   ShieldCheck,
   Sparkles,
@@ -10,10 +11,71 @@ import {
   Timer,
 } from "lucide-react";
 import React from "react";
-import Image from "next/image";
+import { transition } from "three/examples/jsm/tsl/display/TransitionNode.js";
+
+interface Reason {
+  icon: any;
+  img: string;
+  title: string;
+  desc: string;
+}
+
+interface ReasonItemProps {
+  item: Reason;
+  index: number;
+}
+
+const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
+  const isImageLeft = index % 2 === 0;
+
+  const textAnimation = (index: number) => ({
+    initial: { opacity: 0, x: index % 2 === 0 ? 30 : -30 },
+    whileInView: { opacity: 1, x: 0 },
+    transition: { duration: 1 },
+  });
+
+  const imageAnimation = (index: number) => ({
+    initial: { opacity: 0, x: index % 2 === 0 ? -30 : 30 },
+    whileInView: { opacity: 1, x: 0 },
+    transition: { duration: 1 },
+  });
+
+  return (
+    <div
+      className={`flex flex-col md:flex-row items-center justify-between gap-8 ${
+        isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
+      }`}
+    >
+      <motion.div
+        {...imageAnimation(index)}
+        className="w-full md:w-1/2 p-4 flex justify-center relative"
+      >
+        <div className="relative w-full max-w-sm p-4 aspect-4/5 rounded-4xl overflow-hidden shadow-2xl bg-blue-500/30 backdrop-blur-sm ">
+          <img
+            src={item.img}
+            alt={item.title}
+            className="w-full h-full object-cover rounded-4xl"
+          />
+        </div>
+      </motion.div>
+
+      <motion.div {...textAnimation(index)} className="w-full md:w-1/2 md:p-8">
+        <div className="flex items-center justify-center text-center mb-4">
+          <item.icon className="w-14 h-14 mr-4 text-blue-500" />
+          <h3 className="text-3xl md:text-5xl text-transparent text-nowrap pb-2 bg-clip-text bg-linear-to-r from-blue-700 to-cyan-500 text-center">
+            {item.title}
+          </h3>
+        </div>
+        <p className="mt-4 text-lg md:text-xl leading-relaxed text-slate-300 text-center">
+          {item.desc}
+        </p>
+      </motion.div>
+    </div>
+  );
+};
 
 export default function WhyChooseUs() {
-  const reasons = [
+  const reasons: Reason[] = [
     {
       icon: ShieldCheck,
       img: "images/why/trust2.png",
@@ -59,25 +121,28 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section
-      id="why-choose-us"
-      className="relative bg-white py-20 overflow-hidden"
-    >
-      {/* linear accents */}
-      <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />
-      <div className="absolute bottom-10 right-10 h-64 w-64 bg-linear-to-tr from-cyan-500 to-blue-400 opacity-20 blur-3xl" />
+    <section id="why-choose-us" className="relative py-30 overflow-hidden">
+      <motion.div
+        initial={{ y: 50 }}
+        whileInView={{ y: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute top-60 w-[150vw] h-[150vw] -ml-[25vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3"
+      >
+        <div className="w-full h-full rounded-full bg-black"></div>
+      </motion.div>
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+      <div className="absolute bottom-0 bg-linear-to-t from-black to-blue-700 w-screen h-16" />
+      <div className="absolute bottom-10 right-10 h-64 w-64 bg-blue-500 opacity-10 blur-3xl" />
+      <div className="container mx-auto px-6 lg:px-8 relative z-10 mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center"
+          transition={{ duration: 1 }}
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
+          <h2 className="text-4xl sm:text-6xl text-white">
             Why{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">
               Choose Us
             </span>
           </h2>
@@ -86,34 +151,14 @@ export default function WhyChooseUs() {
             driven by technology, design, and results.
           </p>
         </motion.div>
-
-        {/* Cards */}
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-12">
+        <Particles 
+        className="absolute inset-0 z-0" 
+        quantity={1111}
+        color="#0062ff" 
+      />
+        <div className="flex flex-col mb-20">
           {reasons.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              viewport={{ once: true }}
-              className="relative group p-6 rounded-4xl bg-white/5 backdrop-blur-xl border border-blue-500/20 hover:border-cyan-400/40 hover:shadow-blue-300/80 shadow-md transition-all duration-500"
-            >
-              <div className="absolute -top-[10%] left-0 w-40 h-[120%] flex justify-center items-center bg-linear-to-tr from-blue-600 to-blue-300 text-white rounded-4xl  border-blue-300/50 overflow-hidden">
-                <img
-                  src={item.img}
-                  alt="trust"
-                  className="absolute inset-0 object-fill w-full h-full "
-                />
-              </div>
-              <div className="ml-44">
-                <h3 className="text-xl font-semibold text-blue-400 transition">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-slate-400 text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            </motion.div>
+            <ReasonItem key={index} item={item} index={index} />
           ))}
         </div>
       </div>

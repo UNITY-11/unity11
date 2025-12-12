@@ -279,7 +279,7 @@ export const Hero: React.FC = () => {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center items-center w-full bg-black overflow-x-hidden pt-[100px] pb-8"
+      className="relative min-h-screen flex flex-col justify-center items-center w-full overflow-x-hidden pt-[100px] pb-8"
       aria-label="Hero section"
     >
       {/* Animated Background Effects - Bent Lines Only */}
@@ -385,7 +385,7 @@ export const Hero: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + idx * 0.1 }}
-                    className="group relative px-2 py-1 md:px-3 md:py-1.5 bg-transparent border border-blue-600 backdrop-blur-md rounded-full text-[10px] md:text-xs font-medium text-white shadow-sm hover:bg-blue-600/20 transition-colors cursor-pointer"
+                    className="group relative px-2 py-1 md:px-3 md:py-1.5 bg-transparent backdrop-blur-md rounded-full text-[10px] md:text-xs font-medium text-white shadow-sm hover:bg-blue-600/20 transition-colors cursor-pointer"
                     title={label.description}
                   >
                     {label.name}
@@ -556,7 +556,7 @@ export const Hero: React.FC = () => {
                       ✓ Award Winning
                     </span>
                     <span className="text-[9px] md:text-[10px] px-2 py-0.5 bg-blue-100/50 rounded-full text-blue-700 font-medium">
-                      ✓ 10+ Years Experience
+                      ✓ 5+ Years Experience
                     </span>
                     <span className="text-[9px] md:text-[10px] px-2 py-0.5 bg-blue-100/50 rounded-full text-blue-700 font-medium">
                       ✓ Global Reach
@@ -633,7 +633,7 @@ export const Hero: React.FC = () => {
                 transition={{ delay: 0.2 }}
                 className="flex items-center gap-1.5"
               >
-                <span className="text-blue-600 font-bold text-sm md:text-base">10K+</span>
+                <span className="text-blue-600 font-bold text-sm md:text-base">100+</span>
                 <span className="text-gray-700 font-medium text-xs md:text-sm whitespace-nowrap">
                   Happy Customers
                 </span>
@@ -673,8 +673,8 @@ export const Hero: React.FC = () => {
                 style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
               >
                 <span className="inline-flex items-center">
-                  THE{" "}
-                  <span className="relative inline-block mx-1.5 text-white">
+                  YOUR{" "}
+                  <span className="relative inline-block mx-1.5 text-black">
                     DREAM
                     <svg
                       width="10"
@@ -758,19 +758,19 @@ export const Hero: React.FC = () => {
                   <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span>Trusted by 500+ Companies</span>
+                  <span>Trusted by 25+ Companies</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  <span>4.9/5 Average Rating</span>
+                  <span>4/5 Average Rating</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                     <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                   </svg>
-                  <span>10+ Years Experience</span>
+                  <span>5+ Years Experience</span>
                 </div>
               </motion.div>
             </div>
