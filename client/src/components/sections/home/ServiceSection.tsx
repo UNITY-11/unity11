@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  ScrollVelocityContainer,
+  ScrollVelocityRow,
+} from "@/components/ui/MagicUi/ScrollBasedVelocity";
 import { motion } from "framer-motion";
 import { Code2, Layers, Smartphone, Cloud, Cpu, Palette } from "lucide-react";
 import React from "react";
@@ -52,10 +56,7 @@ export default function seServiceSection() {
   ];
 
   return (
-    <section
-      id="services"
-      className="relative py-20 lg:py-28 overflow-hidden"
-    >
+    <section id="services" className="relative py-20 lg:py-28 overflow-hidden">
       <div className="absolute inset-0" />
 
       {/* Blur background accent */}
@@ -110,7 +111,7 @@ export default function seServiceSection() {
                       {service.desc}
                     </p>
                   </div>
-                   <div className="absolute top-6 right-6 rounded-full p-3 bg-white/20 backdrop-blur-xs text-white">
+                  <div className="absolute top-6 right-6 rounded-full p-3 bg-white/20 backdrop-blur-xs text-white">
                     {service.icon}
                   </div>
                   {/* Bottom content wrapper (Icon & Button) */}
@@ -125,6 +126,26 @@ export default function seServiceSection() {
             </motion.div>
           ))}
         </div>
+      </div>
+
+      <div className="relative w-screen">
+        <ScrollVelocityContainer className="text-4xl md:text-8xl mt-30 mb-5 bg-clip-text text-blue-500 pb-2 z-10">
+          <ScrollVelocityRow baseVelocity={1} direction={1} className="pb-2">
+            ustom Software Development • Mobile Apps • Web Apps • SaaS
+            Platforms • UI/UX Design • DevOps & Cloud • API Development • AI
+            Integrations • C
+          </ScrollVelocityRow>
+
+          <ScrollVelocityRow
+            baseVelocity={1}
+            direction={-1}
+            className="text-white pb-2 mt-4"
+          >
+            ustom Software Development • Mobile Apps • Web Apps • SaaS
+            Platforms • UI/UX Design • DevOps & Cloud • API Development • AI
+            Integrations • C
+          </ScrollVelocityRow>
+        </ScrollVelocityContainer>
       </div>
     </section>
   );
