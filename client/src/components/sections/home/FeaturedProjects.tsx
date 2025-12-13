@@ -6,16 +6,19 @@ import { useRouter } from "next/navigation";
 import { easeInOut, motion } from "framer-motion";
 
 interface ProjectCardProps {
+  id: string;
   tag1: string;
   tag2: string;
   title: string;
   description: string;
   image: string;
   bg: string;
+  index?: number;
 }
 
 const projects: ProjectCardProps[] = [
   {
+    id: "ai-insights-1",
     tag1: "AI + Analytics",
     tag2: "Dashboard",
     title: "AI-Powered Insights Platform",
@@ -25,6 +28,7 @@ const projects: ProjectCardProps[] = [
     bg: "bg-linear-to-t from-purple-600 to-blue-300", // soft purple
   },
   {
+    id: "fintech-app-1",
     tag1: "2024",
     tag2: "Mobile App",
     title: "Fintech App Modernization",
@@ -34,6 +38,7 @@ const projects: ProjectCardProps[] = [
     bg: "bg-linear-to-tl from-gray-700 to-gray-300", // neon green
   },
   {
+    id: "ecommerce-1",
     tag1: "E-commerce",
     tag2: "Branding",
     title: "Next-Gen Storefront",
@@ -43,6 +48,7 @@ const projects: ProjectCardProps[] = [
     bg: "bg-linear-to-t from-white to-blue-700",
   },
   {
+    id: "mobile-app-1",
     tag1: "2024",
     tag2: "Mobile App",
     title: "Fintech App Modernization",
@@ -57,10 +63,15 @@ export default function FeaturedProjectsSection() {
   const router = useRouter();
 
   return (
-    <section className="w-full py-20 bg-black rounded-t-[5%]">
+    <section className="w-full py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* heading */}
-        <div className="mb-10 flex flex-col justify-center items-center text-center">
+        <motion.div
+          initial={{ y: "30%" }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="mb-10 flex flex-col justify-center items-center text-center"
+        >
           <p className="text-xs tracking-wider text-blue-500">
             FEATURED PROJECTS
           </p>
@@ -71,18 +82,14 @@ export default function FeaturedProjectsSection() {
               <br /> Digital Impact
             </h2>
           </div>
-        </div>
+        </motion.div>
 
         {/* cards */}
-        <motion.div 
-        initial={{y:"200px"}}
-        whileInView={{y:0}}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="flex gap-4 overflow-x-auto hide-scrollbar pb-4">
-          {projects.map((p, i) => (
-            <ProjectCard key={i} {...p} />
+        <div className="flex gap-4 overflow-x-auto hide-scrollbar pb-4">
+          {projects.map((p, index) => (
+            <ProjectCard key={p.id} index={index} {...p} />
           ))}
-        </motion.div>
+        </div>
       </div>
 
       <div className="mt-10 right-0 flex justify-center text-blue-500">
@@ -112,17 +119,16 @@ function ProjectCard({
   description,
   image,
   bg,
+  index,
 }: ProjectCardProps) {
   return (
     <motion.div
-      className={`group ${bg} min-w-[290px] max-w-[300px] rounded-4xl overflow-hidden shadow-sm  flex flex-col justify-between`}
+      initial={{ y: "30%" }}
+      whileInView={{ y: 0 }}
+      transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
+      className={`group ${bg} min-w-[290px] max-w-[300px] rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between z-40`}
     >
-      <motion.div
-        initial={{ y: "50%" }}
-        whileInView={{ y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="p-5"
-      >
+      <motion.div className="p-5">
         {/* tags */}
         <div className="flex items-center gap-2 mb-2">
           <span className="text-xs bg- px-3 py-1.5 rounded-full  text-white bg-white/40 backdrop-blur-3xl">
@@ -140,7 +146,7 @@ function ProjectCard({
 
       {/* image */}
       <motion.div
-        transition={{ duration: 1, ease: "easeOut"}}
+        transition={{ duration: 1, ease: "easeOut" }}
         className="relative w-full h-[200px] rounded-4xl overflow-hidden"
       >
         <Image
