@@ -53,8 +53,8 @@ export default function BlogSection() {
                   initial={cardVariants.initial}
                   whileInView={cardVariants.animate}
                   transition={{
-                    duration: 0.5,
-                    ease: "easeOut",
+                    duration: 1,
+                    ease: "easeInOut",
                   }}
                 >
                   <div className="relative w-full h-52 rounded-2xl overflow-hidden mb-4">

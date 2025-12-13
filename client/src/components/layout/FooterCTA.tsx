@@ -14,8 +14,8 @@ const FooterCTA: React.FC = () => {
     >
       <motion.div
         initial={{ y: "100%", x: "100%" }}
-        whileInView={{ y: 10, x: 0 }}
-        transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+        whileInView={{ y: 0, x: -20 }}
+        transition={{ delay: 0.5, duration: 5, ease: "easeOut" }}
         className=" absolute w-[350px] h-[350px] rounded-full bg-linear-to-b from-white to-blue-600 top-14 left-16 blur-xl rotate-90"
       />
       <motion.div
