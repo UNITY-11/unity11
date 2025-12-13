@@ -29,14 +29,14 @@ const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
   const isImageLeft = index % 2 === 0;
 
   const textAnimation = (index: number) => ({
-    initial: { opacity: 0, x: index % 2 === 0 ? 30 : -30 },
-    whileInView: { opacity: 1, x: 0 },
+    initial: {opacity: 0, y:50, x: index % 2 === 0 ? 30 : -30 },
+    whileInView: { opacity: 1, y:0, x: 0 },
     transition: { duration: 1 },
   });
 
   const imageAnimation = (index: number) => ({
-    initial: { opacity: 0, x: index % 2 === 0 ? -30 : 30 },
-    whileInView: { opacity: 1, x: 0 },
+    initial: { opacity: 0, y:50, x: index % 2 === 0 ? -30 : 30 },
+    whileInView: { opacity: 1, y:0, x: 0 },
     transition: { duration: 1 },
   });
 
