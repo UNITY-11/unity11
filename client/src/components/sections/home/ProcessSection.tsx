@@ -34,9 +34,10 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative text-black py-20 lg:py-28 overflow-hidden"
+      className="relative bg-blue-700 text-white py-20 lg:py-28 overflow-hidden lg:pb-36"
     >
       {/* linear accents */}
+
       <div className="absolute top-10 left-10 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-20 blur-3xl" />
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-linear-to-tr from-cyan-500 to-blue-400 opacity-20 blur-3xl" />
 
@@ -49,13 +50,13 @@ export default function ProcessSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
+          <h2 className="text-4xl sm:text-6xl text-white">
             Our{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
+            <span>
               Process
             </span>
           </h2>
-          <p className="mt-4 text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-slate-100 text-lg max-w-2xl mx-auto">
             Every successful product starts with a process that blends
             creativity, technology, and collaboration. Here’s how we build
             world-class software.
@@ -67,19 +68,24 @@ export default function ProcessSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50, }}
-              whileInView={{ opacity: 1, y: 0, }}
-              transition={{  duration: 0.3, ease:easeInOut }}
-              className={`group relative bg-linear-to-b from-blue-400 to-blue-700 text-white rounded-3xl p-8 h-52 flex justify-between overflow-hidden ${
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: easeInOut }}
+              className={`group relative bg-linear-to-b from-white to-transparent hover:to-white text-blue-700 rounded-4xl p-8 h-52 flex justify-between overflow-hidden transition-colors duration-300 ${
                 index > 1 ? "flex-row-reverse" : ""
               }`}
             >
               <div className="relative h-full w-full ">
                 <motion.h3
-                initial={{y:"50%"}}
-                whileInView={{y:0}}
-                transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
-                  className={`text-black absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
+                  initial={{ y: "50%" }}
+                  whileInView={{ y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    type: "spring",
+                    delay: index * 0.05,
+                    ease: easeInOut,
+                  }}
+                  className={`text-blue-700 absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
                     index > 1 ? "-right-6" : "-left-6"
                   }`}
                 >
@@ -87,16 +93,20 @@ export default function ProcessSection() {
                 </motion.h3>
               </div>
               <motion.div
-              initial={{y:"-50%"}}
-                whileInView={{y:0}}
-                transition={{duration:0.5, type:"spring", delay: index * 0.05, ease:easeInOut}}
-               className="h-full w-full group-hover:mt-6 transition-all duration-500 text-black">
+                initial={{ y: "-50%" }}
+                whileInView={{ y: 0 }}
+                transition={{
+                  duration: 0.5,
+                  type: "spring",
+                  delay: index * 0.05,
+                  ease: easeInOut,
+                }}
+                className="h-full w-full group-hover:mt-6 transition-all duration-500 text-blue-600"
+              >
                 <p className="text-base sm:text-xl font-semibold">
                   {step.title}
                 </p>
-                <p className="text-sm mt-3 max-w-xs">
-                  {step.desc}
-                </p>
+                <p className="text-sm mt-3 max-w-xs">{step.desc}</p>
               </motion.div>
             </motion.div>
           ))}

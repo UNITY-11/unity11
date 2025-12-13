@@ -131,7 +131,7 @@ export default function WhyChooseUs() {
         <div className="w-full h-full rounded-full bg-black"></div>
       </motion.div>
 
-      <div className="absolute bottom-0 bg-linear-to-t from-black to-blue-700 w-screen h-16" />
+      <div className="absolute bottom-0 bg-linear-to-b from-black to-blue-700 w-screen h-16" />
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-blue-500 opacity-10 blur-3xl" />
       <div className="container mx-auto px-6 lg:px-8 relative z-10 mt-10">
         <motion.div
