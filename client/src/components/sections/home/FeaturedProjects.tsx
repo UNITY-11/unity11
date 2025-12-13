@@ -67,7 +67,7 @@ export default function FeaturedProjectsSection() {
       <div className="max-w-7xl mx-auto px-6">
         {/* heading */}
         <motion.div
-          initial={{ y: "200px" }}
+          initial={{ y: "30%" }}
           whileInView={{ y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="mb-10 flex flex-col justify-center items-center text-center"
@@ -126,7 +126,7 @@ function ProjectCard({
       initial={{ y: "30%" }}
       whileInView={{ y: 0 }}
       transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
-      className={`group ${bg} min-w-[290px] max-w-[300px] rounded-4xl overflow-hidden shadow-sm  flex flex-col justify-between`}
+      className={`group ${bg} min-w-[290px] max-w-[300px] rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between z-40`}
     >
       <motion.div className="p-5">
         {/* tags */}
