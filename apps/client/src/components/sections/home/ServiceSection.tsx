@@ -130,20 +130,34 @@ export default function seServiceSection() {
 
       <div className="relative w-screen">
         <ScrollVelocityContainer className="text-4xl md:text-8xl mt-30 mb-5 bg-clip-text text-blue-500 pb-2 z-10">
-          <ScrollVelocityRow baseVelocity={1} direction={1} className="pb-2">
-            ustom Software Development • Mobile Apps • Web Apps • SaaS
-            Platforms • UI/UX Design • DevOps & Cloud • API Development • AI
-            Integrations • C
+          <ScrollVelocityRow baseVelocity={1} direction={1} className="pb-2 flex items-center">
+            {["Custom Software Development", "Mobile Apps", "Web Apps", "SaaS Platforms"].map((item, i) => (
+              <React.Fragment key={i}>
+                <span className="mx-6">{item}</span>
+                <div className="relative flex items-center justify-center w-20 h-8 sm:w-28 sm:h-10 md:w-40 md:h-14 mx-6 shrink-0 group cursor-pointer">
+                  <div className="absolute w-full h-full rounded-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-16 group-hover:h-16 sm:group-hover:w-20 sm:group-hover:h-20 md:group-hover:w-28 md:group-hover:h-28 group-hover:rounded-xl group-hover:rotate-6 z-50 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=400&auto=format&fit=crop" alt="capsule" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" />
+                  </div>
+                </div>
+              </React.Fragment>
+            ))}
           </ScrollVelocityRow>
 
           <ScrollVelocityRow
             baseVelocity={1}
             direction={-1}
-            className="text-white pb-2 mt-4"
+            className="text-white pb-2 mt-4 flex items-center"
           >
-            ustom Software Development • Mobile Apps • Web Apps • SaaS
-            Platforms • UI/UX Design • DevOps & Cloud • API Development • AI
-            Integrations • C
+            {["UI/UX Design", "DevOps & Cloud", "API Development", "AI Integrations"].map((item, i) => (
+              <React.Fragment key={i}>
+                <span className="mx-6">{item}</span>
+                <div className="relative flex items-center justify-center w-20 h-8 sm:w-28 sm:h-10 md:w-40 md:h-14 mx-6 shrink-0 group cursor-pointer">
+                  <div className="absolute w-full h-full rounded-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-16 group-hover:h-16 sm:group-hover:w-20 sm:group-hover:h-20 md:group-hover:w-28 md:group-hover:h-28 group-hover:rounded-xl group-hover:-rotate-6 z-50 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=400&auto=format&fit=crop" alt="capsule" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" />
+                  </div>
+                </div>
+              </React.Fragment>
+            ))}
           </ScrollVelocityRow>
         </ScrollVelocityContainer>
       </div>
