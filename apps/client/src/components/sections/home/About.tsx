@@ -3,101 +3,66 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import React from "react";
-import { IoIosArrowForward } from "react-icons/io";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-20 lg:py-28">
-      <div className="container mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Image or Illustration */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="absolute -left-6 -top-6 h-48 w-48 rounded-full bg-linear-to-tr from-blue-600 to-cyan-500 blur-3xl opacity-60" />
-            <Image
-              src="/gif/cub-illution.gif"
-              alt="About Unity11"
-              width={520}
-              height={420}
-              className="relative z-10  w-120"
-            />
-          </motion.div>
-
-          {/* Right Side - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl text-[#2052bd] sm:text-6xl">
-              About{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
-                Company
-              </span>
-            </h2>
-            <p className="mt-6 text-lg text-slate-400 max-w-xl">
-              At Unity11, we build scalable digital products that help
-              businesses grow fast and sustainably. From SaaS platforms to
-              mobile apps, our solutions combine innovation, design precision,
-              and powerful engineering to create real impact.
-            </p>
-
-            <div className="mt-10 flex gap-4">
-              <a
-                href="/about"
-                className="flex items-center rounded-full bg-linear-to-r from-[#2052bd] to-[#7fcbe4] px-6 py-3  text-white shadow-lg transition-all gap-4 hover:gap-6 duration-500"
-              >
-                Learn MOre
-                <IoIosArrowForward className="text-xl sm:text-2xl" />
-              </a>
-            </div>
-          </motion.div>
-        </div>
+    <section id="about" className="relative py-32 lg:py-48 overflow-hidden bg-[#030712] flex items-center justify-center">
+      {/* Huge Background Text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-[22vw] font-bold text-white/[0.03] leading-none tracking-tighter"
+        >
+          UNITY
+        </motion.div>
       </div>
 
-      {/* Background Accent */}
-      <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-linear-to-br from-blue-600 to-cyan-500  blur-3xl opacity-60" />
+      <div className="container relative z-10 mx-auto px-6 lg:px-8 text-center max-w-5xl">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white/90 tracking-tight leading-tight md:leading-[1.2]"
+        >
+          We&apos;re Unity. We develop custom{" "}
+          <span className="inline-block align-middle mx-2 overflow-hidden rounded-full w-20 sm:w-24 md:w-28 h-10 sm:h-12 md:h-14 relative top-[-4px] shadow-lg shadow-cyan-500/20">
+            <Image 
+              src="/images/home/heroImg2.jpg" 
+              alt="AI Solutions"
+              fill
+              className="object-cover"
+            />
+          </span>{" "}
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-300">
+            AI solutions
+          </span>{" "}
+          for innovative companies.
+        </motion.h2>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="mt-14 flex justify-center"
+        >
+          <a
+            href="/contact"
+            className="group relative inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white/80 backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:text-white"
+          >
+            Get in touch
+            <div className="absolute bottom-0 left-1/2 h-[2px] w-1/3 -translate-x-1/2 bg-linear-to-r from-transparent via-cyan-400 to-transparent opacity-50 group-hover:opacity-100 group-hover:w-1/2 transition-all duration-300" />
+          </a>
+        </motion.div>
+      </div>
+      
+      {/* Subtle glowing accents */}
+      <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-cyan-600/10 blur-[100px] pointer-events-none" />
     </section>
   );
 }
-
-
-// <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 ">
-//   {/* Mission Card */}
-//   <div className="bg-linear-to-tr from-blue-500 to-blue-100 rounded-[20%]">
-//     <div className="relative overflow-hidden rounded-4xl h-64 sm:h-50 shadow-md bg-[url('/images/about/mission.png')] bg-cover bg-center">
-//       <div className="relative inset-0 z-10" />
-//       <div className="h-full z-20 p-4 flex flex-col justify-center">
-//         <h3 className="text-xl font-semibold drop-shadow-md text-white">
-//           Our Mission
-//         </h3>
-//         <p className="mt-2 text-sm text-white/90 drop-shadow-sm max-w-xs">
-//           Empower startups and enterprises to achieve digital excellence through
-//           human-centered technology.
-//         </p>
-//       </div>
-//     </div>
-//   </div>
-
-//   {/* Vision Card */}
-//   <div className="bg-linear-to-tl from-blue-500 to-blue-100 rounded-[20%]">
-//     <div className="relative overflow-hidden rounded-3xl h-64 sm:h-50 shadow-md bg-[url('/images/about/vision.png')] bg-cover bg-center">
-//       <div className="relative inset-0 z-10" />
-//       <div className="h-full z-20 p-2 flex flex-col justify-center bottom-0 backdrop-blur-">
-//         <h3 className="text-xl font-semibold drop-shadow-md text-white">
-//           Our Vision
-//         </h3>
-//         <p className="mt-2 text-sm text-white/90 drop-shadow-sm max-w-xs">
-//           To be a global leader in software development, known for innovation,
-//           reliability, and customer trust.
-//         </p>
-//       </div>
-//     </div>
-//   </div>
-// </div>
