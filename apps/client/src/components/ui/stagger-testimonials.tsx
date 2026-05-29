@@ -150,7 +150,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "absolute left-1/2 top-1/2 cursor-pointer border-2 p-8 transition-all duration-500 ease-in-out",
+        "absolute left-1/2 top-1/2 cursor-pointer border-2 p-8 transition-all duration-500 ease-in-out rounded-3xl",
         isCenter 
           ? "z-10 bg-blue-600 text-white border-blue-500" 
           : "z-0 bg-[#171717] text-white border-gray-800 hover:border-blue-500/50"
@@ -158,7 +158,6 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       style={{
         width: cardSize,
         height: cardSize,
-        clipPath: `polygon(50px 0%, calc(100% - 50px) 0%, 100% 50px, 100% 100%, calc(100% - 50px) 100%, 50px 100%, 0 100%, 0 0)`,
         transform: `
           translate(-50%, -50%) 
           translateX(${(cardSize / 1.5) * position}px)
@@ -167,25 +166,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)
           scale(${isHovered ? 1.02 : 1})
         `,
-        boxShadow: isCenter ? "0px 8px 0px 4px #1f2937" : (isHovered ? "0px 10px 20px rgba(0,0,0,0.5)" : "0px 0px 0px 0px transparent")
+        boxShadow: isCenter ? "0px 8px 25px -5px rgba(0,0,0,0.5)" : (isHovered ? "0px 10px 20px rgba(0,0,0,0.5)" : "0px 0px 0px 0px transparent")
       }}
     >
-      <span
-        className="absolute block origin-top-right rotate-45 bg-gray-800"
-        style={{
-          right: -2,
-          top: 48,
-          width: SQRT_5000,
-          height: 2
-        }}
-      />
       <img
         src={testimonial.imgSrc}
         alt={`${testimonial.by.split(',')[0]}`}
-        className="mb-4 h-14 w-12 bg-gray-800 object-cover object-top"
-        style={{
-          boxShadow: "3px 3px 0px #030712"
-        }}
+        className="mb-4 h-14 w-14 rounded-full bg-gray-800 object-cover object-top shadow-md"
       />
       <h3 className={cn(
         "text-base sm:text-xl font-medium",
