@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, Variants, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 // --- Types ---
@@ -151,8 +151,12 @@ const MetricItem = ({ value, label, delay }: { value: string; label: string; del
 // --- Main Component ---
 
 export const Hero: React.FC = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(containerRef);
+
   return (
     <section
+      ref={containerRef}
       className="relative min-h-screen flex flex-col justify-center items-center w-full overflow-x-hidden pt-[80px] pb-8"
       aria-label="Hero section"
     >
@@ -306,31 +310,40 @@ export const Hero: React.FC = () => {
 
       {/* --- Background Animation --- */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <motion.svg
-          className="absolute inset-0 w-full h-full opacity-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.2 }}
-          transition={{ duration: 2 }}
-        >
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#2052bd" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#7fcbe4" stopOpacity="0.5" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M0,200 Q200,100 400,200 T800,200 T1200,200"
-            stroke="url(#gradient1)"
-            strokeWidth="2"
-            fill="none"
-          />
-          <path
-            d="M0,400 Q200,300 400,400 T800,400 T1200,400"
-            stroke="url(#gradient1)"
-            strokeWidth="2"
-            fill="none"
-          />
-        </motion.svg>
+        {isInView && (
+          <svg className="absolute inset-0 w-full h-full opacity-20">
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#2052bd" stopOpacity="0.3">
+                  <animate attributeName="stopOpacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" stopColor="#7fcbe4" stopOpacity="0.3">
+                  <animate attributeName="stopOpacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" />
+                </stop>
+              </linearGradient>
+            </defs>
+            <motion.path
+              d="M0,200 Q200,100 400,200 T800,200 T1200,200"
+              stroke="url(#gradient1)"
+              strokeWidth="2"
+              fill="none"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.3 }}
+              transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
+              style={{ willChange: "stroke-dasharray" }}
+            />
+            <motion.path
+              d="M0,400 Q200,300 400,400 T800,400 T1200,400"
+              stroke="url(#gradient1)"
+              strokeWidth="2"
+              fill="none"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.3 }}
+              transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", delay: 1 }}
+              style={{ willChange: "stroke-dasharray" }}
+            />
+          </svg>
+        )}
       </div>
     </section>
   );
