@@ -94,7 +94,7 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-            className="rounded-4xl bg-white overflow-hidden shadow-2xl relative"
+            className="rounded-4xl bg-gray-900/80 overflow-hidden shadow-2xl relative"
           >
             <div className="w-full h-full rounded-[1.75rem] overflow-hidden">
                <ThreeDMarquee images={marqueeImages} cols={3} className="bg-transparent" />
