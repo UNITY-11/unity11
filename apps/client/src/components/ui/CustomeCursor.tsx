@@ -96,6 +96,7 @@ export function CustomeCursor({
   const lastUpdateTime = useRef(Date.now())
   const previousAngle = useRef(0)
   const accumulatedRotation = useRef(0)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const cursorX = useSpring(0, springConfig)
   const cursorY = useSpring(0, springConfig)
@@ -152,12 +153,11 @@ export function CustomeCursor({
         scale.set(0.95)
         setIsMoving(true)
 
-        const timeout = setTimeout(() => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current)
+        timeoutRef.current = setTimeout(() => {
           scale.set(1)
           setIsMoving(false)
         }, 150)
-
-        return () => clearTimeout(timeout)
       }
     }
 
