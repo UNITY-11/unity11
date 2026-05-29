@@ -72,6 +72,7 @@ export default function TestimonialSection() {
                 >
                     {testimonials.map((testimonial, index) => (
                         <motion.div
+                            key={index}
                             initial={{ y: 0 }}
                             whileHover={{ y: "-7%" }}
                             transition={{ duration: 0.2 }}
