@@ -85,8 +85,8 @@ export default function FeaturedProjectsSection() {
         </motion.div>
 
         {/* cards */}
-        <div className="flex gap-4 overflow-x-auto hide-scrollbar pb-4">
-          {projects.map((p, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-6">
+          {projects.slice(0, 4).map((p, index) => (
             <ProjectCard key={p.id} index={index} {...p} />
           ))}
         </div>
@@ -126,7 +126,7 @@ function ProjectCard({
       initial={{ y: "30%" }}
       whileInView={{ y: 0 }}
       transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
-      className={`group ${bg} min-w-[290px] max-w-[300px] rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between z-40`}
+      className={`group ${bg} w-full rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between z-40`}
     >
       <motion.div className="p-5">
         {/* tags */}
