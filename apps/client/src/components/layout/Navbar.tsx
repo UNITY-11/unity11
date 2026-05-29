@@ -17,6 +17,7 @@ const navLinks: NavLink[] = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -120,10 +121,19 @@ const Navbar: React.FC = () => {
         {/* CTA Button (Desktop) */}
         <Link
           href="/get-started"
-          className="hidden sm:flex items-center gap-1.5 rounded-full bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 transition"
+          className="hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] p-0.5 transition-transform"
         >
-          Get started
-          <IoIosArrowForward size={16} />
+          {/* Dynamic Section */}
+          <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-white transition-all duration-500 ease-in-out group-hover:w-full">
+            <span className="text-[#2052bd] text-sm font-bold tracking-tight whitespace-nowrap">
+              Get started
+            </span>
+          </div>
+
+          {/* Icon Section */}
+          <div className="flex h-full w-[20%] items-center justify-center text-white overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+            <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
+          </div>
         </Link>
 
         {/* Mobile Menu Toggle */}
@@ -163,13 +173,23 @@ const Navbar: React.FC = () => {
               </li>
             ))}
 
+            {/* CTA Button (Mobile) */}
             <Link
               href="/get-started"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-1.5 rounded-full bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] px-5 py-2 text-sm font-medium text-white shadow-md hover:opacity-90 transition"
+              className="group relative inline-flex h-12 w-[160px] items-center overflow-hidden rounded-full border border-blue-400 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] p-0.5 transition-transform shadow-md"
             >
-              Get started
-              <IoIosArrowForward size={16} />
+              {/* Dynamic Section */}
+              <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-white transition-all duration-500 ease-in-out group-hover:w-full">
+                <span className="text-[#2052bd] text-sm font-bold tracking-tight whitespace-nowrap">
+                  Get started
+                </span>
+              </div>
+
+              {/* Icon Section */}
+              <div className="flex h-full w-[20%] items-center justify-center text-white overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+                <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
+              </div>
             </Link>
           </ul>
         </motion.div>
