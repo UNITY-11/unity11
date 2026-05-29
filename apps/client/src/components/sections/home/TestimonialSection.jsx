@@ -4,14 +4,37 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from "motion/react";
 
 export default function TestimonialSection() {
     const router = useRouter();
     const testimonialsRef = useRef(null);
+    const containerRef = useRef(null);
+
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["0 1", "0 0"]
+    });
+
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
+    const widthVal = useTransform(smoothProgress, [0, 1], [50, 100]);
+    const width = useMotionTemplate`${widthVal}%`;
+
+    const radiusVal = useTransform(smoothProgress, [0, 1], [300, 0]);
+    const borderRadius = useMotionTemplate`${radiusVal}px`;
 
     return (
-        <section className="relative text-blue-500 py-20 overflow-hidden rounded-b-[5%]">
-            <div className="container max-w-7xl mx-auto text-start px-6">
+        <div ref={containerRef} className="w-full flex justify-center pt-10 bg-white">
+            <motion.section 
+                style={{ width, borderRadius }}
+                className="relative text-blue-500 py-20 overflow-hidden bg-black"
+            >
+                <div className="container max-w-7xl mx-auto text-start px-6">
                 <div className="relative w-full flex flex-col justify-center items-center text-start">
                     <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
                         What{" "}
@@ -52,6 +75,7 @@ export default function TestimonialSection() {
                     </button>
                 </div>
             </div>
-        </section>
+            </motion.section>
+        </div>
     );
 }
