@@ -34,7 +34,7 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-blue-700 text-white py-20 lg:py-28 overflow-hidden lg:pb-36"
+      className="relative bg-black text-white py-20 lg:py-28 overflow-hidden lg:pb-36"
     >
       {/* linear accents */}
 
@@ -52,11 +52,11 @@ export default function ProcessSection() {
         >
           <h2 className="text-4xl sm:text-6xl text-white">
             Our{" "}
-            <span>
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">
               Process
             </span>
           </h2>
-          <p className="mt-4 text-slate-100 text-lg max-w-2xl mx-auto">
+          <p className="mt-4 text-slate-400 text-lg max-w-2xl mx-auto">
             Every successful product starts with a process that blends
             creativity, technology, and collaboration. Here’s how we build
             world-class software.
@@ -71,7 +71,7 @@ export default function ProcessSection() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: easeInOut }}
-              className={`group relative bg-linear-to-b from-white to-transparent hover:to-white text-blue-700 rounded-4xl p-8 h-52 flex justify-between overflow-hidden transition-colors duration-300 ${
+              className={`group relative bg-blue-600 hover:bg-blue-500 text-white rounded-4xl p-8 h-52 flex justify-between overflow-hidden transition-colors duration-300 ${
                 index > 1 ? "flex-row-reverse" : ""
               }`}
             >
@@ -85,7 +85,7 @@ export default function ProcessSection() {
                     delay: index * 0.05,
                     ease: easeInOut,
                   }}
-                  className={`text-blue-700 absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
+                  className={`text-black absolute -top-8 group-hover:-top-16 transition-all duration-500 text-[90px] sm:text-[250px] font-bold ${
                     index > 1 ? "-right-6" : "-left-6"
                   }`}
                 >
@@ -101,7 +101,7 @@ export default function ProcessSection() {
                   delay: index * 0.05,
                   ease: easeInOut,
                 }}
-                className="h-full w-full group-hover:mt-6 transition-all duration-500 text-blue-600"
+                className="h-full w-full group-hover:mt-6 transition-all duration-500 text-white flex flex-col justify-end pb-4"
               >
                 <p className="text-base sm:text-xl font-semibold">
                   {step.title}
