@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react"
+import { useInView } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 
@@ -100,13 +101,13 @@ export const Particles: React.FC<ParticlesProps> = ({
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1
   const rafID = useRef<number | null>(null)
   const resizeTimeout = useRef<NodeJS.Timeout | null>(null)
+  const isInView = useInView(canvasContainerRef)
 
   useEffect(() => {
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext("2d")
     }
     initCanvas()
-    animate()
 
     const handleResize = () => {
       if (resizeTimeout.current) {
@@ -133,6 +134,17 @@ export const Particles: React.FC<ParticlesProps> = ({
   useEffect(() => {
     onMouseMove()
   }, [mousePosition.x, mousePosition.y])
+
+  useEffect(() => {
+    if (isInView) {
+      animate()
+    }
+    return () => {
+      if (rafID.current != null) {
+        window.cancelAnimationFrame(rafID.current)
+      }
+    }
+  }, [isInView])
 
   useEffect(() => {
     initCanvas()

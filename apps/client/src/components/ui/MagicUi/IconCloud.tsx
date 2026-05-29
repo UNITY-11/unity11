@@ -3,6 +3,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { renderToString } from "react-dom/server";
+import { useInView } from "framer-motion";
 
 interface Icon {
   x: number;
@@ -44,6 +45,7 @@ export function IconCloud({ icons, images }: IconCloudProps) {
   const rotationRef = useRef(rotation);
   const iconCanvasesRef = useRef<HTMLCanvasElement[]>([]);
   const imagesLoadedRef = useRef<boolean[]>([]);
+  const isInView = useInView(containerRef);
 
   // 📐 Configuration Constants (Based on a 500x500 reference frame)
   const ROTATION_RADIUS_REF = 160; 
@@ -350,10 +352,14 @@ export function IconCloud({ icons, images }: IconCloudProps) {
 
         ctx.restore();
       });
-      animationFrameRef.current = requestAnimationFrame(animate);
+      if (isInView) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      }
     };
 
-    animate();
+    if (isInView) {
+      animate();
+    }
 
     return () => {
       if (animationFrameRef.current) {
@@ -370,7 +376,8 @@ export function IconCloud({ icons, images }: IconCloudProps) {
     canvasSize,
     sizeFactor,
     ROTATION_RADIUS,
-    FINAL_ICON_SIZE
+    FINAL_ICON_SIZE,
+    isInView
   ]);
 
   return (
