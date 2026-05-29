@@ -8,6 +8,8 @@ import Footer from "@/components/layout/Footer";
 import { CustomeCursor } from "@/components/ui/CustomeCursor";
 import { ScrollProgress } from "@/components/ui/MagicUi/ScrollProgress";
 
+import SmoothScroll from "@/components/providers/SmoothScroll";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -38,13 +40,15 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} font-sans bg-white text-gray-900 antialiased`}
       >
-        <CustomeCursor />
-        <div className="flex min-h-screen flex-col">
-          <Navbar />
-          <ScrollProgress />
-          <main>{children}</main>
-          <Footer />
-        </div>
+        <SmoothScroll>
+          <CustomeCursor />
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <ScrollProgress />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );
