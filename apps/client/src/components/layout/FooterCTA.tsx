@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Particles } from "../ui/MagicUi/Particles";
 
 const FooterCTA: React.FC = () => {

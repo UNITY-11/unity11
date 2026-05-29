@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { easeInOut, inertia, motion, spring } from "framer-motion";
+import { easeInOut, inertia, motion, spring } from "motion/react";
 import { FaStar } from "react-icons/fa";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 

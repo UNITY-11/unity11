@@ -4,7 +4,7 @@ import Link from "next/link";
 import { posts } from "@/data/blogs";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const sideDistance = 200;
 

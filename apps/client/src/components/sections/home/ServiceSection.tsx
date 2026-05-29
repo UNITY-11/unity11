@@ -4,7 +4,7 @@ import {
   ScrollVelocityContainer,
   ScrollVelocityRow,
 } from "@/components/ui/MagicUi/ScrollBasedVelocity";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Code2, Layers, Smartphone, Cloud, Cpu, Palette } from "lucide-react";
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";

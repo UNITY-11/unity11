@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 

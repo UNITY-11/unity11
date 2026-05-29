@@ -1,7 +1,7 @@
 "use client";
 
 import { Particles } from "@/components/ui/MagicUi/Particles";
-import { motion, Transition } from "framer-motion"; // Added Transition import
+import { motion, Transition } from "motion/react"; // Added Transition import
 import {
   ShieldCheck,
   Sparkles,

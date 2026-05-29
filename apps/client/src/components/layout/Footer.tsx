@@ -13,7 +13,7 @@ import {
   FaDribbble,
 } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 
 // --- Data for the links ---

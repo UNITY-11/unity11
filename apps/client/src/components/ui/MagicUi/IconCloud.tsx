@@ -3,7 +3,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { renderToString } from "react-dom/server";
-import { useInView } from "framer-motion";
+import { useInView } from "motion/react";
 
 interface Icon {
   x: number;
