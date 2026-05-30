@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { motion } from "motion/react";
