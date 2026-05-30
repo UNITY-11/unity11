@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <ul className="flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border-2 border-blue-300">
+          <ul className="flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border border-white/10">
             {navLinks.map((link) => (
               <li key={link.name} className="relative">
                 <Link
