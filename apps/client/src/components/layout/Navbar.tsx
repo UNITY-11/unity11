@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <ul className="flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border border-white/10">
+          <ul className="flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border border-white/5">
             {navLinks.map((link) => (
               <li key={link.name} className="relative">
                 <Link
@@ -122,17 +122,17 @@ const Navbar: React.FC = () => {
         {/* CTA Button (Desktop) */}
         <Link
           href="/get-started"
-          className="hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] p-0.5 transition-transform"
+          className="hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 bg-white p-0.5 transition-transform"
         >
           {/* Dynamic Section */}
-          <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-white transition-all duration-500 ease-in-out group-hover:w-full">
-            <span className="text-[#2052bd] text-sm font-bold tracking-tight whitespace-nowrap">
+          <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] transition-all duration-500 ease-in-out group-hover:w-full">
+            <span className="text-white text-sm font-bold tracking-tight whitespace-nowrap">
               Get started
             </span>
           </div>
 
           {/* Icon Section */}
-          <div className="flex h-full w-[20%] items-center justify-center text-white overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+          <div className="flex h-full w-[20%] items-center justify-center text-[#2052bd] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
             <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
           </div>
         </Link>
@@ -178,17 +178,17 @@ const Navbar: React.FC = () => {
             <Link
               href="/get-started"
               onClick={() => setMenuOpen(false)}
-              className="group relative inline-flex h-12 w-[160px] items-center overflow-hidden rounded-full border border-blue-400 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] p-0.5 transition-transform shadow-md"
+              className="group relative inline-flex h-12 w-[160px] items-center overflow-hidden rounded-full border border-blue-400 bg-white p-0.5 transition-transform shadow-md"
             >
               {/* Dynamic Section */}
-              <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-white transition-all duration-500 ease-in-out group-hover:w-full">
-                <span className="text-[#2052bd] text-sm font-bold tracking-tight whitespace-nowrap">
+              <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] transition-all duration-500 ease-in-out group-hover:w-full">
+                <span className="text-white text-sm font-bold tracking-tight whitespace-nowrap">
                   Get started
                 </span>
               </div>
 
               {/* Icon Section */}
-              <div className="flex h-full w-[20%] items-center justify-center text-white overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+              <div className="flex h-full w-[20%] items-center justify-center text-[#2052bd] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
                 <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
               </div>
             </Link>
