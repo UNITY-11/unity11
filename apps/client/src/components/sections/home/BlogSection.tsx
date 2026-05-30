@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { posts } from "@/data/blogs";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
@@ -47,8 +48,8 @@ export default function BlogSection() {
             const cardVariants = getCardVariants(i);
 
             return (
+              <Link href={`/blog/${post.slug}`} key={i} className="block">
                 <motion.div
-                  key={i}
                   className={`group bg-linear-to-t backdrop-blur-xl shadow-2xl rounded-4xl p-4 hover:bg-white/10 transition-all duration-300 ${post.bgColor} ${i == 1 ? 'z-20' : 'z-10'}`}
                   initial={cardVariants.initial}
                   whileInView={cardVariants.animate}
@@ -84,6 +85,7 @@ export default function BlogSection() {
                     Read more →
                   </div>
                 </motion.div>
+              </Link>
             );
           })}
         </div>
