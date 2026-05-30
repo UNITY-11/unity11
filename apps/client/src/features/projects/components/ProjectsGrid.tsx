@@ -13,7 +13,7 @@ export function ProjectsGrid({ projects }: ProjectsGridProps) {
           No projects found
         </h3>
         <p className="text-gray-400">
-          We couldn't find any projects matching your search or filter criteria.
+          We didn&apos;t find any projects matching your criteria.
         </p>
       </div>
     );

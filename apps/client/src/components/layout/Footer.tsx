@@ -6,12 +6,12 @@ import FooterCTA from '@/components/layout/FooterCTA'
 
 // Importing icons from react-icons
 import {
-  FaCode,
   FaLinkedin,
   FaGithub,
   FaTwitter,
   FaDribbble,
 } from "react-icons/fa";
+import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { motion } from "motion/react";
 import Image from "next/image";

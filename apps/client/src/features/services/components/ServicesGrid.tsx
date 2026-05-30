@@ -9,7 +9,7 @@ export function ServicesGrid() {
 
   return (
     <div className="flex flex-col gap-24">
-      {categoryGroups.map((group, groupIdx) => (
+      {categoryGroups.map((group) => (
         <section key={group.category} className="relative">
           {/* Category Header */}
           <motion.div

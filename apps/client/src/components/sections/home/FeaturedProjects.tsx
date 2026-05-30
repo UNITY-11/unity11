@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import { easeInOut, motion } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 
 interface ProjectCardProps {
   id: string;

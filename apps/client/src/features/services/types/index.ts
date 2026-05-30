@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { LucideIcon } from "lucide-react";
 
 export interface Service {
   id: string;

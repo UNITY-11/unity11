@@ -38,9 +38,9 @@ const FooterCTA: React.FC = () => {
         </h2>
 
         {/* Subheading */}
-        <p className="text-lg text-gray-300 mb-8 z-10">
-          We craft scalable, high-performance software that drives real results.
-        </p>
+          <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+            Ready to transform your ideas into reality? Let&apos;s build something extraordinary together.
+          </p>
 
         {/* Call to Action Button */}
         <button
