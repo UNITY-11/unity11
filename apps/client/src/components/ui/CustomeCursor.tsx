@@ -98,6 +98,8 @@ export function CustomeCursor({
   const accumulatedRotation = useRef(0)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
+
   const cursorX = useSpring(0, springConfig)
   const cursorY = useSpring(0, springConfig)
   const rotation = useSpring(0, {
@@ -112,6 +114,11 @@ export function CustomeCursor({
   })
 
   useEffect(() => {
+    const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches || "ontouchstart" in window;
+    setIsTouchDevice(isTouch);
+
+    if (isTouch) return;
+
     const updateVelocity = (currentPos: Position) => {
       const currentTime = Date.now()
       const deltaTime = currentTime - lastUpdateTime.current
@@ -180,6 +187,8 @@ export function CustomeCursor({
       if (rafId) cancelAnimationFrame(rafId)
     }
   }, [cursorX, cursorY, rotation, scale])
+
+  if (isTouchDevice) return null;
 
   return (
     <motion.div
