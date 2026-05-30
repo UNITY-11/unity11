@@ -1,7 +1,7 @@
 "use client";
 
 import { Particles } from "@/components/ui/MagicUi/Particles";
-import { motion, Transition } from "motion/react"; // Added Transition import
+import { motion } from "motion/react";
 import {
   ShieldCheck,
   Sparkles,
@@ -9,12 +9,13 @@ import {
   Users2,
   HeartHandshake,
   Timer,
+  LucideIcon,
 } from "lucide-react";
 import React from "react";
-import { transition } from "three/examples/jsm/tsl/display/TransitionNode.js";
+
 
 interface Reason {
-  icon: any;
+  icon: LucideIcon;
   img: string;
   title: string;
   desc: string;
