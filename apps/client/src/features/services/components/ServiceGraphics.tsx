@@ -321,7 +321,7 @@ const ThreatMonitorGraphic = () => (
         {/* Live bar chart */}
         <div className="flex-1 flex items-end gap-[2px] pb-1">
           {[65, 40, 80, 55, 90, 35, 70, 45, 60, 85].map((h, i) => (
-            <motion.div key={i} animate={{ height: [`${h}%`, `${Math.max(20, h + (Math.random() > 0.5 ? 15 : -15))}%`, `${h}%`] }} transition={{ duration: 2 + i * 0.2, repeat: Infinity }} className={`flex-1 rounded-t-sm ${h > 75 ? "bg-blue-500/50 shadow-[0_0_4px_rgba(59,130,246,0.3)]" : h > 50 ? "bg-cyan-500/30" : "bg-sky-500/20"}`} style={{ height: `${h}%` }} />
+            <motion.div key={i} animate={{ height: [`${h}%`, `${Math.max(20, h + (i % 2 === 0 ? 15 : -15))}%`, `${h}%`] }} transition={{ duration: 2 + i * 0.2, repeat: Infinity }} className={`flex-1 rounded-t-sm ${h > 75 ? "bg-blue-500/50 shadow-[0_0_4px_rgba(59,130,246,0.3)]" : h > 50 ? "bg-cyan-500/30" : "bg-sky-500/20"}`} style={{ height: `${h}%` }} />
           ))}
         </div>
         {/* Alert feed */}
@@ -539,7 +539,7 @@ interface ServiceGraphicsProps {
   index: number;
 }
 
-export function ServiceGraphics({ service, index }: ServiceGraphicsProps) {
+export function ServiceGraphics({ service }: ServiceGraphicsProps) {
   const renderGraphic = () => {
     switch (service.id) {
       case "web-dev":           return <WebDevGraphic />;
