@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
 import { posts } from "@/data/blogs";
 import { ArticleLayout } from "@/features/blogs/components";
-import FooterCTA from "@/components/layout/FooterCTA";
-
 // Static generation for known blog posts
 export async function generateStaticParams() {
   return posts.map((post) => ({
@@ -55,9 +53,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         author={author}
         bgColor={post.bgColor}
       />
-      <div className="bg-black pb-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FooterCTA />
-      </div>
     </>
   );
 }
