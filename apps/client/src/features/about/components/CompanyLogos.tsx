@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { SiGoogle, SiMeta, SiSpotify, SiNetflix, SiApple, SiTesla } from "react-icons/si";
+import { SiGoogle, SiMeta, SiSpotify, SiNetflix, SiApple, SiTesla, SiVercel, SiFigma } from "react-icons/si";
 
 const COMPANIES = [
   { name: "ANIMUS", number: "01", icon: SiGoogle },
@@ -10,6 +10,8 @@ const COMPANIES = [
   { name: "BOON", number: "04", icon: SiNetflix },
   { name: "NEON", number: "05", icon: SiApple },
   { name: "KLMX", number: "06", icon: SiTesla },
+  { name: "VORTEX", number: "07", icon: SiVercel },
+  { name: "ZENITH", number: "08", icon: SiFigma },
 ];
 
 export const CompanyLogos = () => {
@@ -23,7 +25,7 @@ export const CompanyLogos = () => {
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         {/* Outer container with rounded corners and 1px border gap trick */}
         <div className="relative bg-white/10 p-[1px] rounded-3xl overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] rounded-[23px] overflow-hidden">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px] rounded-[23px] overflow-hidden">
             {COMPANIES.map((company, index) => (
               <motion.div
                 key={company.name}
