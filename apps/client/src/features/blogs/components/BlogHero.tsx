@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "motion/react";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export const BlogHero = () => {
   return (
     <section className="relative w-full overflow-hidden bg-black pt-32 pb-20 md:pt-40 md:pb-32 px-4 sm:px-6 lg:px-8 border-b border-white/5">
+      <BackgroundBeams />
       {/* Decorative Background Gradients */}
       <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-[#2052bd]/5 to-transparent pointer-events-none" />
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#7fcbe4]/10 rounded-full blur-3xl pointer-events-none" />
