@@ -149,12 +149,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       onClick={() => handleMove(position)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={cn(
-        "absolute left-1/2 top-1/2 cursor-pointer border-2 p-8 transition-all duration-500 ease-in-out rounded-3xl",
-        isCenter 
-          ? "z-10 bg-blue-600 text-white border-blue-500" 
-          : "z-0 bg-[#171717] text-white border-gray-800 hover:border-blue-500/50"
-      )}
+      className="absolute left-1/2 top-1/2 cursor-pointer transition-all duration-500 ease-in-out"
       style={{
         width: cardSize,
         height: cardSize,
@@ -166,26 +161,42 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)
           scale(${isHovered ? 1.02 : 1})
         `,
-        boxShadow: isCenter ? "0px 8px 25px -5px rgba(0,0,0,0.5)" : (isHovered ? "0px 10px 20px rgba(0,0,0,0.5)" : "0px 0px 0px 0px transparent")
+        zIndex: isCenter ? 10 : 0,
       }}
     >
-      <img
-        src={testimonial.imgSrc}
-        alt={`${testimonial.by.split(',')[0]}`}
-        className="mb-4 h-14 w-14 rounded-full bg-gray-800 object-cover object-top shadow-md"
-      />
-      <h3 className={cn(
-        "text-base sm:text-xl font-medium",
-        isCenter ? "text-white" : "text-white"
-      )}>
-        "{testimonial.testimonial}"
-      </h3>
-      <p className={cn(
-        "absolute bottom-8 left-8 right-8 mt-2 text-sm italic",
-        isCenter ? "text-white/80" : "text-gray-400"
-      )}>
-        - {testimonial.by}
-      </p>
+      {/* Border Wrapper */}
+      <div 
+        className={cn(
+          "w-full h-full p-[1px] transition-colors duration-300 rounded-[24px] overflow-hidden",
+          isCenter ? "bg-blue-500" : isHovered ? "bg-blue-500/50" : "bg-white/10"
+        )}
+      >
+        {/* Inner Card Background */}
+        <div 
+          className={cn(
+            "w-full h-full p-8 flex flex-col relative rounded-[23px] overflow-hidden",
+            isCenter ? "bg-blue-600 text-white" : "bg-[#050505] text-white"
+          )}
+        >
+          <img
+            src={testimonial.imgSrc}
+            alt={`${testimonial.by.split(',')[0]}`}
+            className="mb-4 h-14 w-14 rounded-full bg-gray-800 object-cover object-top shadow-md"
+          />
+          <h3 className={cn(
+            "text-base sm:text-xl font-medium",
+            isCenter ? "text-white" : "text-white"
+          )}>
+            "{testimonial.testimonial}"
+          </h3>
+          <p className={cn(
+            "absolute bottom-8 left-8 right-8 mt-2 text-sm italic",
+            isCenter ? "text-white/80" : "text-slate-400"
+          )}>
+            - {testimonial.by}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
