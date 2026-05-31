@@ -124,12 +124,11 @@ export default function ProjectsPage() {
     <div className="h-full flex flex-col max-w-7xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">Projects</h1>
-          <p className="text-[#888888] mt-1">Manage your portfolio projects and track their current status.</p>
-        </div>
+          <h1 className="text-border-mutedxl font-bold tracking-tight text-primary">Projects</h1>
+          </div>
         <Link 
           href="/projects/new"
-          className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#007ee1] to-[#00b4d8] text-white font-medium shadow-[0_0_20px_rgba(0,180,216,0.3)] hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
+          className="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light text-white font-medium shadow-[0_0_20px_rgba(0,180,216,0.3)] hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
           Add Project
@@ -138,87 +137,137 @@ export default function ProjectsPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Total Card */}
-        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-[#007ee1]/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#007ee1]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="h-full bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-[23px] p-5 flex flex-col relative z-10 border-b-2 border-black/50 shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
+        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-primary/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="h-full bg-surface rounded-[23px] p-5 flex flex-col relative z-10 border border-border-base shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[#888888] text-sm font-medium">Total Projects</p>
-              <div className="w-8 h-8 rounded-full bg-[#007ee1]/10 flex items-center justify-center border border-[#007ee1]/20 shadow-inner">
-                <svg className="w-4 h-4 text-[#007ee1]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+              <p className="text-text-muted text-sm font-medium">Total Projects</p>
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shadow-inner">
+                <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
               </div>
             </div>
-            <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">{total}</p>
+            <p className="text-4xl font-bold text-primary tracking-tight drop-shadow-md">{total}</p>
+            {/* Animated High-Tech Grid Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none rounded-[23px] overflow-hidden opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+              <div className="absolute inset-[-50%]" style={{ 
+                backgroundImage: "radial-gradient(var(--primary) 1.5px, transparent 1.5px)", 
+                backgroundSize: "20px 20px", 
+                animation: "panGrid 4s linear infinite",
+                WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, black 100%)",
+                maskImage: "linear-gradient(to bottom, transparent 20%, black 100%)"
+              }}></div>
+            </div>
           </div>
         </div>
 
         {/* Completed Card */}
-        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-[#007ee1]/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#007ee1]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="h-full bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-[23px] p-5 flex flex-col relative z-10 border-b-2 border-black/50 shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
+        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-primary/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="h-full bg-surface rounded-[23px] p-5 flex flex-col relative z-10 border border-border-base shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[#888888] text-sm font-medium">Completed</p>
-              <div className="w-8 h-8 rounded-full bg-[#007ee1]/10 flex items-center justify-center border border-[#007ee1]/20 shadow-inner">
-                <svg className="w-4 h-4 text-[#007ee1]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <p className="text-text-muted text-sm font-medium">Completed</p>
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shadow-inner">
+                <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               </div>
             </div>
-            <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">{completed}</p>
+            <p className="text-4xl font-bold text-primary tracking-tight drop-shadow-md">{completed}</p>
+            {/* Animated High-Tech Grid Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none rounded-[23px] overflow-hidden opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+              <div className="absolute inset-[-50%]" style={{ 
+                backgroundImage: "radial-gradient(var(--primary) 1.5px, transparent 1.5px)", 
+                backgroundSize: "20px 20px", 
+                animation: "panGrid 4s linear infinite",
+                WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, black 100%)",
+                maskImage: "linear-gradient(to bottom, transparent 20%, black 100%)"
+              }}></div>
+            </div>
           </div>
         </div>
 
         {/* Working On Card */}
-        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-[#007ee1]/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#007ee1]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="h-full bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-[23px] p-5 flex flex-col relative z-10 border-b-2 border-black/50 shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
+        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-primary/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="h-full bg-surface rounded-[23px] p-5 flex flex-col relative z-10 border border-border-base shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[#888888] text-sm font-medium">Working On</p>
-              <div className="w-8 h-8 rounded-full bg-[#007ee1]/10 flex items-center justify-center border border-[#007ee1]/20 shadow-inner">
-                <svg className="w-4 h-4 text-[#007ee1]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+              <p className="text-text-muted text-sm font-medium">Working On</p>
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shadow-inner">
+                <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
               </div>
             </div>
-            <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">{workingOn}</p>
+            <p className="text-4xl font-bold text-primary tracking-tight drop-shadow-md">{workingOn}</p>
+            {/* Animated High-Tech Grid Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none rounded-[23px] overflow-hidden opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+              <div className="absolute inset-[-50%]" style={{ 
+                backgroundImage: "radial-gradient(var(--primary) 1.5px, transparent 1.5px)", 
+                backgroundSize: "20px 20px", 
+                animation: "panGrid 4s linear infinite",
+                WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, black 100%)",
+                maskImage: "linear-gradient(to bottom, transparent 20%, black 100%)"
+              }}></div>
+            </div>
           </div>
         </div>
 
         {/* Pending Card */}
-        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-[#007ee1]/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#007ee1]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="h-full bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-[23px] p-5 flex flex-col relative z-10 border-b-2 border-black/50 shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
+        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-primary/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="h-full bg-surface rounded-[23px] p-5 flex flex-col relative z-10 border border-border-base shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[#888888] text-sm font-medium">Pending</p>
-              <div className="w-8 h-8 rounded-full bg-[#007ee1]/10 flex items-center justify-center border border-[#007ee1]/20 shadow-inner">
-                <svg className="w-4 h-4 text-[#007ee1]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <p className="text-text-muted text-sm font-medium">Pending</p>
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shadow-inner">
+                <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               </div>
             </div>
-            <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">{pending}</p>
+            <p className="text-4xl font-bold text-primary tracking-tight drop-shadow-md">{pending}</p>
+            {/* Animated High-Tech Grid Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none rounded-[23px] overflow-hidden opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+              <div className="absolute inset-[-50%]" style={{ 
+                backgroundImage: "radial-gradient(var(--primary) 1.5px, transparent 1.5px)", 
+                backgroundSize: "20px 20px", 
+                animation: "panGrid 4s linear infinite",
+                WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, black 100%)",
+                maskImage: "linear-gradient(to bottom, transparent 20%, black 100%)"
+              }}></div>
+            </div>
           </div>
         </div>
 
         {/* New Card */}
-        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-[#007ee1]/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#007ee1]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="h-full bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] rounded-[23px] p-5 flex flex-col relative z-10 border-b-2 border-black/50 shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
+        <div className="relative group rounded-[24px] p-[1px] bg-gradient-to-b from-primary/40 to-transparent overflow-hidden shadow-[0_10px_40px_rgba(0,126,225,0.05)] transition-all duration-300 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="h-full bg-surface rounded-[23px] p-5 flex flex-col relative z-10 border border-border-base shadow-[inset_0_1px_15px_rgba(0,126,225,0.08)]">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-[#888888] text-sm font-medium">New</p>
-              <div className="w-8 h-8 rounded-full bg-[#007ee1]/10 flex items-center justify-center border border-[#007ee1]/20 shadow-inner">
-                <svg className="w-4 h-4 text-[#007ee1]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+              <p className="text-text-muted text-sm font-medium">New</p>
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shadow-inner">
+                <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
               </div>
             </div>
-            <p className="text-4xl font-bold text-white tracking-tight drop-shadow-md">{newProjects}</p>
+            <p className="text-4xl font-bold text-primary tracking-tight drop-shadow-md">{newProjects}</p>
+            {/* Animated High-Tech Grid Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none rounded-[23px] overflow-hidden opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+              <div className="absolute inset-[-50%]" style={{ 
+                backgroundImage: "radial-gradient(var(--primary) 1.5px, transparent 1.5px)", 
+                backgroundSize: "20px 20px", 
+                animation: "panGrid 4s linear infinite",
+                WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, black 100%)",
+                maskImage: "linear-gradient(to bottom, transparent 20%, black 100%)"
+              }}></div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Toolbar: Search, Filters, View Toggles */}
-      <div className="flex flex-col xl:flex-row gap-4 items-center bg-[#111111]/95 backdrop-blur-md p-4 rounded-[20px] border border-[#222222] sticky -top-4 md:-top-6 lg:-top-8 z-50 shadow-2xl self-start w-full">
+      <div className="flex flex-col xl:flex-row gap-4 items-center bg-surface/95 backdrop-blur-md p-4 rounded-[20px] border border-border-base sticky -top-4 md:-top-6 lg:-top-8 z-50 shadow-sm self-start w-full">
         
         <div className="relative w-full xl:w-64 shrink-0">
-          <svg className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-[#888888]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+          <svg className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
           <input 
             type="text" 
             placeholder="Search projects..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#0a0a0a] border border-[#333333] rounded-full py-2.5 pl-10 pr-4 text-white placeholder:text-[#555555] focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all"
+            className="w-full bg-surface-active border border-border-muted rounded-full py-2.5 pl-10 pr-4 text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all"
           />
         </div>
 
@@ -227,7 +276,7 @@ export default function ProjectsPage() {
           <div className="flex items-center gap-2 w-max px-1">
             <button
               onClick={() => setSelectedTag("All")}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === "All" ? "bg-[#007ee1] text-white border border-[#007ee1]" : "bg-[#1a1a1a] border border-[#333333] text-[#888888] hover:bg-[#222222] hover:text-white"}`}
+              className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === "All" ? "bg-primary text-white border border-primary" : "bg-surface-hover border border-border-muted text-text-muted hover:bg-surface-hover hover:text-foreground"}`}
             >
               All Tags
             </button>
@@ -235,7 +284,7 @@ export default function ProjectsPage() {
               <button
                 key={tag}
                 onClick={() => setSelectedTag(tag)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === tag ? "bg-[#007ee1] text-white border border-[#007ee1]" : "bg-[#1a1a1a] border border-[#333333] text-[#888888] hover:bg-[#222222] hover:text-white"}`}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === tag ? "bg-primary text-white border border-primary" : "bg-surface-hover border border-border-muted text-text-muted hover:bg-surface-hover hover:text-foreground"}`}
               >
                 {tag}
               </button>
@@ -247,7 +296,7 @@ export default function ProjectsPage() {
           <select 
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#0a0a0a] border border-[#333333] rounded-full py-2.5 px-4 text-white focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all cursor-pointer flex-1 xl:flex-none appearance-none"
+            className="bg-surface-active border border-border-muted rounded-full py-2.5 px-4 text-foreground focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all cursor-pointer flex-1 xl:flex-none appearance-none"
           >
             <option value="All">All Statuses</option>
             <option value="Completed">Completed</option>
@@ -256,16 +305,16 @@ export default function ProjectsPage() {
             <option value="New">New</option>
           </select>
 
-          <div className="flex items-center bg-[#0a0a0a] border border-[#333333] rounded-full p-1 shrink-0">
+          <div className="flex items-center bg-surface-active border border-border-muted rounded-full p-1 shrink-0">
             <button 
               onClick={() => setViewMode('table')}
-              className={`p-2 rounded-full transition-all ${viewMode === 'table' ? 'bg-[#222222] text-white shadow-sm' : 'text-[#888888] hover:text-white'}`}
+              className={`p-2 rounded-full transition-all ${viewMode === 'table' ? 'bg-surface-hover text-foreground shadow-sm' : 'text-text-muted hover:text-foreground'}`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20" /></svg>
             </button>
             <button 
               onClick={() => setViewMode('card')}
-              className={`p-2 rounded-full transition-all ${viewMode === 'card' ? 'bg-[#222222] text-white shadow-sm' : 'text-[#888888] hover:text-white'}`}
+              className={`p-2 rounded-full transition-all ${viewMode === 'card' ? 'bg-surface-hover text-foreground shadow-sm' : 'text-text-muted hover:text-foreground'}`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
             </button>
@@ -275,17 +324,17 @@ export default function ProjectsPage() {
 
       {/* Projects List Content */}
       {filteredAndSortedProjects.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 bg-[#111111] rounded-[24px] border border-[#222222]">
+        <div className="flex flex-col items-center justify-center py-20 bg-surface rounded-[24px] border border-border-base">
           <svg className="w-16 h-16 text-[#333333] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
-          <p className="text-xl font-medium text-white mb-1">No projects found</p>
-          <p className="text-[#888888]">Try adjusting your search query or filters.</p>
+          <p className="text-xl font-medium text-foreground mb-1">No projects found</p>
+          <p className="text-text-muted">Try adjusting your search query or filters.</p>
         </div>
       ) : viewMode === 'table' ? (
-        <div className="bg-[#111111] rounded-[24px] shadow-2xl border border-[#222222] flex flex-col flex-1 min-h-0">
-          <div className="overflow-auto flex-1 custom-scrollbar rounded-[24px]">
+        <div className="bg-surface rounded-t-[24px] rounded-b-none border-b-0 shadow-sm border border-border-base flex flex-col flex-1 min-h-0">
+          <div className="overflow-auto flex-1 custom-scrollbar rounded-t-[24px] rounded-b-none">
             <table className="w-full text-left border-collapse relative min-w-[800px]">
-              <thead className="bg-[#111111] z-30 shadow-[0_1px_0_0_#222222] sticky top-0">
-                <tr className="text-[#888888] text-sm uppercase tracking-wider">
+              <thead className="bg-surface z-30 border-b border-border-base sticky top-0">
+                <tr className="text-foreground font-semibold text-sm uppercase tracking-wider">
                   <th className="px-6 py-4 font-medium">Project</th>
                   <th className="px-6 py-4 font-medium">Category</th>
                   <th className="px-6 py-4 font-medium">Status</th>
@@ -293,25 +342,25 @@ export default function ProjectsPage() {
                   <th className="px-6 py-4 font-medium text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#222222]">
+              <tbody className="divide-y divide-border-base">
                 {filteredAndSortedProjects.map((project) => (
-                  <tr key={project.id} className="hover:bg-[#1a1a1a] transition-colors">
+                  <tr key={project.id} className="hover:bg-surface-hover transition-colors">
                     <td className="px-6 py-4 flex items-center gap-4">
-                      <div className="w-16 h-12 rounded-lg overflow-hidden shrink-0 border border-[#333333] relative">
+                      <div className="w-16 h-12 rounded-lg overflow-hidden shrink-0 border border-border-muted relative">
                         <Image src={project.image} alt={project.title} fill className="object-cover" sizes="64px" />
                       </div>
                       <div>
-                        <p className="text-white font-medium">{project.title}</p>
-                        <p className="text-[#555555] text-xs mt-0.5">{project.id}</p>
+                        <p className="text-foreground font-medium group-hover:text-primary transition-colors">{project.title}</p>
+                        <p className="text-text-muted text-xs mt-0.5">{project.id}</p>
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex gap-1 flex-wrap">
-                        <span className="bg-[#222222] px-3 py-1 rounded-full text-xs text-[#888888] border border-[#333333]">
+                        <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
                           {project.tag1}
                         </span>
                         {project.tag2 && (
-                          <span className="bg-[#222222] px-3 py-1 rounded-full text-xs text-[#888888] border border-[#333333]">
+                          <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
                             {project.tag2}
                           </span>
                         )}
@@ -321,28 +370,28 @@ export default function ProjectsPage() {
                       <div className="relative inline-block">
                         <select 
                           defaultValue={project.status}
-                          className={`appearance-none px-3 py-1.5 pr-8 rounded-full text-xs font-medium border bg-[#111111] hover:bg-[#1a1a1a] transition-colors cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#007ee1] ${
-                            project.status === 'Completed' ? 'text-[#007ee1] border-[#007ee1]/30' :
+                          className={`appearance-none px-3 py-1.5 pr-8 rounded-full text-xs font-medium border bg-surface hover:bg-surface-hover transition-colors cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#007ee1] ${
+                            project.status === 'Completed' ? 'text-primary border-primary/30' :
                             project.status === 'Working On' ? 'text-[#00b4d8] border-[#00b4d8]/30' :
-                            project.status === 'New' ? 'text-white border-white/30' :
-                            'text-[#888888] border-[#333333]'
+                            project.status === 'New' ? 'text-foreground border-border-muted' :
+                            'text-text-muted border-border-muted'
                           }`}
                         >
-                          <option value="Completed" className="text-white bg-[#111111]">Completed</option>
-                          <option value="Working On" className="text-white bg-[#111111]">Working On</option>
-                          <option value="Pending" className="text-white bg-[#111111]">Pending</option>
-                          <option value="New" className="text-white bg-[#111111]">New</option>
+                          <option value="Completed" className="text-foreground bg-surface">Completed</option>
+                          <option value="Working On" className="text-foreground bg-surface">Working On</option>
+                          <option value="Pending" className="text-foreground bg-surface">Pending</option>
+                          <option value="New" className="text-foreground bg-surface">New</option>
                         </select>
                         <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[#888888] text-sm">
+                    <td className="px-6 py-4 text-text-muted text-sm">
                       {new Date(project.date).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <Link href={`/projects/${project.id}/edit`} className="inline-block p-2 text-[#888888] hover:text-[#00b4d8] transition-colors" title="Edit Project">
+                      <Link href={`/projects/${project.id}/edit`} className="inline-block p-2 text-text-muted hover:text-[#00b4d8] transition-colors" title="Edit Project">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                       </Link>
                     </td>
@@ -398,7 +447,7 @@ export default function ProjectsPage() {
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                   <Link 
                     href={`/projects/${project.id}/edit`} 
-                    className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transform scale-50 group-hover:scale-100 transition-all duration-300 hover:bg-[#007ee1] hover:text-white" 
+                    className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transform scale-50 group-hover:scale-100 transition-all duration-300 hover:bg-primary hover:text-foreground" 
                     title="Edit Project"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
