@@ -15,10 +15,10 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-24 border-r border-[#111111] bg-[#050505] flex flex-col hidden md:flex shrink-0 items-center py-8">
+    <aside className="w-24 border-r border-border-muted bg-background flex flex-col hidden md:flex shrink-0 items-center py-8">
       {/* Logo */}
       <div className="mb-12">
-        <img src="/images/logos/unity11-logo.png" alt="Unity11 Logo" className="w-10 h-10 object-contain drop-shadow-md" />
+        <img src="/images/logos/unity11-logo.gif" alt="Unity11 Logo" className="w-10 h-10 object-contain drop-shadow-md" />
       </div>
 
       <nav className="flex flex-col gap-4 w-full items-center my-auto">
@@ -29,7 +29,7 @@ export function Sidebar() {
               key={link.name}
               href={link.href}
               title={link.name}
-              className={`flex items-center justify-center w-[52px] h-[52px] rounded-full transition-all duration-300 ${isActive ? 'bg-[#007ee1] text-white shadow-lg shadow-[#007ee1]/30' : 'bg-[#111111] text-[#888888] hover:bg-[#222222] hover:text-white'}`}
+              className={`flex items-center justify-center w-[52px] h-[52px] rounded-full transition-all duration-300 ${isActive ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-surface text-text-muted hover:bg-surface-active hover:text-foreground'}`}
             >
               {link.icon}
             </Link>
@@ -42,7 +42,7 @@ export function Sidebar() {
         <Link 
           href="/support" 
           title="Support" 
-          className="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-[#111111] text-[#888888] hover:bg-[#222222] hover:text-white transition-all duration-300"
+          className="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-surface text-text-muted hover:bg-surface-active hover:text-foreground transition-all duration-300"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75V15a3 3 0 01-3 3h-1.5a.75.75 0 01-.75-.75V13.5a.75.75 0 01.75-.75H20.25v-1.5a8.25 8.25 0 00-16.5 0v1.5H5.25a.75.75 0 01.75.75v3.75a.75.75 0 01-.75.75H3.75a3 3 0 01-3-3V12z" />
