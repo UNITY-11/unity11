@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 export function Header() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -55,7 +57,7 @@ export function Header() {
     <header className="h-16 flex items-center justify-between px-8 bg-transparent shrink-0 relative">
       <div className="flex-1">
         {isSubPage && (
-          <Link href={backHref} className="inline-flex items-center gap-2 text-[#888888] hover:text-white transition-colors w-fit">
+          <Link href={backHref} className="inline-flex items-center gap-2 text-text-muted hover:text-foreground transition-colors w-fit">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             {backLabel}
           </Link>
@@ -68,8 +70,17 @@ export function Header() {
       </div>
 
       <div className="flex-1 flex justify-end items-center gap-4 mt-2">
+        {/* Theme Toggle Button */}
+        <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 text-text-muted hover:text-foreground transition-colors" title="Toggle Theme">
+          {theme === 'dark' ? (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.485-7.071l-1.414 1.414M6.343 17.657l-1.414 1.414m12.728 0l-1.414-1.414M6.343 6.343L4.929 4.929M12 16a4 4 0 100-8 4 4 0 000 8z" /></svg>
+          ) : (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+          )}
+        </button>
+
         {/* Fullscreen Button */}
-        <button onClick={toggleFullScreen} className="p-2 text-[#888888] hover:text-white transition-colors" title="Toggle Fullscreen">
+        <button onClick={toggleFullScreen} className="p-2 text-text-muted hover:text-foreground transition-colors" title="Toggle Fullscreen">
           {isFullscreen ? (
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 3v5H3M16 3v5h5M8 21v-5H3M16 21v-5h5" /></svg>
           ) : (
@@ -78,11 +89,11 @@ export function Header() {
         </button>
 
         {/* Notification Button */}
-        <button className="p-2 text-[#888888] hover:text-white transition-colors relative">
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#007ee1] rounded-full border border-[#0a0a0a]"></span>
+        <button className="p-2 text-text-muted hover:text-foreground transition-colors relative">
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full border border-background"></span>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
         </button>
-        <div className="w-10 h-10 rounded-full border border-[#333333] overflow-hidden shrink-0">
+        <div className="w-10 h-10 rounded-full border border-border-muted overflow-hidden shrink-0">
           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Admin" className="w-full h-full object-cover" />
         </div>
       </div>
