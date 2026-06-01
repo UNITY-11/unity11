@@ -122,18 +122,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="h-full flex flex-col max-w-7xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-border-mutedxl font-bold tracking-tight text-primary">Projects</h1>
-          </div>
-        <Link 
-          href="/projects/new"
-          className="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light text-white font-medium shadow-[0_0_20px_rgba(0,180,216,0.3)] hover:opacity-90 transition-all flex items-center gap-2 shrink-0"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
-          Add Project
-        </Link>
-      </div>
+
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Total Card */}
@@ -258,7 +247,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Toolbar: Search, Filters, View Toggles */}
-      <div className="flex flex-col xl:flex-row gap-4 items-center bg-surface/95 backdrop-blur-md p-4 rounded-[20px] border border-border-base sticky -top-4 md:-top-6 lg:-top-8 z-50 shadow-sm self-start w-full">
+      <div className="flex flex-col xl:flex-row gap-4 items-center bg-surface/95 backdrop-blur-md p-4 rounded-[20px] border border-border-base sticky top-0 z-50 shadow-sm self-start w-full">
         
         <div className="relative w-full xl:w-64 shrink-0">
           <svg className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
@@ -267,7 +256,7 @@ export default function ProjectsPage() {
             placeholder="Search projects..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-surface-active border border-border-muted rounded-full py-2.5 pl-10 pr-4 text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all"
+            className="w-full bg-surface border border-border-muted rounded-full py-2.5 pl-10 pr-4 text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all"
           />
         </div>
 
@@ -276,7 +265,7 @@ export default function ProjectsPage() {
           <div className="flex items-center gap-2 w-max px-1">
             <button
               onClick={() => setSelectedTag("All")}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === "All" ? "bg-primary text-white border border-primary" : "bg-surface-hover border border-border-muted text-text-muted hover:bg-surface-hover hover:text-foreground"}`}
+              className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === "All" ? "bg-primary text-white border border-primary" : "bg-surface border border-border-muted text-text-muted hover:bg-surface-hover hover:text-foreground"}`}
             >
               All Tags
             </button>
@@ -284,7 +273,7 @@ export default function ProjectsPage() {
               <button
                 key={tag}
                 onClick={() => setSelectedTag(tag)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === tag ? "bg-primary text-white border border-primary" : "bg-surface-hover border border-border-muted text-text-muted hover:bg-surface-hover hover:text-foreground"}`}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap shrink-0 transition-all shadow-sm ${selectedTag === tag ? "bg-primary text-white border border-primary" : "bg-surface border border-border-muted text-text-muted hover:bg-surface-hover hover:text-foreground"}`}
               >
                 {tag}
               </button>
@@ -296,7 +285,7 @@ export default function ProjectsPage() {
           <select 
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-surface-active border border-border-muted rounded-full py-2.5 px-4 text-foreground focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all cursor-pointer flex-1 xl:flex-none appearance-none"
+            className="bg-surface border border-border-muted rounded-full py-2.5 px-4 text-foreground focus:outline-none focus:ring-2 focus:ring-[#007ee1] transition-all cursor-pointer flex-1 xl:flex-none appearance-none"
           >
             <option value="All">All Statuses</option>
             <option value="Completed">Completed</option>
@@ -305,7 +294,7 @@ export default function ProjectsPage() {
             <option value="New">New</option>
           </select>
 
-          <div className="flex items-center bg-surface-active border border-border-muted rounded-full p-1 shrink-0">
+          <div className="flex items-center bg-surface border border-border-muted rounded-full p-1 shrink-0">
             <button 
               onClick={() => setViewMode('table')}
               className={`p-2 rounded-full transition-all ${viewMode === 'table' ? 'bg-surface-hover text-foreground shadow-sm' : 'text-text-muted hover:text-foreground'}`}
@@ -319,6 +308,14 @@ export default function ProjectsPage() {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
             </button>
           </div>
+          
+          <Link 
+            href="/projects/new"
+            className="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light text-white font-medium shadow-[0_0_20px_rgba(0,180,216,0.3)] hover:opacity-90 transition-all flex items-center gap-2 shrink-0 ml-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+            Add Project
+          </Link>
         </div>
       </div>
 
