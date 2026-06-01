@@ -89,9 +89,9 @@ export default function ClientsPage() {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-[1600px] w-full mx-auto space-y-8 p-4 md:p-6 lg:p-8 pb-16 lg:pb-24">
+    <div className="flex flex-col h-full max-w-[1600px] w-full mx-auto px-4 md:px-6 lg:px-8 pb-16 lg:pb-24">
       {/* Header Section */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div className="sticky top-0 z-30 bg-[#000000] py-6 mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-[#222222]">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Clients</h1>
           <p className="text-[#888888]">Manage your client relationships and ongoing projects.</p>
