@@ -29,9 +29,9 @@ export function Header() {
     <header className="h-16 flex items-center justify-between px-8 bg-transparent shrink-0 relative">
       <div className="flex-1"></div>
       
-      {/* Center Logo */}
-      <div className="flex-1 flex justify-center">
-        <img src="/images/logos/unity11-text-logo.png" alt="Logo" className="h-8 object-contain" />
+      {/* Screen-Centered Logo */}
+      <div className="fixed left-1/2 top-0 h-16 flex items-center -translate-x-1/2 pointer-events-none z-50">
+        <img src="/images/logos/unity11-text-logo.png" alt="Logo" className="h-8 object-contain pointer-events-auto" />
       </div>
 
       <div className="flex-1 flex justify-end items-center gap-4 mt-2">
