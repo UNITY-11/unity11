@@ -48,9 +48,12 @@ export function Header() {
     } else if (sectionName === 'blogs') {
       backLabel = "Back to Blogs";
       backHref = "/blogs";
+    } else if (sectionName === 'team') {
+      backLabel = "Back to Team";
+      backHref = "/team";
     } else {
-      backLabel = "Back";
-      backHref = "/" + pathParts.slice(0, pathParts.length - 1).join("/");
+      backLabel = `Back to ${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}`;
+      backHref = `/${sectionName}`;
     }
   }
 
@@ -77,15 +80,6 @@ export function Header() {
       </div>
 
       <div className="flex-1 flex justify-end items-center gap-4">
-        {/* Theme Toggle Button */}
-        <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 text-text-muted hover:text-foreground transition-colors" title="Toggle Theme">
-          {theme === 'dark' ? (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.485-7.071l-1.414 1.414M6.343 17.657l-1.414 1.414m12.728 0l-1.414-1.414M6.343 6.343L4.929 4.929M12 16a4 4 0 100-8 4 4 0 000 8z" /></svg>
-          ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-          )}
-        </button>
-
         {/* Fullscreen Button */}
         <button onClick={toggleFullScreen} className="p-2 text-text-muted hover:text-foreground transition-colors" title="Toggle Fullscreen">
           {isFullscreen ? (
