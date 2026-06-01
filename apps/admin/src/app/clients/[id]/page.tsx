@@ -185,13 +185,9 @@ export default function ClientDetailsPage({ params }: { params: Promise<{ id: st
   };
 
   return (
-    <div className="flex flex-col h-full max-w-[1400px] w-full mx-auto space-y-8 p-4 md:p-6 lg:p-8 pb-32">
+    <div className="flex flex-col h-full max-w-[1400px] w-full mx-auto space-y-4 p-4 md:p-6">
       
-      {/* Back button */}
-      <Link href="/clients" className="inline-flex items-center gap-2 text-[#888888] hover:text-white transition-colors w-fit">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-        Back to Clients
-      </Link>
+      {/* Removed Back button - now in global Header */}
 
       {/* Hero Section */}
       <div className="relative bg-[#0a0a0a] rounded-[32px] p-[1px] shadow-2xl overflow-hidden shrink-0">
