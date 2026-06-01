@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
 
 const statusOptions = [
   { value: "new", label: "New" },
@@ -80,9 +81,9 @@ export default function AddProjectPage() {
 
               <div className="space-y-2">
                 <label htmlFor="tags" className="block text-sm font-medium text-[#888888]">Project Tags</label>
-                <div className="w-full min-h-[52px] p-2 rounded-xl border border-[#222222] bg-[#0a0a0a] focus-within:ring-2 focus-within:ring-[#007ee1] transition-shadow flex flex-wrap gap-2 items-center">
+                <div className="w-full h-[50px] px-3 rounded-xl border border-[#222222] bg-[#0a0a0a] focus-within:ring-2 focus-within:ring-[#007ee1] transition-shadow flex flex-nowrap gap-2 items-center overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                   {tags.map((tag) => (
-                    <span key={tag} className="bg-[#222222] text-[#888888] px-3 py-1 rounded-full text-sm flex items-center gap-1 border border-[#333333]">
+                    <span key={tag} className="bg-[#222222] text-[#888888] px-3 py-1.5 rounded-full text-sm flex items-center gap-1 border border-[#333333] shrink-0">
                       {tag}
                       <button 
                         type="button" 
@@ -99,7 +100,7 @@ export default function AddProjectPage() {
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="flex-1 min-w-[120px] bg-transparent text-white focus:outline-none px-2 py-1 placeholder:text-[#444444]" 
+                    className="flex-1 min-w-[120px] bg-transparent text-white focus:outline-none placeholder:text-[#444444]" 
                     placeholder={tags.length === 0 ? "Type and press Enter..." : ""} 
                   />
                 </div>
@@ -148,9 +149,9 @@ export default function AddProjectPage() {
 
               {/* Form Actions */}
               <div className="col-span-1 md:col-span-2 flex items-center justify-end gap-4 pt-6 mt-4 border-t border-[#222222]">
-                <button type="button" className="px-6 py-2.5 rounded-full text-[#888888] font-medium hover:text-white transition-colors">
+                <Link href="/projects" className="px-6 py-2.5 rounded-full text-[#888888] font-medium hover:text-white transition-colors flex items-center justify-center">
                   Cancel
-                </button>
+                </Link>
                 <button type="button" className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#007ee1] to-[#00b4d8] text-white font-medium shadow-[0_0_20px_rgba(0,180,216,0.3)] hover:opacity-90 transition-all">
                   Publish Project
                 </button>
