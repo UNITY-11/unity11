@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function Header() {
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -25,9 +28,39 @@ export function Header() {
     }
   };
 
+  const pathParts = pathname.split('/').filter(Boolean);
+  const isSubPage = pathParts.length > 1;
+
+  let backLabel = "Back";
+  let backHref = "";
+
+  if (isSubPage) {
+    const sectionName = pathParts[0];
+    if (sectionName === 'clients') {
+      backLabel = "Back to Clients";
+      backHref = "/clients";
+    } else if (sectionName === 'projects') {
+      backLabel = "Back to Projects";
+      backHref = "/projects";
+    } else if (sectionName === 'blogs') {
+      backLabel = "Back to Blogs";
+      backHref = "/blogs";
+    } else {
+      backLabel = "Back";
+      backHref = "/" + pathParts.slice(0, pathParts.length - 1).join("/");
+    }
+  }
+
   return (
     <header className="h-16 flex items-center justify-between px-8 bg-transparent shrink-0 relative">
-      <div className="flex-1"></div>
+      <div className="flex-1">
+        {isSubPage && (
+          <Link href={backHref} className="inline-flex items-center gap-2 text-[#888888] hover:text-white transition-colors w-fit">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            {backLabel}
+          </Link>
+        )}
+      </div>
       
       {/* Screen-Centered Logo */}
       <div className="fixed left-1/2 top-0 h-16 flex items-center -translate-x-1/2 pointer-events-none z-50">
