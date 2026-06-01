@@ -15,7 +15,7 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-24 border-r border-border-muted bg-background flex flex-col hidden md:flex shrink-0 items-center py-8">
+    <aside className="w-24 bg-background flex flex-col hidden md:flex shrink-0 items-center py-8">
       {/* Logo */}
       <div className="mb-12">
         <img src="/images/logos/unity11-logo.gif" alt="Unity11 Logo" className="w-10 h-10 object-contain drop-shadow-md" />

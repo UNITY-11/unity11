@@ -32,6 +32,7 @@ export function Header() {
 
   const pathParts = pathname.split('/').filter(Boolean);
   const isSubPage = pathParts.length > 1;
+  const pageTitle = pathParts.length > 0 ? pathParts[0].charAt(0).toUpperCase() + pathParts[0].slice(1) : 'Dashboard';
 
   let backLabel = "Back";
   let backHref = "";
@@ -54,7 +55,7 @@ export function Header() {
   }
 
   return (
-    <header className="h-16 flex items-center justify-between px-8 bg-transparent shrink-0 relative">
+    <header className="h-20 py-4 flex items-center justify-between px-8 bg-transparent shrink-0 relative">
       <div className="flex-1">
         {isSubPage && (
           <Link href={backHref} className="inline-flex items-center gap-2 text-text-muted hover:text-foreground transition-colors w-fit">
@@ -64,12 +65,18 @@ export function Header() {
         )}
       </div>
       
-      {/* Screen-Centered Logo */}
-      <div className="fixed left-1/2 top-0 h-16 flex items-center -translate-x-1/2 pointer-events-none z-50">
-        <img src="/images/logos/unity11-text-logo.png" alt="Logo" className="h-8 object-contain pointer-events-auto" />
+      {/* Screen-Centered Page Name */}
+      <div className="fixed left-1/2 top-0 h-20 flex items-center -translate-x-1/2 pointer-events-none z-50">
+        <h1 className="text-4xl font-[700] tracking- pointer-events-auto flex font-[family-name:var(--font-comfortaa)]">
+          {pageTitle.toUpperCase().split('').map((char, index) => (
+            <span key={index} className={index % 2 === 0 ? "text-[#007ee1]" : "text-[#00b4d8]"}>
+              {char}
+            </span>
+          ))}
+        </h1>
       </div>
 
-      <div className="flex-1 flex justify-end items-center gap-4 mt-2">
+      <div className="flex-1 flex justify-end items-center gap-4">
         {/* Theme Toggle Button */}
         <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 text-text-muted hover:text-foreground transition-colors" title="Toggle Theme">
           {theme === 'dark' ? (
