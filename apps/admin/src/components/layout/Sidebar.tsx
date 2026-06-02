@@ -86,22 +86,24 @@ export function Sidebar() {
   const handleScroll = () => {
     if (!navRef.current) return;
     const newCenter = Math.round(navRef.current.scrollTop / itemHeight) + 2;
+    
     if (newCenter !== scrollCenterIndex) {
       setScrollCenterIndex(newCenter);
-      
-      // Auto-navigate logic
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-      
-      scrollTimeoutRef.current = setTimeout(() => {
-        const targetLink = extendedLinks[newCenter];
-        if (targetLink) {
-          const isCurrentlyActive = pathname === targetLink.href || (targetLink.href !== '/' && pathname.startsWith(targetLink.href));
-          if (!isCurrentlyActive) {
-            router.push(targetLink.href);
-          }
-        }
-      }, 1000);
     }
+    
+    // Auto-navigate logic
+    // Clear timeout on every scroll event to prevent navigating while the user is still scrolling
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    
+    scrollTimeoutRef.current = setTimeout(() => {
+      const targetLink = extendedLinks[newCenter];
+      if (targetLink) {
+        const isCurrentlyActive = pathname === targetLink.href || (targetLink.href !== '/' && pathname.startsWith(targetLink.href));
+        if (!isCurrentlyActive) {
+          router.push(targetLink.href);
+        }
+      }
+    }, 1000);
   };
 
   return (
