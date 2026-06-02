@@ -3,6 +3,21 @@
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
+// Temporary workaround: Suppress the React 19 default script tag warning for next-themes
+// This is a known harmless issue with next-themes and React 19's strict hydration rules.
+if (typeof window !== "undefined") {
+  const originalError = console.error;
+  console.error = (...args: any[]) => {
+    if (
+      typeof args[0] === "string" && 
+      args[0].includes("Encountered a script tag while rendering React component")
+    ) {
+      return; // Ignore this specific warning
+    }
+    originalError(...args);
+  };
+}
+
 export function ThemeProvider({
   children,
   ...props
