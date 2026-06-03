@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useActionState } from "react";
 import Link from "next/link";
+import { createProject } from "../actions/createProject";
 
 const statusOptions = [
   { value: "new", label: "New" },
@@ -11,6 +12,8 @@ const statusOptions = [
 ];
 
 export function ProjectForm() {
+  const [state, formAction, isPending] = useActionState(createProject, null);
+  
   const [startColor, setStartColor] = useState("var(--primary)");
   const [endColor, setEndColor] = useState("var(--primary-light)");
   const [status, setStatus] = useState("new");
@@ -67,16 +70,25 @@ export function ProjectForm() {
           <p className="text-text-muted mt-2">Create a new project portfolio entry to display on the public website.</p>
         </div>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {state?.error && (
+          <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl">
+            {state.error}
+          </div>
+        )}
+
+        {/* Two Column Layout wrapped in Form */}
+        <form action={formAction} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
+          <input type="hidden" name="status" value={status} />
+          <input type="hidden" name="tags" value={JSON.stringify(tags)} />
+
           {/* Left Column: Text Inputs */}
           <div className="lg:col-span-2 space-y-6 bg-surface rounded-[24px] border border-border-base p-8 shadow-xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               <div className="col-span-1 md:col-span-2 space-y-2">
                 <label htmlFor="title" className="block text-sm font-medium text-text-muted">Project Title</label>
-                <input type="text" id="title" className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-shadow placeholder:text-text-dim" placeholder="e.g. Modern E-Commerce Platform" />
+                <input required type="text" id="title" name="title" className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-shadow placeholder:text-text-dim" placeholder="e.g. Modern E-Commerce Platform" />
               </div>
 
               <div className="space-y-2">
@@ -144,7 +156,7 @@ export function ProjectForm() {
 
               <div className="col-span-1 md:col-span-2 space-y-2">
                 <label htmlFor="description" className="block text-sm font-medium text-text-muted">Description</label>
-                <textarea id="description" rows={5} className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-shadow resize-none placeholder:text-text-dim" placeholder="Describe the project goals and achievements..."></textarea>
+                <textarea id="description" name="description" rows={5} className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-shadow resize-none placeholder:text-text-dim" placeholder="Describe the project goals and achievements..."></textarea>
               </div>
 
               {/* Form Actions */}
@@ -152,8 +164,16 @@ export function ProjectForm() {
                 <Link href="/projects" className="px-6 py-2.5 rounded-full text-text-muted font-medium hover:text-foreground transition-colors flex items-center justify-center">
                   Cancel
                 </Link>
-                <button type="button" className="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light text-white font-medium shadow-[0_0_20px_rgba(0,180,216,0.3)] hover:opacity-90 transition-all">
-                  Publish Project
+                <button disabled={isPending} type="submit" className="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light text-white font-medium shadow-[0_0_20px_rgba(0,180,216,0.3)] hover:opacity-90 transition-all disabled:opacity-50 flex items-center gap-2">
+                  {isPending ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/-svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Publishing...
+                    </>
+                  ) : "Publish Project"}
                 </button>
               </div>
 
@@ -172,6 +192,7 @@ export function ProjectForm() {
               >
                 <input 
                   type="file" 
+                  name="image"
                   ref={fileInputRef} 
                   onChange={handleImageChange} 
                   accept="image/*" 
@@ -242,7 +263,7 @@ export function ProjectForm() {
               </div>
             </div>
           </div>
-        </div>
+        </form>
 
       </div>
     </div>
