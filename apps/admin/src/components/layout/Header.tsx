@@ -10,7 +10,7 @@ export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
 
-  if (pathname === '/login') return null;
+  if (pathname === '/login' || pathname.startsWith('/studio')) return null;
 
   useEffect(() => {
     const handleFullscreenChange = () => {
