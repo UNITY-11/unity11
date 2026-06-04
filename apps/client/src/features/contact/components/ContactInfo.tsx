@@ -6,10 +6,11 @@ import { Mail, Phone } from "lucide-react";
 const CONTACT_DETAILS = [
   {
     icon: Mail,
-    title: "Email",
-    value: "hello@spirox.dev",
+    title: "Email Us",
+    value: "hello@unity11.com",
     description: "Our friendly team is here to help.",
-    action: "mailto:hello@spirox.dev",
+    action: "mailto:hello@unity11.com",
+    actionLabel: "Send an email",
   },
   {
     icon: Phone,
