@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Service } from "../types";
+import { Service, ServiceCardProps } from "../types";
 import { 
   FiMonitor, FiSmartphone, FiCode, FiPenTool, 
   FiCloud, FiServer, FiLayers, FiShield, 
@@ -9,6 +9,7 @@ import {
   FiCompass, FiDatabase, FiArrowUpRight
 } from "react-icons/fi";
 import { ServiceGraphics } from "./ServiceGraphics";
+import React from "react";
 
 const iconMap: Record<string, React.ReactNode> = {
   "browser": <FiMonitor className="w-8 h-8" />,
@@ -26,12 +27,6 @@ const iconMap: Record<string, React.ReactNode> = {
   "compass": <FiCompass className="w-8 h-8" />,
   "database": <FiDatabase className="w-8 h-8" />
 };
-
-interface ServiceCardProps {
-  service: Service;
-  index: number;
-  className?: string;
-}
 
 export function ServiceCard({ service, index, className = "" }: ServiceCardProps) {
   return (
