@@ -8,3 +8,21 @@ export interface Project {
   bg: string;
   date: string; // ISO date string for sorting
 }
+
+export interface ProjectCardProps extends Project {
+  index?: number;
+}
+
+export interface ProjectsFilterProps {
+  searchQuery: string;
+  setSearchQuery: (val: string) => void;
+  selectedTag: string;
+  setSelectedTag: (val: string) => void;
+  sortBy: string;
+  setSortBy: (val: string) => void;
+  availableTags: string[];
+}
+
+export interface ProjectsGridProps {
+  projects: Project[];
+}
