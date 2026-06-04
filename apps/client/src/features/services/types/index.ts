@@ -14,3 +14,14 @@ export interface ServiceCategoryGroup {
   services: Service[];
   colorTheme: string;
 }
+
+export interface ServiceCardProps {
+  service: Service;
+  index: number;
+  className?: string;
+}
+
+export interface ServiceGraphicsProps {
+  service: Service;
+  index: number;
+}
