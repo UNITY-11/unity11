@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import React from "react";
-import { Service } from "../types";
+import { Service, ServiceGraphicsProps } from "../types";
 
 // ═══════════════════════════════════════════════════════════════
 // PREMIUM SERVICE ANIMATIONS — each one is unique, rich & relatable
@@ -534,10 +534,7 @@ const DataEngineeringGraphic = () => (
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════════
 
-interface ServiceGraphicsProps {
-  service: Service;
-  index: number;
-}
+
 
 export function ServiceGraphics({ service }: ServiceGraphicsProps) {
   const renderGraphic = () => {
