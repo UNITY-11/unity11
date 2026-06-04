@@ -109,7 +109,7 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="xl:max-w-xs flex flex-col items-end text-right gap-4"
+            className="xl:max-w-xs flex flex-col items-start xl:items-end text-left xl:text-right gap-4 mt-6 xl:mt-0"
           >
             <Sparkles className="w-6 h-6 text-cyan-400" />
             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
