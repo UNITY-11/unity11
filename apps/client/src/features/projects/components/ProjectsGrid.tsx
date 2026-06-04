@@ -1,9 +1,5 @@
-import { Project } from "../types";
+import { Project, ProjectsGridProps } from "../types";
 import { ProjectCard } from "./ProjectCard";
-
-interface ProjectsGridProps {
-  projects: Project[];
-}
 
 export function ProjectsGrid({ projects }: ProjectsGridProps) {
   if (projects.length === 0) {
