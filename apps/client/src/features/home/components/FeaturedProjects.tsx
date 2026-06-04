@@ -5,18 +5,9 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 
-interface ProjectCardProps {
-  id: string;
-  tag1: string;
-  tag2: string;
-  title: string;
-  description: string;
-  image: string;
-  bg: string;
-  index?: number;
-}
+import { FeaturedProject } from "../types";
 
-const projects: ProjectCardProps[] = [
+const projects: FeaturedProject[] = [
   {
     id: "ai-insights-1",
     tag1: "AI + Analytics",
@@ -120,7 +111,7 @@ function ProjectCard({
   image,
   bg,
   index,
-}: ProjectCardProps) {
+}: FeaturedProject) {
   return (
     <motion.div
       initial={{ y: "30%" }}

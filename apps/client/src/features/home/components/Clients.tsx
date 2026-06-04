@@ -2,7 +2,7 @@
 import React from "react";
 import { CompanyCardItem } from "@/components/ui/cards/FlowCards";
 import { ScrollVelocityContainer, ScrollVelocityRow } from "@/components/ui/MagicUi/ScrollBasedVelocity";
-import { companies } from "@/data/companies";
+import { companies } from "@/features/home/data/companies";
 
 function Clients() {
   const logos = (

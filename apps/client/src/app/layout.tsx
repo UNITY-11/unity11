@@ -26,12 +26,23 @@ const comfortaa = Comfortaa({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://unity11.com'),
   title: {
     default: "Unity11 | Software Development & Services",
-    template: "%s | Unity11", // This adds " | Unity11" to all sub-pages
+    template: "%s | Unity11",
   },
   description:
     "Your expert partner for custom software development, cloud solutions, and technology services.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://unity11.com",
+    siteName: "Unity11",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@unity11",
+  },
 };
 
 export default function RootLayout({

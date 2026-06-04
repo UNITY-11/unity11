@@ -1,14 +1,5 @@
 import { IoIosSearch, IoIosOptions } from "react-icons/io";
-
-interface ProjectsFilterProps {
-  searchQuery: string;
-  setSearchQuery: (val: string) => void;
-  selectedTag: string;
-  setSelectedTag: (val: string) => void;
-  sortBy: string;
-  setSortBy: (val: string) => void;
-  availableTags: string[];
-}
+import { ProjectsFilterProps } from "../types";
 
 export function ProjectsFilter({
   searchQuery,

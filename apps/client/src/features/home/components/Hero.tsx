@@ -6,13 +6,7 @@ import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 
-// --- Types & Constants (From Original Design) ---
-interface Tab {
-  id: string;
-  label: string;
-  isActive: boolean;
-  description?: string;
-}
+import { Tab } from "../types";
 
 const TABS: Tab[] = [
   { id: "01", label: "Web Development", isActive: true, description: "Full-cycle web and mobile application development" },

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { posts } from "@/data/blogs";
+import { posts } from "@/features/blogs/data/blogs";
 
 export const BlogGrid = () => {
   return (

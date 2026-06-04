@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { posts } from "@/data/blogs";
+import { posts } from "@/features/blogs/data/blogs";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";

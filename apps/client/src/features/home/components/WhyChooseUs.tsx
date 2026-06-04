@@ -14,17 +14,7 @@ import {
 import React from "react";
 
 
-interface Reason {
-  icon: LucideIcon;
-  img: string;
-  title: string;
-  desc: string;
-}
-
-interface ReasonItemProps {
-  item: Reason;
-  index: number;
-}
+import { Reason, ReasonItemProps } from "../types";
 
 const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
   const isImageLeft = index % 2 === 0;
