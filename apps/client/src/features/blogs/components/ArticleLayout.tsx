@@ -5,21 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { IoIosArrowBack } from "react-icons/io";
 
-interface ArticleProps {
-  title: string;
-  excerpt: string;
-  content: string[];
-  image: string;
-  date: string;
-  readTime: string;
-  category: string;
-  author: {
-    name: string;
-    avatar: string;
-    role: string;
-  };
-  bgColor?: string;
-}
+import { ArticleProps } from "../types";
 
 export const ArticleLayout = ({
   title,
