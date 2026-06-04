@@ -1,11 +1,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { IoIosArrowForward } from "react-icons/io";
-import { Project } from "../types";
-
-interface ProjectCardProps extends Project {
-  index?: number;
-}
+import { Project, ProjectCardProps } from "../types";
 
 export function ProjectCard({
   tag1,
