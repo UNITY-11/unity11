@@ -64,18 +64,18 @@ export default function ProcessSection() {
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: easeInOut }}
-              className={`group relative bg-blue-600 hover:bg-blue-500 text-white rounded-4xl p-8 h-52 flex justify-between overflow-hidden transition-colors duration-300 ${
-                index > 1 ? "flex-row-reverse" : ""
+              className={`group relative bg-blue-600 hover:bg-blue-500 text-white rounded-3xl md:rounded-4xl p-6 md:p-8 min-h-[16rem] md:h-64 lg:h-72 flex flex-col md:flex-row justify-between overflow-hidden transition-colors duration-300 ${
+                index > 1 ? "md:flex-row-reverse" : ""
               }`}
             >
-              <div className="relative h-full w-full ">
+              <div className="relative h-full w-full md:w-1/2">
                 <motion.h3
                   initial={{ y: "50%" }}
                   whileInView={{ y: 0 }}
@@ -85,8 +85,8 @@ export default function ProcessSection() {
                     delay: index * 0.05,
                     ease: easeInOut,
                   }}
-                  className={`text-black absolute -top-8 group-hover:-top-16 transition-all duration-500 text-[90px] sm:text-[250px] font-bold ${
-                    index > 1 ? "-right-6" : "-left-6"
+                  className={`text-black absolute top-0 sm:top-6 md:top-8 group-hover:top-0 md:group-hover:top-2 transition-all duration-500 text-[100px] sm:text-[140px] md:text-[200px] lg:text-[250px] font-bold leading-none ${
+                    index > 1 ? "-left-4 md:left-auto md:-right-6 lg:-right-8" : "-left-4 md:-left-6 lg:-left-8"
                   }`}
                 >
                   {step.number}
@@ -101,12 +101,16 @@ export default function ProcessSection() {
                   delay: index * 0.05,
                   ease: easeInOut,
                 }}
-                className="h-full w-full group-hover:mt-6 transition-all duration-500 text-white flex flex-col justify-end pb-4"
+                className={`h-full w-full md:w-1/2 group-hover:-translate-y-2 transition-transform duration-500 text-white flex flex-col justify-start md:justify-end items-start text-left relative z-10 pt-16 md:pt-0 ${
+                  index > 1 ? "md:text-right md:items-end" : ""
+                }`}
               >
-                <p className="text-base sm:text-xl font-semibold">
+                <p className="text-xl md:text-2xl font-bold mb-2 md:mb-3">
                   {step.title}
                 </p>
-                <p className="text-sm mt-3 max-w-xs">{step.desc}</p>
+                <p className="text-sm md:text-base font-medium opacity-90 max-w-sm">
+                  {step.desc}
+                </p>
               </motion.div>
             </motion.div>
           ))}
