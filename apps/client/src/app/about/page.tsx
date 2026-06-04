@@ -2,13 +2,31 @@ import { AboutHero, CoreValues, Stats, CompanyLogos } from "@/features/about/com
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
 
 export const metadata = {
-  title: "About Us | Spirox IT Solutions",
-  description: "Learn about our mission, our story, and the leadership team driving innovation at Spirox.",
+  title: "About Us | Unity11 IT Solutions",
+  description: "Learn about our mission, our story, and the leadership team driving innovation at Unity11.",
+  openGraph: {
+    title: "About Us | Unity11 IT Solutions",
+    description: "Learn about our mission, our story, and the leadership team driving innovation at Unity11.",
+    type: "website",
+    url: "https://unity11.com/about",
+  },
 };
 
 export default function AboutPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Unity11",
+    "url": "https://unity11.com/about",
+    "description": "Learn about our mission, our story, and the leadership team driving innovation at Unity11."
+  };
+
   return (
     <main className="min-h-screen bg-black overflow-hidden flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <AboutHero />
       <CoreValues />
       <Stats />
