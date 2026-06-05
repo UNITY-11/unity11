@@ -128,6 +128,45 @@ const testimonials = [
   }
 ];
 
+const generateCardPath = (width: number, height: number, offset = 1) => {
+  const R = 24; 
+  const X = width / 2;
+  const NW = 160; // Width of the notch opening
+  const FW = 100; // Width of the flat bottom of the notch
+  const NH = 25;  // Depth of the notch
+  const CS = 25;  // Curve strength for the smooth bend
+
+  const topNotch = `
+    L ${X - NW/2} ${offset}
+    C ${X - NW/2 + CS} ${offset}, ${X - FW/2 - CS} ${offset + NH}, ${X - FW/2} ${offset + NH}
+    L ${X + FW/2} ${offset + NH}
+    C ${X + FW/2 + CS} ${offset + NH}, ${X + NW/2 - CS} ${offset}, ${X + NW/2} ${offset}
+  `;
+
+  const bottomY = height - offset;
+  const bottomNotch = `
+    L ${X + NW/2} ${bottomY}
+    C ${X + NW/2 - CS} ${bottomY}, ${X + FW/2 + CS} ${bottomY - NH}, ${X + FW/2} ${bottomY - NH}
+    L ${X - FW/2} ${bottomY - NH}
+    C ${X - FW/2 - CS} ${bottomY - NH}, ${X - NW/2 + CS} ${bottomY}, ${X - NW/2} ${bottomY}
+  `;
+
+  return `
+    M ${offset + R} ${offset}
+    ${topNotch}
+    L ${width - offset - R} ${offset}
+    A ${R} ${R} 0 0 1 ${width - offset} ${offset + R}
+    L ${width - offset} ${height - offset - R}
+    A ${R} ${R} 0 0 1 ${width - offset - R} ${height - offset}
+    ${bottomNotch}
+    L ${offset + R} ${height - offset}
+    A ${R} ${R} 0 0 1 ${offset} ${height - offset - R}
+    L ${offset} ${offset + R}
+    A ${R} ${R} 0 0 1 ${offset + R} ${offset}
+    Z
+  `.replace(/\s+/g, ' ').trim();
+};
+
 interface TestimonialCardProps {
   position: number;
   testimonial: typeof testimonials[0];
@@ -143,6 +182,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 }) => {
   const isCenter = position === 0;
   const [isHovered, setIsHovered] = useState(false);
+
+  const pathD = generateCardPath(cardSize, cardSize, 1);
 
   return (
     <div
@@ -164,38 +205,62 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         zIndex: isCenter ? 10 : 0,
       }}
     >
-      {/* Border Wrapper */}
+      {/* SVG Background with Smooth Frame Curves */}
+      <svg 
+        className="absolute inset-0 w-full h-full pointer-events-none transition-all duration-500" 
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ 
+          filter: isCenter 
+            ? 'drop-shadow(0 10px 40px rgba(59,130,246,0.3))' 
+            : isHovered 
+              ? 'drop-shadow(0 15px 50px rgba(0,0,0,0.25))' 
+              : 'drop-shadow(0 10px 40px rgba(0,0,0,0.15))'
+        }}
+      >
+        <path
+          d={pathD}
+          strokeWidth="2"
+          className={cn(
+            "transition-colors duration-300",
+            isCenter ? "fill-blue-600 stroke-blue-500" : isHovered ? "fill-white stroke-blue-400" : "fill-white stroke-white"
+          )}
+        />
+      </svg>
+
+      {/* Content Wrapper */}
       <div 
         className={cn(
-          "w-full h-full p-[1px] transition-all duration-300 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_50px_rgba(0,0,0,0.25)]",
-          isCenter ? "bg-blue-500 shadow-blue-500/30" : isHovered ? "bg-blue-400" : "bg-white"
+          "w-full h-full p-8 pt-10 pb-10 flex flex-col relative z-10",
+          isCenter ? "text-white" : "text-slate-900"
         )}
       >
-        {/* Inner Card Background */}
-        <div 
-          className={cn(
-            "w-full h-full p-8 flex flex-col relative rounded-[23px] overflow-hidden",
-            isCenter ? "bg-blue-600 text-white" : "bg-white text-slate-900"
-          )}
-        >
+        <div className="flex items-center gap-4">
           <img
             src={testimonial.imgSrc}
-            alt={`${testimonial.by.split(',')[0]}`}
-            className="mb-4 h-14 w-14 rounded-full bg-gray-800 object-cover object-top shadow-md"
+            alt={testimonial.by.split(',')[0]}
+            className="h-14 w-14 rounded-full bg-gray-800 object-cover object-top shadow-md shrink-0"
           />
-          <h3 className={cn(
-            "text-base sm:text-xl font-medium",
-            isCenter ? "text-white" : "text-slate-900"
-          )}>
-            "{testimonial.testimonial}"
-          </h3>
-          <p className={cn(
-            "absolute bottom-8 left-8 right-8 mt-2 text-sm italic",
-            isCenter ? "text-white/80" : "text-slate-600"
-          )}>
-            - {testimonial.by}
-          </p>
+          <div className="flex flex-col">
+            <span className={cn(
+              "font-semibold text-base",
+              isCenter ? "text-white" : "text-slate-900"
+            )}>
+              {testimonial.by.split(',')[0]}
+            </span>
+            <span className={cn(
+              "text-xs sm:text-sm",
+              isCenter ? "text-white/80" : "text-slate-500"
+            )}>
+              {testimonial.by.split(',').slice(1).join(',').trim()}
+            </span>
+          </div>
         </div>
+        <h3 className={cn(
+          "text-base sm:text-lg font-medium my-auto",
+          isCenter ? "text-white" : "text-slate-800"
+        )}>
+          "{testimonial.testimonial}"
+        </h3>
       </div>
     </div>
   );
