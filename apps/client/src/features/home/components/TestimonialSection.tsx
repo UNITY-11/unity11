@@ -37,7 +37,7 @@ export default function TestimonialSection() {
     return (
         <div id="testimonials" ref={containerRef} className="w-full flex justify-center bg-black">
             <section 
-                className="relative w-full text-blue-500 py-20 overflow-hidden bg-white"
+                className="relative w-full text-blue-500 py-16 md:py-24 lg:py-32 overflow-hidden bg-white"
             >
                 {/* Top Notched Shape Cutout */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[480px] h-[60px] pointer-events-none z-20">
@@ -48,7 +48,7 @@ export default function TestimonialSection() {
                         />
                     </svg>
                 </div>
-                <div className="container max-w-7xl mx-auto text-start px-6">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
                 <div className="relative w-full flex flex-col justify-center items-center text-start">
                     <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
                         What{" "}
@@ -56,7 +56,7 @@ export default function TestimonialSection() {
                             People Say
                         </span>
                     </h2>
-                    <p className="text-gray-600 mb-12 mt-6 text-center">
+                    <p className="text-gray-600 mb-12 md:mb-16 lg:mb-20 mt-6 text-center">
                         Hear from our clients who trusted Unity11 to bring their digital <br />
                         visions to life with scalable, future-ready software solutions.
                     </p>
@@ -64,7 +64,7 @@ export default function TestimonialSection() {
 
             </div>
 
-            <div className="w-full relative z-10 my-10">
+            <div className="w-full relative z-10 my-12 md:my-16">
                 <StaggerTestimonials ref={testimonialsRef} />
             </div>
             <div className="mt-10 right-0 flex justify-center text-blue-500 relative z-20 w-full overflow-hidden px-4">
