@@ -1,14 +1,15 @@
 "use client";
 
+import { ParticleIcon } from "@/components/ui/ParticleIcon";
 import { Particles } from "@/components/ui/MagicUi/Particles";
 import { motion } from "motion/react";
 import {
+  CodeSquare,
   ShieldCheck,
-  Sparkles,
+  Award,
   Rocket,
-  Users2,
-  HeartHandshake,
-  Timer,
+  ClipboardCheck,
+  Infinity,
   LucideIcon,
 } from "lucide-react";
 import React from "react";
@@ -39,20 +40,19 @@ const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
     >
       <motion.div
         {...imageAnimation(index)}
-        className="w-full md:w-1/2 p-4 flex justify-center relative"
+        className="w-full md:w-1/2 p-4 flex justify-center relative group"
       >
-        <div className="relative w-full max-w-sm p-4 aspect-4/5 rounded-4xl overflow-hidden shadow-2xl bg-blue-500/30 backdrop-blur-sm ">
-          <img
-            src={item.img}
-            alt={item.title}
-            className="w-full h-full object-cover rounded-4xl"
+        <div className="relative w-full max-w-sm aspect-square flex items-center justify-center cursor-crosshair">
+          <ParticleIcon 
+            icon={item.icon} 
+            size={item.title === "Long-Term Partnership" ? 360 : 300} 
+            color="#3b82f6" 
           />
         </div>
       </motion.div>
 
       <motion.div {...textAnimation(index)} className="w-full md:w-1/2 md:p-8">
         <div className="flex items-center justify-center text-center mb-4">
-          <item.icon className="w-14 h-14 mr-4 text-blue-500" />
           <h3 className="text-3xl md:text-5xl text-transparent text-nowrap pb-2 bg-clip-text bg-linear-to-r from-blue-700 to-cyan-500 text-center">
             {item.title}
           </h3>
@@ -68,42 +68,42 @@ const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
 export default function WhyChooseUs() {
   const reasons: Reason[] = [
     {
-      icon: ShieldCheck,
-      img: "images/why/trust2.png",
-      title: "Trusted Expertise",
+      icon: CodeSquare,
+      img: "images/why/fundamentals.png",
+      title: "Core Engineering",
       desc:
-        "We deliver scalable and secure software, backed by years of engineering experience and proven success.",
+        "We build upon solid computer science fundamentals to architect robust, highly optimized, and maintainable solutions.",
     },
     {
-      icon: Sparkles,
-      img: "images/why/innovation1.png",
-      title: "Innovation First",
+      icon: ShieldCheck,
+      img: "images/why/security.png",
+      title: "Enterprise Security",
       desc:
-        "We embrace emerging technologies to keep your business ahead of the curve, not behind it.",
+        "Security is woven into our development lifecycle. We build fortified architectures designed to protect your most critical data.",
+    },
+    {
+      icon: Award,
+      img: "images/why/experts.png",
+      title: "Senior Expertise",
+      desc:
+        "Collaborate directly with battle-tested senior engineers who bring years of specialized domain experience to your project.",
     },
     {
       icon: Rocket,
       img: "images/why/fast.png",
-      title: "Fast Execution",
+      title: "Agile Delivery",
       desc:
-        "Our agile teams move with startup speed, delivering quality results in record time.",
+        "We move with startup agility while strictly maintaining code quality, ensuring your systems scale effortlessly from day one.",
     },
     {
-      icon: Users2,
-      img: "images/why/connect2.png",
-      title: "Collaborative Approach",
+      icon: ClipboardCheck,
+      img: "images/why/transparent.png",
+      title: "Full Transparency",
       desc:
-        "We work as your tech partner, aligning every step with your business goals.",
+        "No black boxes. We provide clear communication, comprehensive documentation, and complete visibility into our entire process.",
     },
     {
-      icon: Timer,
-      img: "images/why/time.png",
-      title: "On-Time Delivery",
-      desc:
-        "No delays, no excuses — just consistent, reliable timelines that businesses trust.",
-    },
-    {
-      icon: HeartHandshake,
+      icon: Infinity,
       img: "images/why/connect.png",
       title: "Long-Term Partnership",
       desc:
@@ -112,18 +112,32 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section id="why-choose-us" className="relative py-30 overflow-hidden">
+    <section id="why-choose-us" className="relative py-30 overflow-clip">
+      
+      {/* Background Curved Border (Rendered first so it sits behind particles and text) */}
       <motion.div
         initial={{ y: 50 }}
         whileInView={{ y: 0 }}
         transition={{ duration: 1 }}
-        className="absolute top-60 w-[150vw] h-[150vw] -ml-[25vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3"
+        className="absolute top-[340px] sm:top-72 md:top-60 left-1/2 -translate-x-1/2 w-[200vw] md:w-[150vw] h-[200vw] md:h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 z-0 pointer-events-none"
       >
         <div className="w-full h-full rounded-full bg-black"></div>
       </motion.div>
+      
+      {/* Sticky Background Particles for the entire section */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <Particles 
+            className="absolute inset-0" 
+            quantity={300}
+            color="#0062ff"
+            colors={["#0062ff", "#0062ff", "#0062ff", "#0062ff", "#0062ff", "#0062ff", "#06b6d4", "#06b6d4", "#ffffff"]}
+            ease={15}
+            staticity={20} 
+          />
+        </div>
+      </div>
 
-      <div className="absolute bottom-0 bg-linear-to-b from-black to-blue-700 w-screen h-16" />
-      <div className="absolute bottom-10 right-10 h-64 w-64 bg-blue-500 opacity-10 blur-3xl" />
       <div className="container mx-auto px-6 lg:px-8 relative z-10 mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -138,16 +152,12 @@ export default function WhyChooseUs() {
             </span>
           </h2>
           <p className="mt-4 text-slate-400 text-lg max-w-2xl mx-auto">
-            We’re not just another software company — we’re your growth partner,
+            We're not just another software company — we're your growth partner,
             driven by technology, design, and results.
           </p>
         </motion.div>
-        <Particles 
-        className="absolute inset-0 z-0" 
-        quantity={1111}
-        color="#0062ff" 
-      />
-        <div className="flex flex-col mb-20">
+
+        <div className="flex flex-col mb-20 relative z-10">
           {reasons.map((item, index) => (
             <ReasonItem key={index} item={item} index={index} />
           ))}
