@@ -311,13 +311,13 @@ export const Hero: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-auto lg:h-screen min-h-screen bg-black pt-28 pb-8 lg:pt-32 lg:pb-12 overflow-hidden flex flex-col justify-center"
+      className="relative w-full h-auto lg:h-screen min-h-[100svh] bg-black pt-28 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden flex flex-col justify-center"
     >
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <BackgroundBeams />
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto w-full px-4 lg:px-8 flex flex-col gap-8 lg:gap-10 h-full flex-1">
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col gap-8 lg:gap-10 h-full flex-1 justify-center">
         
         {/* --- 1. TOP TYPOGRAPHY SECTION --- */}
         <div className="flex flex-col xl:flex-row justify-between items-start gap-8">
