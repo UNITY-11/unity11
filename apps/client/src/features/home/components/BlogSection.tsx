@@ -5,7 +5,7 @@ import Link from "next/link";
 import { posts } from "@/features/blogs/data/blogs";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
 const sideDistance = 200;
@@ -56,35 +56,30 @@ export default function BlogSection() {
 
   const { scrollYProgress } = useScroll({
       target: containerRef,
-      offset: ["0 1", "0 0"]
+      offset: ["start 80%", "start 20%"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-      stiffness: 100,
-      damping: 30,
-      restDelta: 0.001
-  });
-
-  const targetProgress = isMobile ? 0.5 : 1;
-  const startWidth = isMobile ? 90 : 50;
-  const startRadius = isMobile ? 60 : 300;
-
-  const widthVal = useTransform(smoothProgress, [0, targetProgress], [startWidth, 100]);
-  const width = useMotionTemplate`${widthVal}%`;
-
-  const radiusVal = useTransform(smoothProgress, [0, targetProgress], [startRadius, 0]);
-  const borderRadius = useMotionTemplate`${radiusVal}px`;
+  const notchPath = useTransform(
+      scrollYProgress,
+      [0, 1],
+      [
+          "M 0 0 C 48 0, 72 0, 144 0 L 336 0 C 408 0, 432 0, 480 0 Z",
+          "M 0 0 C 48 0, 72 56, 144 56 L 336 56 C 408 56, 432 0, 480 0 Z"
+      ]
+  );
 
   return (
-    <div ref={containerRef} className="w-full flex justify-center pt-10 bg-white">
-      <motion.section 
-        style={{ 
-            width, 
-            borderTopLeftRadius: borderRadius,
-            borderTopRightRadius: borderRadius,
-        }}
-        className="relative py-20 overflow-hidden bg-black"
-      >
+    <div id="blog" ref={containerRef} className="w-full flex justify-center bg-white">
+      <section className="relative w-full py-20 overflow-hidden bg-black text-white">
+        {/* Top Notched Shape Cutout */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[480px] h-[60px] pointer-events-none z-20">
+            <svg width="480" height="60" viewBox="0 0 480 60">
+                <motion.path 
+                    d={notchPath as any}
+                    fill="white" 
+                />
+            </svg>
+        </div>
         <div className="max-w-7xl mx-auto md:px-6">
           <div className="relative flex items-center justify-center mb-10 px-6 md:px-0">
             <h2 className="text-3xl md:text-6xl text-transparent bg-clip-text bg-linear-to-r pb-1 from-[#2052bd] to-[#7fcbe4]">
@@ -156,7 +151,7 @@ export default function BlogSection() {
           </button>
         </div>
       </div>
-      </motion.section>
+      </section>
     </div>
   );
 }
