@@ -112,7 +112,7 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section id="why-choose-us" className="relative py-30 overflow-clip">
+    <section id="why-choose-us" className="relative py-16 md:py-24 lg:py-32 overflow-clip">
       
       {/* Background Curved Border (Rendered first so it sits behind particles and text) */}
       <motion.div
@@ -138,12 +138,12 @@ export default function WhyChooseUs() {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10 mt-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
           <h2 className="text-4xl sm:text-6xl text-white">
             Why{" "}
@@ -157,7 +157,7 @@ export default function WhyChooseUs() {
           </p>
         </motion.div>
 
-        <div className="flex flex-col mb-20 relative z-10">
+        <div className="flex flex-col gap-16 md:gap-24 mb-12 md:mb-20 relative z-10">
           {reasons.map((item, index) => (
             <ReasonItem key={index} item={item} index={index} />
           ))}
