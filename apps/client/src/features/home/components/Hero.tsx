@@ -43,29 +43,129 @@ const TechPill = ({ label, index, offset }: { label: typeof TECH_LABELS[0]; inde
   </React.Fragment>
 );
 
-const VerticalPillar = ({ text, delay, gradientDirection }: { text: string; delay: number, gradientDirection: "to-t" | "to-b" }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.6, delay }}
-    className={cn(
-      "flex w-full lg:w-12 md:lg:w-14 h-16 lg:h-full rounded-full flex-row lg:flex-col justify-between px-6 lg:px-0 py-0 lg:py-6 items-center shadow-lg transition-all cursor-pointer relative overflow-hidden shrink-0 group hover:shadow-xl",
-      gradientDirection === "to-t"
-        ? "bg-gradient-to-r lg:bg-gradient-to-t from-[#2052bd] to-[#7fcbe4]"
-        : "bg-gradient-to-l lg:bg-gradient-to-b from-[#2052bd] to-[#7fcbe4]"
-    )}
-  >
-    <div className="flex-1 flex items-center justify-start lg:justify-center relative w-full overflow-hidden ml-4 lg:ml-0">
-      <div 
-        className="text-white text-base md:text-xl font-medium tracking-wide transition-all pointer-events-none lg:[writing-mode:vertical-rl] lg:[text-orientation:mixed] lg:-scale-y-100 lg:-scale-x-100"
-      >
-        {text}
-      </div>
-    </div>
-  </motion.div>
-);
+const VerticalPillar = ({ text, delay, gradientDirection }: { text: string; delay: number, gradientDirection: "to-t" | "to-b" }) => {
+  const pillarRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-const HeroCard = ({ children, delay, variant, className, xOffset }: { children: React.ReactNode, delay: number, variant: "tr-bl" | "tl-br" | "tr-bcenter", className: string, xOffset: number }) => {
+  useEffect(() => {
+    const updateSize = () => {
+      if (pillarRef.current) {
+        setDimensions({
+          width: pillarRef.current.offsetWidth,
+          height: pillarRef.current.offsetHeight,
+        });
+      }
+    };
+    
+    updateSize();
+    const observer = new ResizeObserver(updateSize);
+    if (pillarRef.current) {
+      observer.observe(pillarRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+
+  const generatePillarPath = (width: number, height: number) => {
+    if (!width || !height) return "";
+    
+    const isHorizontal = width > height;
+    // Set a fixed 12px border radius for sharper corners
+    const R = 12; 
+    
+    // Notch length is 50% of the item's long dimension
+    const notchLen = isHorizontal ? width * 0.5 : height * 0.5;
+    // Reduced depth as requested
+    const notchDepth = 5;
+    // Size of the smooth rounded curve at the notch corners
+    const curveSize = 10;
+
+    if (isHorizontal) {
+      const cx = width / 2;
+      return `
+        M ${R} 0
+        L ${cx - notchLen/2} 0
+        C ${cx - notchLen/2 + curveSize/2} 0, ${cx - notchLen/2 + curveSize/2} ${notchDepth}, ${cx - notchLen/2 + curveSize} ${notchDepth}
+        L ${cx + notchLen/2 - curveSize} ${notchDepth}
+        C ${cx + notchLen/2 - curveSize/2} ${notchDepth}, ${cx + notchLen/2 - curveSize/2} 0, ${cx + notchLen/2} 0
+        L ${width - R} 0
+        A ${R} ${R} 0 0 1 ${width} ${R}
+        L ${width} ${height - R}
+        A ${R} ${R} 0 0 1 ${width - R} ${height}
+        L ${cx + notchLen/2} ${height}
+        C ${cx + notchLen/2 - curveSize/2} ${height}, ${cx + notchLen/2 - curveSize/2} ${height - notchDepth}, ${cx + notchLen/2 - curveSize} ${height - notchDepth}
+        L ${cx - notchLen/2 + curveSize} ${height - notchDepth}
+        C ${cx - notchLen/2 + curveSize/2} ${height - notchDepth}, ${cx - notchLen/2 + curveSize/2} ${height}, ${cx - notchLen/2} ${height}
+        L ${R} ${height}
+        A ${R} ${R} 0 0 1 0 ${height - R}
+        L 0 ${R}
+        A ${R} ${R} 0 0 1 ${R} 0
+        Z
+      `.replace(/\s+/g, ' ').trim();
+    } else {
+      const cy = height / 2;
+      return `
+        M ${R} 0
+        L ${width - R} 0
+        A ${R} ${R} 0 0 1 ${width} ${R}
+        L ${width} ${cy - notchLen/2}
+        C ${width} ${cy - notchLen/2 + curveSize/2}, ${width - notchDepth} ${cy - notchLen/2 + curveSize/2}, ${width - notchDepth} ${cy - notchLen/2 + curveSize}
+        L ${width - notchDepth} ${cy + notchLen/2 - curveSize}
+        C ${width - notchDepth} ${cy + notchLen/2 - curveSize/2}, ${width} ${cy + notchLen/2 - curveSize/2}, ${width} ${cy + notchLen/2}
+        L ${width} ${height - R}
+        A ${R} ${R} 0 0 1 ${width - R} ${height}
+        L ${R} ${height}
+        A ${R} ${R} 0 0 1 0 ${height - R}
+        L 0 ${cy + notchLen/2}
+        C 0 ${cy + notchLen/2 - curveSize/2}, ${notchDepth} ${cy + notchLen/2 - curveSize/2}, ${notchDepth} ${cy + notchLen/2 - curveSize}
+        L ${notchDepth} ${cy - notchLen/2 + curveSize}
+        C ${notchDepth} ${cy - notchLen/2 + curveSize/2}, 0 ${cy - notchLen/2 + curveSize/2}, 0 ${cy - notchLen/2}
+        L 0 ${R}
+        A ${R} ${R} 0 0 1 ${R} 0
+        Z
+      `.replace(/\s+/g, ' ').trim();
+    }
+  };
+
+  const pathD = generatePillarPath(dimensions.width, dimensions.height);
+  const safeId = text.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+  const clipId = `clip-pillar-${safeId}`;
+
+  return (
+    <motion.div
+      ref={pillarRef as any}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, delay }}
+      style={dimensions.width ? { clipPath: `url(#${clipId})` } : { overflow: 'hidden', borderRadius: '12px' }}
+      className={cn(
+        "flex w-full lg:w-12 md:lg:w-14 h-16 lg:h-full flex-row lg:flex-col justify-between px-6 lg:px-0 py-0 lg:py-6 items-center shadow-lg transition-all cursor-pointer relative shrink-0 group hover:shadow-xl",
+        gradientDirection === "to-t"
+          ? "bg-gradient-to-r lg:bg-gradient-to-t from-[#2052bd] to-[#7fcbe4]"
+          : "bg-gradient-to-l lg:bg-gradient-to-b from-[#2052bd] to-[#7fcbe4]"
+      )}
+    >
+      {dimensions.width > 0 && (
+        <svg width="0" height="0" className="absolute pointer-events-none">
+          <defs>
+            <clipPath id={clipId}>
+              <path d={pathD} />
+            </clipPath>
+          </defs>
+        </svg>
+      )}
+      <div className="flex-1 flex items-center justify-start lg:justify-center relative w-full overflow-hidden ml-4 lg:ml-0">
+        <div 
+          className="text-white text-base md:text-xl font-medium tracking-wide transition-all pointer-events-none lg:[writing-mode:vertical-rl] lg:[text-orientation:mixed] lg:-scale-y-100 lg:-scale-x-100"
+        >
+          {text}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const HeroCard = ({ children, delay, variant, className, xOffset, pathBorderColor }: { children: React.ReactNode, delay: number, variant: "tr-bl" | "tl-br" | "tr-bcenter", className: string, xOffset: number, pathBorderColor?: string }) => {
   const cardRef = useRef<HTMLElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
@@ -92,10 +192,9 @@ const HeroCard = ({ children, delay, variant, className, xOffset }: { children: 
     if (!width || !height) return "";
     
     const R = 32; 
-    const isFourth = variant === "tl-br";
-    
-    let CW = isFourth ? (width > 400 ? 200 : 140) : (width > 400 ? 200 : 120);
-    let SW = isFourth ? (width > 400 ? 100 : 80) : 70;
+    // Make the curve width identical for all cards (including the first and fourth card)
+    let CW = width > 400 ? 200 : 120;
+    let SW = width > 400 ? 70 : 50;
     
     // Failsafes to prevent path overlapping the corner radii (which causes spikes)
     if (width - CW < R + 5) CW = Math.max(width - R - 5, R + 10);
@@ -175,8 +274,9 @@ const HeroCard = ({ children, delay, variant, className, xOffset }: { children: 
     }
   };
 
+  const uniqueId = React.useId().replace(/:/g, '');
   const pathD = generateCardPath(dimensions.width, dimensions.height, variant);
-  const clipId = `clip-hero-${variant}`;
+  const clipId = `clip-hero-${variant}-${uniqueId}`;
 
   return (
     <motion.article 
@@ -194,6 +294,11 @@ const HeroCard = ({ children, delay, variant, className, xOffset }: { children: 
           </clipPath>
         </defs>
       </svg>
+      {pathBorderColor && dimensions.width > 0 && (
+        <svg width={dimensions.width} height={dimensions.height} className="absolute inset-0 pointer-events-none z-10" viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
+          <path d={pathD} stroke={pathBorderColor} strokeWidth="2" fill="none" />
+        </svg>
+      )}
       {children}
     </motion.article>
   );
@@ -259,7 +364,7 @@ export const Hero: React.FC = () => {
             delay={0}
             variant="tr-bl"
             xOffset={-50}
-            className="relative w-full lg:flex-[1.6] h-[280px] md:h-[350px] lg:h-auto lg:self-stretch overflow-hidden bg-[url('/images/home/heroImg1.png')] bg-cover bg-center shadow-2xl shrink-0"
+            className="relative w-full lg:flex-[1.6] h-[280px] md:h-[350px] lg:h-auto lg:self-stretch overflow-hidden bg-[url('/images/home/heroImg1.png?v=2')] bg-cover bg-center shadow-2xl shrink-0"
           >
             {/* Overlays (From Original) */}
             <div className="absolute inset-0 bg-black/10 mix-blend-multiply" />
@@ -311,8 +416,19 @@ export const Hero: React.FC = () => {
                <div className="absolute inset-0 bg-gradient-to-b from-blue-200/40 via-blue-100/20 to-white" />
              </div>
 
-            <div className="relative h-full flex flex-col justify-between p-4 z-10 bg-[url('/images/home/heroImg2.jpg')] bg-cover bg-center">
-              <div className="backdrop-blur-md border border-blue-500/20 p-4 md:p-6 rounded-2xl shadow-lg h-full flex flex-col justify-center relative">
+            <div className="relative h-full flex flex-col justify-between p-4 z-10 overflow-hidden">
+              <motion.div
+                className="absolute inset-[-50%] bg-[url('/images/home/heroImg2.jpg?v=2')] bg-cover bg-center z-0"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              />
+              <HeroCard
+                delay={0.2}
+                variant="tl-br"
+                xOffset={0}
+                pathBorderColor="rgba(59, 130, 246, 0.2)"
+                className="backdrop-blur-md p-4 md:p-6 shadow-lg h-full w-full flex flex-col justify-center relative"
+              >
                 
                 {/* Content (Original Text) */}
                 <div className="flex w-full justify-center items-center text-center relative z-10">
@@ -326,7 +442,7 @@ export const Hero: React.FC = () => {
                   </motion.h1>
                 </div>
 
-              </div>
+              </HeroCard>
             </div>
           </HeroCard>
 
