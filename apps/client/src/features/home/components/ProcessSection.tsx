@@ -177,6 +177,30 @@ export default function ProcessSection() {
       id="process"
       className="relative bg-black text-white py-20 lg:py-28 overflow-hidden lg:pb-36"
     >
+      {/* Top Notched Border */}
+      <div className="absolute top-0 left-0 w-full flex pointer-events-none z-20">
+        <div className="flex-1 border-t-[1.5px] border-[#2b6deb]" />
+        <svg width="480" height="60" viewBox="0 0 480 60" className="shrink-0 -mx-[0.5px]">
+          <path 
+            d="M 0 0.75 C 48 0.75, 72 56.75, 144 56.75 L 336 56.75 C 408 56.75, 432 0.75, 480 0.75" 
+            fill="none" stroke="#2b6deb" strokeWidth="1.5" 
+          />
+        </svg>
+        <div className="flex-1 border-t-[1.5px] border-[#2b6deb]" />
+      </div>
+
+      {/* Bottom Notched Border */}
+      <div className="absolute bottom-0 left-0 w-full flex pointer-events-none z-20">
+        <div className="flex-1 border-b-[1.5px] border-[#2b6deb]" />
+        <svg width="480" height="60" viewBox="0 0 480 60" className="shrink-0 -mx-[0.5px]">
+          <path 
+            d="M 0 59.25 C 48 59.25, 72 3.25, 144 3.25 L 336 3.25 C 408 3.25, 432 59.25, 480 59.25" 
+            fill="none" stroke="#2b6deb" strokeWidth="1.5" 
+          />
+        </svg>
+        <div className="flex-1 border-b-[1.5px] border-[#2b6deb]" />
+      </div>
+
       {/* linear accents */}
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-linear-to-tr from-cyan-500 to-blue-400 opacity-20 blur-3xl" />
 
