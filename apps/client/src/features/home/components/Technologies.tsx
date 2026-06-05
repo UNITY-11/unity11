@@ -85,14 +85,14 @@ const techIcons = [
 
 export default function Technologies() {
   return (
-    <section id="technologies" className="relative h-screen py-20 overflow-hidden bg-white">
-      <div className="max-w-7xl h-full mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 gap-10">
+    <section id="technologies" className="relative min-h-[100svh] lg:h-screen py-16 md:py-24 lg:py-32 overflow-hidden bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl h-full flex flex-col lg:flex-row items-center justify-between gap-10">
         {/* Left side text */}
         <div className="flex-1 text-center lg:text-left sm:w-[50%]">
           <h2 className="text-3xl md:text-6xl leading-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
             TECHNOLOGIES <br /> OUR TEAM USES
           </h2>
-          <p className="text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0">
+          <p className="text-slate-400 mb-10 md:mb-12 max-w-xl mx-auto lg:mx-0">
             We leverage the latest technologies to build scalable, secure, and
             high-performing digital products that power your business success.
           </p>
