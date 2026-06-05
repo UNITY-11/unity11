@@ -85,7 +85,7 @@ const techIcons = [
 
 export default function Technologies() {
   return (
-    <section className="relative h-screen py-20 overflow-hidden">
+    <section id="technologies" className="relative h-screen py-20 overflow-hidden bg-white">
       <div className="max-w-7xl h-full mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 gap-10">
         {/* Left side text */}
         <div className="flex-1 text-center lg:text-left sm:w-[50%]">
