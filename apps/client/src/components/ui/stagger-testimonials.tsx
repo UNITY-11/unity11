@@ -167,15 +167,15 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       {/* Border Wrapper */}
       <div 
         className={cn(
-          "w-full h-full p-[1px] transition-colors duration-300 rounded-[24px] overflow-hidden",
-          isCenter ? "bg-blue-500" : isHovered ? "bg-blue-500/50" : "bg-white/10"
+          "w-full h-full p-[1px] transition-all duration-300 rounded-[24px] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_50px_rgba(0,0,0,0.25)]",
+          isCenter ? "bg-blue-500 shadow-blue-500/30" : isHovered ? "bg-blue-400" : "bg-white"
         )}
       >
         {/* Inner Card Background */}
         <div 
           className={cn(
             "w-full h-full p-8 flex flex-col relative rounded-[23px] overflow-hidden",
-            isCenter ? "bg-blue-600 text-white" : "bg-[#050505] text-white"
+            isCenter ? "bg-blue-600 text-white" : "bg-white text-slate-900"
           )}
         >
           <img
@@ -185,13 +185,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           />
           <h3 className={cn(
             "text-base sm:text-xl font-medium",
-            isCenter ? "text-white" : "text-white"
+            isCenter ? "text-white" : "text-slate-900"
           )}>
             "{testimonial.testimonial}"
           </h3>
           <p className={cn(
             "absolute bottom-8 left-8 right-8 mt-2 text-sm italic",
-            isCenter ? "text-white/80" : "text-slate-400"
+            isCenter ? "text-white/80" : "text-slate-600"
           )}>
             - {testimonial.by}
           </p>

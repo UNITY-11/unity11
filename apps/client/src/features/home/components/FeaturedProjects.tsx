@@ -54,7 +54,7 @@ export default function FeaturedProjectsSection() {
   const router = useRouter();
 
   return (
-    <section className="w-full py-20 bg-white">
+    <section className="w-full py-20 bg-black">
       <div className="max-w-7xl mx-auto px-6">
         {/* heading */}
         <motion.div

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { posts } from "@/features/blogs/data/blogs";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate } from "motion/react";
+import { useRef } from "react";
 
 const sideDistance = 200;
 
@@ -19,23 +20,23 @@ const getCardVariants = (i: number, isMobile: boolean) => {
 
   if (i === 0) {
     return {
-      initial: {x: sideDistance, scale:1},
-      animate: {x: 0, scale:0.85},
+      initial: { opacity: 0, x: sideDistance, scale: 1 },
+      animate: { opacity: 1, x: 0, scale: 0.85 },
     };
   } else if (i === 1) {
     return {
-      initial: { x: 0,},
-      animate: {x:0,},
+      initial: { opacity: 0, x: 0, y: 30 },
+      animate: { opacity: 1, x: 0, y: 0 },
     };
   } else if (i === 2) {
     return {
-      initial: {x: -sideDistance, scale:1,},
-      animate: {x: 0, scale:0.85},
+      initial: { opacity: 0, x: -sideDistance, scale: 1 },
+      animate: { opacity: 1, x: 0, scale: 0.85 },
     };
   } else {
     return {
-      initial: {x: 30 },
-      animate: {x: 0 },
+      initial: { opacity: 0, x: 30 },
+      animate: { opacity: 1, x: 0 },
     };
   }
 };
@@ -51,14 +52,45 @@ export default function BlogSection() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+      target: containerRef,
+      offset: ["0 1", "0 0"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+      stiffness: 100,
+      damping: 30,
+      restDelta: 0.001
+  });
+
+  const targetProgress = isMobile ? 0.5 : 1;
+  const startWidth = isMobile ? 90 : 50;
+  const startRadius = isMobile ? 60 : 300;
+
+  const widthVal = useTransform(smoothProgress, [0, targetProgress], [startWidth, 100]);
+  const width = useMotionTemplate`${widthVal}%`;
+
+  const radiusVal = useTransform(smoothProgress, [0, targetProgress], [startRadius, 0]);
+  const borderRadius = useMotionTemplate`${radiusVal}px`;
+
   return (
-    <section className="py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto md:px-6">
-        <div className="relative flex items-center justify-center mb-10 px-6 md:px-0">
-          <h2 className="text-3xl md:text-6xl text-transparent bg-clip-text bg-linear-to-r pb-1 from-[#2052bd] to-[#7fcbe4]">
-            Our Blogs
-          </h2>
-        </div>
+    <div ref={containerRef} className="w-full flex justify-center pt-10 bg-white">
+      <motion.section 
+        style={{ 
+            width, 
+            borderTopLeftRadius: borderRadius,
+            borderTopRightRadius: borderRadius,
+        }}
+        className="relative py-20 overflow-hidden bg-black"
+      >
+        <div className="max-w-7xl mx-auto md:px-6">
+          <div className="relative flex items-center justify-center mb-10 px-6 md:px-0">
+            <h2 className="text-3xl md:text-6xl text-transparent bg-clip-text bg-linear-to-r pb-1 from-[#2052bd] to-[#7fcbe4]">
+              Our Blogs
+            </h2>
+          </div>
 
         <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-6 md:px-0 pb-8 md:pb-0">
           {posts.map((post, i) => {
@@ -108,22 +140,23 @@ export default function BlogSection() {
           })}
         </div>
       </div>
-      <div className="mt-10 right-0 flex justify-center text-blue-500 w-full overflow-hidden px-4">
-        <div className="flex justify-between items-center gap-2 sm:gap-4 w-full max-w-sm mx-auto">
-          <button className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center">
+      <div className="mt-20 right-0 flex justify-center text-blue-500 w-full overflow-hidden px-4">
+        <div className="flex justify-between items-center w-full max-w-md mx-auto">
+          <button className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
             <IoIosArrowBack className="text-lg" />
           </button>
           <button
             onClick={() => router.push("/blogs")}
-            className="flex items-center justify-center rounded-full bg-linear-to-r px-8 sm:px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-2 sm:gap-4 hover:gap-8 duration-500 flex-1 whitespace-nowrap"
+            className="flex items-center justify-center rounded-full border-2 border-blue-500 px-8 sm:px-12 py-2 text-[#2052bd] shadow-lg transition-all gap-2 sm:gap-4 hover:gap-8 duration-500 flex-1 whitespace-nowrap font-semibold"
           >
             See More
           </button>
-          <button className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center">
+          <button className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
             <IoIosArrowForward className="text-lg" />
           </button>
         </div>
       </div>
-    </section>
+      </motion.section>
+    </div>
   );
 }

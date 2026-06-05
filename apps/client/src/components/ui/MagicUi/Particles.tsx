@@ -43,10 +43,11 @@ interface ParticlesProps extends ComponentPropsWithoutRef<"div"> {
   staticity?: number
   ease?: number
   size?: number
-  refresh?: boolean
   color?: string
+  colors?: string[]
   vx?: number
   vy?: number
+  refresh?: boolean
 }
 
 function hexToRgb(hex: string): number[] {
@@ -77,6 +78,7 @@ type Circle = {
   dx: number
   dy: number
   magnetism: number
+  rgb: number[]
 }
 
 export const Particles: React.FC<ParticlesProps> = ({
@@ -87,6 +89,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   size = 0.4,
   refresh = false,
   color = "#ffffff",
+  colors,
   vx = 0,
   vy = 0,
   ...props
@@ -200,6 +203,13 @@ export const Particles: React.FC<ParticlesProps> = ({
     const dx = (Math.random() - 0.5) * 0.1
     const dy = (Math.random() - 0.5) * 0.1
     const magnetism = 0.1 + Math.random() * 4
+
+    let particleColor = hexToRgb(color)
+    if (colors && colors.length > 0) {
+      const randomHex = colors[Math.floor(Math.random() * colors.length)]
+      particleColor = hexToRgb(randomHex)
+    }
+
     return {
       x,
       y,
@@ -211,14 +221,13 @@ export const Particles: React.FC<ParticlesProps> = ({
       dx,
       dy,
       magnetism,
+      rgb: particleColor,
     }
   }
 
-  const rgb = hexToRgb(color)
-
   const drawCircle = (circle: Circle, update = false) => {
     if (context.current) {
-      const { x, y, translateX, translateY, size, alpha } = circle
+      const { x, y, translateX, translateY, size, alpha, rgb } = circle
       context.current.translate(translateX, translateY)
       context.current.beginPath()
       context.current.arc(x, y, size, 0, 2 * Math.PI)

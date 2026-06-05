@@ -29,6 +29,8 @@ const Navbar: React.FC = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
 
+  const [isWhiteBg, setIsWhiteBg] = useState(false);
+
   // Scroll behavior
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +43,27 @@ const Navbar: React.FC = () => {
         setShowNav(true);
       }
       setLastScrollY(currentScrollY);
+
+      // Check if over white background sections
+      const testimonialsEl = document.getElementById("testimonials");
+      const technologiesEl = document.getElementById("technologies");
+      
+      let overWhite = false;
+      const navHeight = 80;
+
+      if (testimonialsEl) {
+        const rect = testimonialsEl.getBoundingClientRect();
+        if (rect.top <= navHeight && rect.bottom >= navHeight) {
+          overWhite = true;
+        }
+      }
+      if (technologiesEl) {
+        const rect = technologiesEl.getBoundingClientRect();
+        if (rect.top <= navHeight && rect.bottom >= navHeight) {
+          overWhite = true;
+        }
+      }
+      setIsWhiteBg(overWhite);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -61,7 +84,7 @@ const Navbar: React.FC = () => {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
         showNav ? "translate-y-0" : "-translate-y-full"
       } ${
-        pathname === "/" && lastScrollY < 50 ? "bg-transparent border-transparent" : "bg-black/95 backdrop-blur-md border-b border-white/10"
+        pathname === "/" && lastScrollY < 50 ? "bg-transparent" : (isWhiteBg ? "bg-white/95 backdrop-blur-md" : "bg-black/95 backdrop-blur-md")
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
@@ -87,16 +110,16 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <ul className="flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border border-white/5">
+          <ul className={`flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border ${isWhiteBg ? 'border-black/5 bg-gray-50/50' : 'border-white/5'}`}>
             {navLinks.map((link) => (
               <li key={link.name} className="relative">
                 <Link
                   href={link.href}
                   onClick={() => setActiveLink(link.name)}
-                  className={`relative z-10 block rounded-full px-6 py-2 text-sm font-medium transition-colors text-blue-400 ${
+                  className={`relative z-10 block rounded-full px-6 py-2 text-sm font-medium transition-colors ${
                     activeLink === link.name
                       ? "text-white"
-                      : "hover:text-[#185fca]"
+                      : (isWhiteBg ? "text-gray-600 hover:text-[#185fca]" : "text-blue-400 hover:text-[#185fca]")
                   }`}
                 >
                   {link.name}
@@ -120,7 +143,7 @@ const Navbar: React.FC = () => {
         {/* CTA Button (Desktop) */}
         <Link
           href="/get-started"
-          className="hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 bg-black p-0.5 transition-transform"
+          className={`hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 p-0.5 transition-transform ${isWhiteBg ? 'bg-white' : 'bg-black'}`}
         >
           {/* Dynamic Section */}
           <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] transition-all duration-500 ease-in-out group-hover:w-full">
@@ -138,7 +161,7 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-white absolute left-5"
+          className={`md:hidden absolute left-5 ${isWhiteBg ? 'text-black' : 'text-white'}`}
         >
           {menuOpen ? <IoIosClose size={40} /> : <IoIosMenu size={28} />}
         </button>
