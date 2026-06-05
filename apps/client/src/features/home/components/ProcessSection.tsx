@@ -190,7 +190,7 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-black text-white py-20 lg:py-28 overflow-hidden lg:pb-36"
+      className="relative bg-black text-white py-16 md:py-24 lg:py-32 overflow-hidden"
     >
       {/* Top Notched Border */}
       <div className="absolute top-0 left-0 w-full flex pointer-events-none z-20">
@@ -219,14 +219,14 @@ export default function ProcessSection() {
       {/* linear accents */}
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-linear-to-tr from-cyan-500 to-blue-400 opacity-20 blur-3xl" />
 
-      <div className="container mx-auto px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
           <h2 className="text-4xl sm:text-6xl text-white">
             Our{" "}
@@ -242,7 +242,7 @@ export default function ProcessSection() {
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
           {steps.map((step, index) => (
             <ProcessCard key={index} step={step} index={index} />
           ))}
