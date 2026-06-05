@@ -18,12 +18,12 @@ const navLinks: NavLink[] = [
   { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Projects", href: "/projects" },
-  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
 const Navbar: React.FC = () => {
   const [activeLink, setActiveLink] = useState("Home");
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -63,6 +63,7 @@ const Navbar: React.FC = () => {
           overWhite = true;
         }
       }
+
       setIsWhiteBg(overWhite);
     };
 
@@ -110,20 +111,48 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
-          <ul className={`flex items-center gap-2 backdrop-blur-md p-1 rounded-full shadow-md border ${isWhiteBg ? 'border-black/5 bg-gray-50/50' : 'border-white/5'}`}>
+          <ul 
+            className="flex items-center gap-6"
+            onMouseLeave={() => setHoveredLink(null)}
+          >
             {navLinks.map((link) => (
-              <li key={link.name} className="relative">
+              <li 
+                key={link.name} 
+                className="relative group"
+                onMouseEnter={() => setHoveredLink(link.name)}
+              >
                 <Link
                   href={link.href}
                   onClick={() => setActiveLink(link.name)}
                   className={`relative z-10 block rounded-full px-6 py-2 text-sm font-medium transition-colors ${
                     activeLink === link.name
                       ? "text-white"
-                      : (isWhiteBg ? "text-gray-600 hover:text-[#185fca]" : "text-blue-400 hover:text-[#185fca]")
+                      : (isWhiteBg ? "text-gray-600 group-hover:text-[#2b6deb]" : "text-[#60a5fa] group-hover:text-[#2b6deb]")
                   }`}
                 >
                   {link.name}
                 </Link>
+
+                {/* Hover Border for non-active links */}
+                {hoveredLink === link.name && activeLink !== link.name && (
+                  <motion.div 
+                    layoutId="hover-border"
+                    className="absolute -left-2 -right-2 top-1/2 -translate-y-1/2 h-[36px] flex pointer-events-none"
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                  >
+                    <div className="h-full flex-1 border-y-[1.5px] border-l-[1.5px] border-[#2b6deb] rounded-l-xl" />
+                    <svg width="40" height="36" viewBox="0 0 40 36" className="shrink-0 -mx-[0.5px]">
+                      <path d="M 0 0.75 C 4 0.75, 6 6.75, 12 6.75 L 28 6.75 C 34 6.75, 36 0.75, 40 0.75 M 40 35.25 C 36 35.25, 34 29.25, 28 29.25 L 12 29.25 C 6 29.25, 4 35.25, 0 35.25" fill="none" stroke="#2b6deb" strokeWidth="1.5" />
+                    </svg>
+                    <div className="h-full flex-1 border-y-[1.5px] border-r-[1.5px] border-[#2b6deb] rounded-r-xl" />
+                  </motion.div>
+                )}
+
+                {/* Active Pill Fill */}
                 {activeLink === link.name && (
                   <motion.div
                     layoutId="active-pill"
@@ -146,20 +175,24 @@ const Navbar: React.FC = () => {
           </ul>
         </div>
 
-        {/* CTA Button (Desktop) */}
         <Link
           href="/get-started"
-          className={`hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 p-0.5 transition-transform ${isWhiteBg ? 'bg-white' : 'bg-black'}`}
+          style={{ clipPath: "path('M 12 0 L 50 0 C 54 0, 56 6, 62 6 L 78 6 C 84 6, 86 0, 90 0 L 128 0 A 12 12 0 0 1 140 12 L 140 28 A 12 12 0 0 1 128 40 L 90 40 C 86 40, 84 34, 78 34 L 62 34 C 56 34, 54 40, 50 40 L 12 40 A 12 12 0 0 1 0 28 L 0 12 A 12 12 0 0 1 12 0 Z')" }}
+          className={`hidden sm:inline-flex group relative h-10 w-[140px] items-center transition-transform ${isWhiteBg ? 'bg-white' : 'bg-black'}`}
         >
+          <svg className="absolute inset-0 pointer-events-none z-20" width="140" height="40" viewBox="0 0 140 40">
+            <path d="M 12 0 L 50 0 C 54 0, 56 6, 62 6 L 78 6 C 84 6, 86 0, 90 0 L 128 0 A 12 12 0 0 1 140 12 L 140 28 A 12 12 0 0 1 128 40 L 90 40 C 86 40, 84 34, 78 34 L 62 34 C 56 34, 54 40, 50 40 L 12 40 A 12 12 0 0 1 0 28 L 0 12 A 12 12 0 0 1 12 0 Z" fill="none" stroke="#2b6deb" strokeWidth="2" />
+          </svg>
+          
           {/* Dynamic Section */}
-          <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] transition-all duration-500 ease-in-out group-hover:w-full">
-            <span className="text-white text-sm font-bold tracking-tight whitespace-nowrap">
+          <div className="flex h-full w-[80%] relative z-10 items-center justify-center rounded-xl bg-transparent group-hover:bg-[#2b6deb] transition-all duration-500 ease-in-out group-hover:w-full">
+            <span className="text-[#2b6deb] group-hover:text-white transition-colors duration-500 text-sm font-bold tracking-tight whitespace-nowrap">
               Get started
             </span>
           </div>
 
           {/* Icon Section */}
-          <div className="flex h-full w-[20%] items-center justify-center text-[#2052bd] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+          <div className="flex h-full w-[20%] relative z-10 items-center justify-center text-[#2b6deb] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
             <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
           </div>
         </Link>
@@ -179,9 +212,9 @@ const Navbar: React.FC = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-black border-t border-gray-800 mt-3 h-screen flex justify-center items-center py-10"
+          className="md:hidden fixed top-[68px] left-0 w-full h-[calc(100vh-68px)] bg-black/95 backdrop-blur-md border-t border-gray-800 flex flex-col justify-center items-center py-10 z-40 overflow-y-auto"
         >
-          <ul className="h-full flex flex-col gap-10 items-center">
+          <ul className="h-full flex flex-col gap-10 items-center justify-center">
             {navLinks.map((link) => (
               <li key={link.name}>
                 <Link
@@ -205,17 +238,22 @@ const Navbar: React.FC = () => {
             <Link
               href="/get-started"
               onClick={() => setMenuOpen(false)}
-              className="group relative inline-flex h-12 w-[160px] items-center overflow-hidden rounded-full border border-blue-400 bg-black p-0.5 transition-transform shadow-md"
+              style={{ clipPath: "path('M 12 0 L 60 0 C 64 0, 66 6, 72 6 L 88 6 C 94 6, 96 0, 100 0 L 148 0 A 12 12 0 0 1 160 12 L 160 36 A 12 12 0 0 1 148 48 L 100 48 C 96 48, 94 42, 88 42 L 72 42 C 66 42, 64 48, 60 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z')" }}
+              className="group relative inline-flex h-12 w-[160px] items-center bg-black transition-transform shadow-md"
             >
+              <svg className="absolute inset-0 pointer-events-none z-20" width="160" height="48" viewBox="0 0 160 48">
+                <path d="M 12 0 L 60 0 C 64 0, 66 6, 72 6 L 88 6 C 94 6, 96 0, 100 0 L 148 0 A 12 12 0 0 1 160 12 L 160 36 A 12 12 0 0 1 148 48 L 100 48 C 96 48, 94 42, 88 42 L 72 42 C 66 42, 64 48, 60 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z" fill="none" stroke="#2b6deb" strokeWidth="2" />
+              </svg>
+              
               {/* Dynamic Section */}
-              <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] transition-all duration-500 ease-in-out group-hover:w-full">
-                <span className="text-white text-sm font-bold tracking-tight whitespace-nowrap">
+              <div className="flex h-full w-[80%] relative z-10 items-center justify-center rounded-xl bg-transparent group-hover:bg-[#2b6deb] transition-all duration-500 ease-in-out group-hover:w-full">
+                <span className="text-[#2b6deb] group-hover:text-white transition-colors duration-500 text-sm font-bold tracking-tight whitespace-nowrap">
                   Get started
                 </span>
               </div>
 
               {/* Icon Section */}
-              <div className="flex h-full w-[20%] items-center justify-center text-[#2052bd] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+              <div className="flex h-full w-[20%] relative z-10 items-center justify-center text-[#2b6deb] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
                 <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
               </div>
             </Link>
