@@ -20,7 +20,7 @@ function Clients() {
   );
 
   return (
-    <div className="w-full py-16 md:py-24 overflow-hidden relative z-20">
+    <div className="w-full py-16 md:py-24 lg:py-32 overflow-hidden relative z-20">
       <ScrollVelocityContainer className="flex flex-col gap-2 md:gap-4 w-full [mask:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
         <ScrollVelocityRow baseVelocity={2} direction={1}>
           {logos}
