@@ -309,14 +309,14 @@ export default function seServiceSection() {
   ];
 
   return (
-    <section id="services" className="relative py-20 lg:py-28 overflow-hidden">
+    <section id="services" className="relative py-16 md:py-24 lg:py-32 overflow-hidden">
       <div className="absolute inset-0" />
 
       {/* Blur background accent */}
       <div className="absolute top-50 -left-20 h-64 w-64 bg-linear-to-tr from-blue-600 to-cyan-400 opacity-30 blur-3xl" />
       <div className="absolute bottom-20 -right-20 h-64 w-64 bg-linear-to-tr from-cyan-500 to-sky-400 opacity-30 blur-3xl" />
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -336,15 +336,15 @@ export default function seServiceSection() {
           </p>
         </motion.div>
 
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           {services.map((service, index) => (
             <CustomServiceCard key={index} service={service} index={index} />
           ))}
         </div>
       </div>
 
-      <div className="relative w-screen overflow-hidden py-10">
-        <ScrollVelocityContainer className="text-4xl md:text-8xl mt-20 mb-5 bg-clip-text text-blue-500 z-10">
+      <div className="relative w-full overflow-hidden py-10">
+        <ScrollVelocityContainer className="text-4xl md:text-8xl mt-12 md:mt-20 mb-5 bg-clip-text text-blue-500 z-10">
           <ScrollVelocityRow baseVelocity={1} direction={1} className="pb-2 flex items-center overflow-visible">
             {["Custom Software Development", "Mobile Apps", "Web Apps", "SaaS Platforms"].map((item, i) => (
               <React.Fragment key={i}>
