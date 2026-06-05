@@ -25,7 +25,7 @@ export default function AboutSection() {
     <section 
       id="about" 
       ref={containerRef}
-      className="relative py-24 lg:py-40 overflow-hidden flex flex-col items-center justify-center bg-transparent"
+      className="relative py-16 md:py-24 lg:py-32 overflow-hidden flex flex-col items-center justify-center bg-transparent"
     >
       {/* Massive Parallax Background Text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
