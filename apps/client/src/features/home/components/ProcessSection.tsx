@@ -102,17 +102,32 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
       style={dimensions.width ? { clipPath: `url(#clip-process-${index})` } : { overflow: 'hidden', borderRadius: '2rem' }}
       className={`group relative text-white p-6 md:p-12 min-h-[14rem] md:h-56 lg:h-[260px] flex flex-col justify-center`}
     >
-      <svg width="0" height="0" className="absolute pointer-events-none">
-        <defs>
-          <clipPath id={`clip-process-${index}`}>
-            <motion.path 
-              initial={false}
-              animate={{ d: isHovered ? pathD_hover : pathD_normal }}
-              transition={{ duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] }}
-            />
-          </clipPath>
-        </defs>
-      </svg>
+      {pathD_normal && pathD_hover && (
+        <svg width="0" height="0" className="absolute pointer-events-none">
+          <defs>
+            <clipPath id={`clip-process-${index}`}>
+              <motion.path 
+                initial={false}
+                animate={{ d: isHovered ? pathD_hover : pathD_normal }}
+                transition={{ duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] }}
+              />
+            </clipPath>
+          </defs>
+        </svg>
+      )}
+
+      {pathD_normal && pathD_hover && (
+        <svg width={dimensions.width} height={dimensions.height} className="absolute inset-0 pointer-events-none z-10" viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
+          <motion.path 
+            initial={false}
+            animate={{ d: isHovered ? pathD_hover : pathD_normal }}
+            transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+            fill="rgba(59, 130, 246, 0.05)" 
+            stroke="#2b6deb" 
+            strokeWidth="1.5" 
+          />
+        </svg>
+      )}
       
       <div className="absolute inset-0 bg-[#2b6deb] group-hover:bg-blue-600 transition-colors duration-300 -z-10" />
 
