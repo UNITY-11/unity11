@@ -127,13 +127,19 @@ const Navbar: React.FC = () => {
                 {activeLink === link.name && (
                   <motion.div
                     layoutId="active-pill"
-                    className="absolute inset-0 bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] rounded-full"
+                    className="absolute -left-2 -right-2 top-1/2 -translate-y-1/2 h-[36px] flex pointer-events-none"
                     transition={{
                       type: "spring",
                       stiffness: 300,
                       damping: 30,
                     }}
-                  />
+                  >
+                    <div className="h-full flex-1 bg-[#2b6deb] rounded-l-xl" />
+                    <svg width="40" height="36" viewBox="0 0 40 36" className="shrink-0 -mx-[0.5px]">
+                      <path d="M 0 0 C 4 0, 6 6, 12 6 L 28 6 C 34 6, 36 0, 40 0 L 40 36 C 36 36, 34 30, 28 30 L 12 30 C 6 30, 4 36, 0 36 Z" fill="#2b6deb" />
+                    </svg>
+                    <div className="h-full flex-1 bg-[#2b6deb] rounded-r-xl" />
+                  </motion.div>
                 )}
               </li>
             ))}
