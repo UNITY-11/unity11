@@ -34,8 +34,18 @@ export const BackgroundBeams = ({ className }: { className?: string }) => {
       <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_100%_60vh_at_50%_0%,#000_60%,transparent_100%)]">
         <motion.div 
           style={{ x: springX, y: springY }}
-          className="absolute -inset-[10%] w-[120%] h-[120%] bg-gradient-to-br from-blue-500/40 via-cyan-400/40 to-blue-600/40 [mask-image:radial-gradient(circle_at_2px_2px,#000_2px,transparent_0)] [mask-size:32px_32px]" 
-        />
+          className="absolute -inset-[10%] w-[120%] h-[120%] opacity-50 [mask-image:radial-gradient(circle_at_2px_2px,#000_2px,transparent_0)] [mask-size:32px_32px] overflow-hidden" 
+        >
+          <motion.div
+            initial={{ y: "-50%" }}
+            animate={{ y: "0%" }}
+            transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+            className="absolute inset-x-0 top-0 w-full h-[200%]"
+            style={{
+              backgroundImage: "linear-gradient(to bottom, #ffffff 0%, #7fcbe4 16.66%, #2052bd 33.33%, #ffffff 50%, #7fcbe4 66.66%, #2052bd 83.33%, #ffffff 100%)",
+            }}
+          />
+        </motion.div>
       </div>
     </div>
   );
