@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
@@ -31,7 +31,7 @@ const TechPill = ({ label, index, offset }: { label: typeof TECH_LABELS[0]; inde
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: offset + index * 0.1 }}
-      className="group relative px-2 py-1 md:px-3 md:py-1.5 bg-transparent backdrop-blur-md rounded-full text-[10px] md:text-xs font-medium text-white shadow-sm hover:bg-blue-600/20 transition-colors cursor-pointer border border-white/10"
+      className="group relative px-2 py-1 md:px-3 md:py-1.5 bg-blue-600/80 backdrop-blur-md rounded-full text-[10px] md:text-xs font-medium text-white shadow-sm hover:bg-blue-500 transition-colors cursor-pointer border border-white/20"
       title={label.description}
     >
       {label.name}
@@ -65,6 +65,140 @@ const VerticalPillar = ({ text, delay, gradientDirection }: { text: string; dela
   </motion.div>
 );
 
+const HeroCard = ({ children, delay, variant, className, xOffset }: { children: React.ReactNode, delay: number, variant: "tr-bl" | "tl-br" | "tr-bcenter", className: string, xOffset: number }) => {
+  const cardRef = useRef<HTMLElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (cardRef.current) {
+        setDimensions({
+          width: cardRef.current.offsetWidth,
+          height: cardRef.current.offsetHeight,
+        });
+      }
+    };
+    
+    updateSize();
+    const observer = new ResizeObserver(updateSize);
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+
+  const generateCardPath = (width: number, height: number, variant: string) => {
+    if (!width || !height) return "";
+    
+    const R = 32; 
+    const isFourth = variant === "tl-br";
+    
+    let CW = isFourth ? (width > 400 ? 200 : 140) : (width > 400 ? 200 : 120);
+    let SW = isFourth ? (width > 400 ? 100 : 80) : 70;
+    
+    // Failsafes to prevent path overlapping the corner radii (which causes spikes)
+    if (width - CW < R + 5) CW = Math.max(width - R - 5, R + 10);
+    if (CW - SW < R + 5) SW = Math.max(CW - R - 5, 10);
+    
+    const NH = 35;  // Depth of the step
+    const CS = 30;  
+    
+    if (variant === "tr-bl" || variant === "tr-bcenter") {
+      const startTR = width - CW;
+      const endTR = width - CW + SW;
+      
+      let bottomPath = "";
+      if (variant === "tr-bcenter") {
+        const NW = 240;
+        const ND = 35;
+        const NC = width / 2;
+        const nStart = NC + 120; 
+        const nFlatStart = NC + 48;
+        const nFlatEnd = NC - 48;
+        const nEnd = NC - 120;
+
+        bottomPath = `
+        L ${nStart} ${height}
+        C ${nStart - 24} ${height}, ${nStart - 36} ${height - ND}, ${nFlatStart} ${height - ND}
+        L ${nFlatEnd} ${height - ND}
+        C ${nFlatEnd - 36} ${height - ND}, ${nEnd + 24} ${height}, ${nEnd} ${height}
+        L ${R} ${height}
+        A ${R} ${R} 0 0 1 0 ${height - R}
+        `;
+      } else {
+        const startBL = CW - SW;
+        const endBL = CW;
+        bottomPath = `
+        L ${endBL} ${height}
+        C ${endBL - CS} ${height}, ${startBL + CS} ${height - NH}, ${startBL} ${height - NH}
+        L ${R} ${height - NH}
+        A ${R} ${R} 0 0 1 0 ${height - NH - R}
+        `;
+      }
+
+      return `
+        M ${R} 0
+        L ${startTR} 0
+        C ${startTR + CS} 0, ${endTR - CS} ${NH}, ${endTR} ${NH}
+        L ${width - R} ${NH}
+        A ${R} ${R} 0 0 1 ${width} ${NH + R}
+        L ${width} ${height - R}
+        A ${R} ${R} 0 0 1 ${width - R} ${height}
+        ${bottomPath}
+        L 0 ${R}
+        A ${R} ${R} 0 0 1 ${R} 0
+        Z
+      `.replace(/\s+/g, ' ').trim();
+    } else {
+      const startTL = CW - SW;
+      const endTL = CW;
+      const startBR = width - CW;
+      const endBR = width - CW + SW;
+
+      return `
+        M ${R} ${NH}
+        L ${startTL} ${NH}
+        C ${startTL + CS} ${NH}, ${endTL - CS} 0, ${endTL} 0
+        L ${width - R} 0
+        A ${R} ${R} 0 0 1 ${width} ${R}
+        L ${width} ${height - NH - R}
+        A ${R} ${R} 0 0 1 ${width - R} ${height - NH}
+        L ${endBR} ${height - NH}
+        C ${endBR - CS} ${height - NH}, ${startBR + CS} ${height}, ${startBR} ${height}
+        L ${R} ${height}
+        A ${R} ${R} 0 0 1 0 ${height - R}
+        L 0 ${NH + R}
+        A ${R} ${R} 0 0 1 ${R} ${NH}
+        Z
+      `.replace(/\s+/g, ' ').trim();
+    }
+  };
+
+  const pathD = generateCardPath(dimensions.width, dimensions.height, variant);
+  const clipId = `clip-hero-${variant}`;
+
+  return (
+    <motion.article 
+      ref={cardRef as any}
+      initial={{ opacity: 0, x: xOffset }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay }}
+      style={dimensions.width ? { clipPath: `url(#${clipId})` } : { overflow: 'hidden', borderRadius: '1.5rem' }}
+      className={className}
+    >
+      <svg width="0" height="0" className="absolute pointer-events-none">
+        <defs>
+          <clipPath id={clipId}>
+            <path d={pathD} />
+          </clipPath>
+        </defs>
+      </svg>
+      {children}
+    </motion.article>
+  );
+};
+
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
@@ -72,13 +206,13 @@ export const Hero: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen bg-black pt-32 pb-12 overflow-hidden flex flex-col justify-center"
+      className="relative w-full h-auto lg:h-screen min-h-screen bg-black pt-28 pb-8 lg:pt-32 lg:pb-12 overflow-hidden flex flex-col justify-center"
     >
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <BackgroundBeams />
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto w-full px-4 lg:px-8 flex flex-col gap-10 lg:gap-14">
+      <div className="relative z-10 max-w-[1600px] mx-auto w-full px-4 lg:px-8 flex flex-col gap-8 lg:gap-10 h-full flex-1">
         
         {/* --- 1. TOP TYPOGRAPHY SECTION --- */}
         <div className="flex flex-col xl:flex-row justify-between items-start gap-8">
@@ -87,7 +221,7 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="flex-1"
+            className="flex-1 shrink-0"
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent font-medium leading-[1.1] uppercase tracking-tight font-sans">
               <span className="inline-flex items-center text-transparent">
@@ -111,7 +245,6 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="xl:max-w-xs flex flex-col items-start xl:items-end text-left xl:text-right gap-4 mt-6 xl:mt-0"
           >
-            <Sparkles className="w-6 h-6 text-cyan-400" />
             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
               <strong className="text-white font-semibold">Clean Code, Modern Architecture:</strong> Illuminating your path to digital triumph by decoding complex architectural intricacies and scaling limits.
             </p>
@@ -119,17 +252,17 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* --- 2. MIDDLE BENTO ROW --- */}
-        <div className="flex flex-col lg:flex-row h-auto lg:h-[300px] gap-4 w-full">
+        <div className="flex flex-col lg:flex-row gap-4 w-full flex-1 min-h-[300px]">
           
           {/* Card 01 - Wide Graphic Card (Original Image 1) */}
-          <motion.article 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative w-full lg:flex-[1.6] h-[280px] md:h-[350px] lg:h-full rounded-2xl md:rounded-3xl overflow-hidden bg-[url('/images/home/heroImg1.png')] bg-cover bg-center shadow-2xl shrink-0"
+          <HeroCard 
+            delay={0}
+            variant="tr-bl"
+            xOffset={-50}
+            className="relative w-full lg:flex-[1.6] h-[280px] md:h-[350px] lg:h-auto lg:self-stretch overflow-hidden bg-[url('/images/home/heroImg1.png')] bg-cover bg-center shadow-2xl shrink-0"
           >
             {/* Overlays (From Original) */}
-            <div className="absolute inset-0 bg-gray-900/40 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-black/10 mix-blend-multiply" />
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5" />
             
             {/* Floating Tags (Original Tech Pills) */}
@@ -160,18 +293,18 @@ export const Hero: React.FC = () => {
               </motion.div>
               <span className="font-light">Clean Code, Modern Architecture</span>
             </div>
-          </motion.article>
+          </HeroCard>
 
           {/* Pillars 02 & 03 (Original Tabs 1 & 2) */}
           <VerticalPillar text={TABS[0].label} delay={0.4} gradientDirection="to-t" />
           <VerticalPillar text={TABS[1].label} delay={0.5} gradientDirection="to-b" />
 
           {/* Card 04 - Call to Action Card (Original Image 2) */}
-          <motion.article 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full lg:flex-[0.9] h-[280px] md:h-[350px] lg:h-full rounded-2xl md:rounded-3xl overflow-hidden shrink-0"
+          <HeroCard 
+            delay={0.2}
+            variant="tl-br"
+            xOffset={50}
+            className="relative w-full lg:flex-[0.9] h-[280px] md:h-[350px] lg:h-auto lg:self-stretch overflow-hidden shrink-0"
           >
              {/* Background layers (From Original) */}
              <div className="absolute inset-0 bg-white backdrop-blur-3xl border border-white/40 shadow-2xl">
@@ -195,7 +328,7 @@ export const Hero: React.FC = () => {
 
               </div>
             </div>
-          </motion.article>
+          </HeroCard>
 
           {/* Pillars 05 & 06 (Original Tabs 3 & 4) */}
           <VerticalPillar text={TABS[2].label} delay={0.6} gradientDirection="to-b" />
