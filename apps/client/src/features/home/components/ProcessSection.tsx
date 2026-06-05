@@ -4,10 +4,12 @@ import { easeInOut, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 
 const ProcessCard = ({ step, index }: { step: any; index: number }) => {
+  const isBottomRow = index >= 2;
   const isEven = index % 2 === 0;
-  const isBottom = index >= 2;
+  const isAlignLeft = isEven !== isBottomRow;
   const cardRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const updateSize = () => {
@@ -28,7 +30,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
     return () => observer.disconnect();
   }, []);
 
-  const generateCardPath = (width: number, height: number, isEven: boolean, isBottom: boolean) => {
+  const generateCardPath = (width: number, height: number, isEven: boolean) => {
     if (!width || !height) return "";
     
     const R = 32; 
@@ -39,84 +41,55 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
     
     const align = isEven ? 'left' : 'right';
 
-    if (!isBottom) {
-      if (align === 'right') {
-        const startS = width - CW;
-        const endS = width - CW + SW;
-        
-        return `
-          M ${R} 0
-          L ${startS} 0
-          C ${startS + CS} 0, ${endS - CS} ${NH}, ${endS} ${NH}
-          L ${width - R} ${NH}
-          A ${R} ${R} 0 0 1 ${width} ${NH + R}
-          L ${width} ${height - R}
-          A ${R} ${R} 0 0 1 ${width - R} ${height}
-          L ${R} ${height}
-          A ${R} ${R} 0 0 1 0 ${height - R}
-          L 0 ${R}
-          A ${R} ${R} 0 0 1 ${R} 0
-          Z
-        `.replace(/\s+/g, ' ').trim();
-      } else {
-        const startS = CW - SW;
-        const endS = CW;
+    if (align === 'right') {
+      const startTR = width - CW;
+      const endTR = width - CW + SW;
+      const startBL = CW - SW;
+      const endBL = CW;
 
-        return `
-          M ${R} ${NH}
-          L ${startS} ${NH}
-          C ${startS + CS} ${NH}, ${endS - CS} 0, ${endS} 0
-          L ${width - R} 0
-          A ${R} ${R} 0 0 1 ${width} ${R}
-          L ${width} ${height - R}
-          A ${R} ${R} 0 0 1 ${width - R} ${height}
-          L ${R} ${height}
-          A ${R} ${R} 0 0 1 0 ${height - R}
-          L 0 ${NH + R}
-          A ${R} ${R} 0 0 1 ${R} ${NH}
-          Z
-        `.replace(/\s+/g, ' ').trim();
-      }
+      return `
+        M ${R} 0
+        L ${startTR} 0
+        C ${startTR + CS} 0, ${endTR - CS} ${NH}, ${endTR} ${NH}
+        L ${width - R} ${NH}
+        A ${R} ${R} 0 0 1 ${width} ${NH + R}
+        L ${width} ${height - R}
+        A ${R} ${R} 0 0 1 ${width - R} ${height}
+        L ${endBL} ${height}
+        C ${endBL - CS} ${height}, ${startBL + CS} ${height - NH}, ${startBL} ${height - NH}
+        L ${R} ${height - NH}
+        A ${R} ${R} 0 0 1 0 ${height - NH - R}
+        L 0 ${R}
+        A ${R} ${R} 0 0 1 ${R} 0
+        Z
+      `.replace(/\s+/g, ' ').trim();
     } else {
-      if (align === 'right') {
-        const startS = width - CW;
-        const endS = width - CW + SW;
-        return `
-          M ${R} 0
-          L ${width - R} 0
-          A ${R} ${R} 0 0 1 ${width} ${R}
-          L ${width} ${height - NH - R}
-          A ${R} ${R} 0 0 1 ${width - R} ${height - NH}
-          L ${endS} ${height - NH}
-          C ${endS - CS} ${height - NH}, ${startS + CS} ${height}, ${startS} ${height}
-          L ${R} ${height}
-          A ${R} ${R} 0 0 1 0 ${height - R}
-          L 0 ${R}
-          A ${R} ${R} 0 0 1 ${R} 0
-          Z
-        `.replace(/\s+/g, ' ').trim();
-      } else {
-        const startS = CW - SW;
-        const endS = CW;
-        return `
-          M ${R} 0
-          L ${width - R} 0
-          A ${R} ${R} 0 0 1 ${width} ${R}
-          L ${width} ${height - R}
-          A ${R} ${R} 0 0 1 ${width - R} ${height}
-          L ${endS} ${height}
-          C ${endS - CS} ${height}, ${startS + CS} ${height - NH}, ${startS} ${height - NH}
-          L ${R} ${height - NH}
-          A ${R} ${R} 0 0 1 0 ${height - NH - R}
-          L 0 ${R}
-          A ${R} ${R} 0 0 1 ${R} 0
-          Z
-        `.replace(/\s+/g, ' ').trim();
-      }
+      const startTL = CW - SW;
+      const endTL = CW;
+      const startBR = width - CW;
+      const endBR = width - CW + SW;
+
+      return `
+        M ${R} ${NH}
+        L ${startTL} ${NH}
+        C ${startTL + CS} ${NH}, ${endTL - CS} 0, ${endTL} 0
+        L ${width - R} 0
+        A ${R} ${R} 0 0 1 ${width} ${R}
+        L ${width} ${height - NH - R}
+        A ${R} ${R} 0 0 1 ${width - R} ${height - NH}
+        L ${endBR} ${height - NH}
+        C ${endBR - CS} ${height - NH}, ${startBR + CS} ${height}, ${startBR} ${height}
+        L ${R} ${height}
+        A ${R} ${R} 0 0 1 0 ${height - R}
+        L 0 ${NH + R}
+        A ${R} ${R} 0 0 1 ${R} ${NH}
+        Z
+      `.replace(/\s+/g, ' ').trim();
     }
   };
 
-  const pathD = generateCardPath(dimensions.width, dimensions.height, isEven, isBottom);
+  const pathD_normal = generateCardPath(dimensions.width, dimensions.height, isAlignLeft);
+  const pathD_hover = generateCardPath(dimensions.width, dimensions.height, !isAlignLeft);
 
   return (
     <motion.div
@@ -124,25 +97,31 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: easeInOut }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       style={dimensions.width ? { clipPath: `url(#clip-process-${index})` } : { overflow: 'hidden', borderRadius: '2rem' }}
-      className={`group relative text-white p-6 md:p-12 min-h-[14rem] md:h-56 lg:h-[260px] flex flex-col justify-between md:justify-center`}
+      className={`group relative text-white p-6 md:p-12 min-h-[14rem] md:h-56 lg:h-[260px] flex flex-col justify-center`}
     >
       <svg width="0" height="0" className="absolute pointer-events-none">
         <defs>
           <clipPath id={`clip-process-${index}`}>
-            <path d={pathD} />
+            <motion.path 
+              initial={false}
+              animate={{ d: isHovered ? pathD_hover : pathD_normal }}
+              transition={{ duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] }}
+            />
           </clipPath>
         </defs>
       </svg>
       
       <div className="absolute inset-0 bg-[#2b6deb] group-hover:bg-blue-600 transition-colors duration-300 -z-10" />
 
-      <div className="relative z-10 w-full h-full flex flex-col justify-between md:justify-center">
+      <div className="relative z-10 w-full h-full flex flex-col justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
-          className={`w-full md:w-1/2 flex flex-col justify-center text-left mb-2 md:mb-0 ${isEven ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
+          className={`w-full md:w-1/2 flex flex-col justify-center text-left mb-2 md:mb-0 ${isAlignLeft ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
         >
           <p className="text-xl md:text-xl lg:text-2xl font-bold mb-2 mt-2 md:mt-0">
             {step.title}
@@ -156,7 +135,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
-          className={`text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${isEven ? "self-start md:left-4" : "self-end md:right-4"} md:absolute ${isBottom ? "md:-top-10 lg:-top-12 md:group-hover:translate-y-8 lg:group-hover:translate-y-10" : "md:-bottom-14 lg:-bottom-16 md:group-hover:-translate-y-12 lg:group-hover:-translate-y-16"} text-[100px] sm:text-[120px] md:text-[180px] lg:text-[220px] -mb-4 md:mb-0`}
+          className={`text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] absolute ${isAlignLeft ? "left-4" : "right-4"} -bottom-8 md:-bottom-14 lg:-bottom-16 text-[100px] sm:text-[120px] md:text-[180px] lg:text-[220px]`}
         >
           {step.number}
         </motion.h3>
