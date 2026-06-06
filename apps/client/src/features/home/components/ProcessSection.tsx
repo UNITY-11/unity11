@@ -2,6 +2,7 @@
 
 import { easeInOut, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProcessCard = ({ step, index }: { step: any; index: number }) => {
   const isBottomRow = index >= 2;
@@ -10,6 +11,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const updateSize = () => {
@@ -96,6 +98,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
       ref={cardRef}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: isMobile }}
       transition={{ duration: 0.3, ease: easeInOut }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
@@ -135,6 +138,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: isMobile }}
           transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
           className={`w-full md:w-1/2 flex flex-col justify-center text-left mb-2 md:mb-0 ${isAlignLeft ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
         >
@@ -149,6 +153,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: isMobile }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
           className={`text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] absolute ${isAlignLeft ? "left-4" : "right-4"} -bottom-8 md:-bottom-14 lg:-bottom-16 text-[100px] sm:text-[120px] md:text-[180px] lg:text-[220px]`}
         >
@@ -242,7 +247,7 @@ export default function ProcessSection() {
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 lg:gap-10">
           {steps.map((step, index) => (
             <ProcessCard key={index} step={step} index={index} />
           ))}
