@@ -97,7 +97,7 @@ export default function BlogSection() {
                   className={`group h-full bg-linear-to-t backdrop-blur-xl shadow-2xl rounded-4xl p-4 hover:bg-white/10 transition-all duration-300 ${post.bgColor} ${i == 1 ? 'z-20' : 'z-10'}`}
                   initial={cardVariants.initial}
                   whileInView={cardVariants.animate}
-                  viewport={{ once: true, margin: "-50px" }}
+                  viewport={{ once: isMobile, margin: "-50px" }}
                   transition={{
                     duration: 1,
                     ease: "easeInOut",
