@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { IoIosArrowForward, IoIosMenu, IoIosClose } from "react-icons/io";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,50 +26,48 @@ const Navbar: React.FC = () => {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNav, setShowNav] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const { scrollY } = useScroll();
   const pathname = usePathname();
 
   const [isWhiteBg, setIsWhiteBg] = useState(false);
 
   // Scroll behavior
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        // Scrolling down
-        setShowNav(false);
-      } else {
-        // Scrolling up
-        setShowNav(true);
-      }
-      setLastScrollY(currentScrollY);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const currentScrollY = latest;
+    const previous = scrollY.getPrevious() || 0;
 
-      // Check if over white background sections
-      const testimonialsEl = document.getElementById("testimonials");
-      const technologiesEl = document.getElementById("technologies");
-      
-      let overWhite = false;
-      const navHeight = 80;
+    if (currentScrollY > previous && currentScrollY > 80) {
+      // Scrolling down
+      if (showNav) setShowNav(false);
+    } else {
+      // Scrolling up
+      if (!showNav) setShowNav(true);
+    }
 
-      if (testimonialsEl) {
-        const rect = testimonialsEl.getBoundingClientRect();
-        if (rect.top <= navHeight && rect.bottom >= navHeight) {
-          overWhite = true;
-        }
-      }
-      if (technologiesEl) {
-        const rect = technologiesEl.getBoundingClientRect();
-        if (rect.top <= navHeight && rect.bottom >= navHeight) {
-          overWhite = true;
-        }
-      }
+    // Check if over white background sections
+    const testimonialsEl = document.getElementById("testimonials");
+    const technologiesEl = document.getElementById("technologies");
+    
+    let overWhite = false;
+    const navHeight = 80;
 
+    if (testimonialsEl) {
+      const rect = testimonialsEl.getBoundingClientRect();
+      if (rect.top <= navHeight && rect.bottom >= navHeight) {
+        overWhite = true;
+      }
+    }
+    if (technologiesEl) {
+      const rect = technologiesEl.getBoundingClientRect();
+      if (rect.top <= navHeight && rect.bottom >= navHeight) {
+        overWhite = true;
+      }
+    }
+
+    if (isWhiteBg !== overWhite) {
       setIsWhiteBg(overWhite);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+    }
+  });
 
   useEffect(() => {
     const current = navLinks.find((link) => link.href === pathname);
@@ -85,7 +83,7 @@ const Navbar: React.FC = () => {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
         showNav ? "translate-y-0" : "-translate-y-full"
       } ${
-        pathname === "/" && lastScrollY < 50 ? "bg-transparent" : (isWhiteBg ? "bg-white/95 backdrop-blur-md" : "bg-black/95 backdrop-blur-md")
+        pathname === "/" && scrollY.get() < 50 ? "bg-transparent" : (isWhiteBg ? "bg-white/95 backdrop-blur-md" : "bg-black/95 backdrop-blur-md")
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
