@@ -5,6 +5,7 @@ import { motion, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Tab } from "../types";
 
@@ -306,7 +307,8 @@ const HeroCard = ({ children, delay, variant, className, xOffset, pathBorderColo
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
+  const isInView = useInView(containerRef, { once: isMobile, margin: "-100px" });
 
   return (
     <section
