@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 
 import { FeaturedProject } from "../types";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const projects: FeaturedProject[] = [
   {
@@ -52,6 +53,7 @@ const projects: FeaturedProject[] = [
 
 export default function FeaturedProjectsSection() {
   const router = useRouter();
+  const isMobile = useIsMobile();
 
   return (
     <section className="w-full py-16 md:py-24 lg:py-32 bg-black">
@@ -60,6 +62,7 @@ export default function FeaturedProjectsSection() {
         <motion.div
           initial={{ y: "30%" }}
           whileInView={{ y: 0 }}
+          viewport={{ once: isMobile }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="mb-12 md:mb-16 lg:mb-20 flex flex-col justify-center items-center text-center"
         >
@@ -76,7 +79,7 @@ export default function FeaturedProjectsSection() {
         </motion.div>
 
         {/* cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 lg:gap-8">
           {projects.slice(0, 4).map((p, index) => (
             <ProjectCard key={p.id} index={index} {...p} />
           ))}
@@ -112,14 +115,16 @@ function ProjectCard({
   bg,
   index,
 }: FeaturedProject) {
+  const isMobile = useIsMobile();
   return (
     <motion.div
       initial={{ y: "30%" }}
       whileInView={{ y: 0 }}
+      viewport={{ once: isMobile }}
       transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
       className={`group ${bg} w-full rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between z-40`}
     >
-      <motion.div className="p-5">
+      <motion.div className="p-6 md:p-8">
         {/* tags */}
         <div className="flex items-center gap-2 mb-2">
           <span className="text-xs bg- px-3 py-1.5 rounded-full  text-white bg-white/40 backdrop-blur-3xl">
