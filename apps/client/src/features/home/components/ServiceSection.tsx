@@ -8,10 +8,12 @@ import { motion } from "motion/react";
 import { Code2, Layers, Smartphone, Cloud, Cpu, Palette } from "lucide-react";
 import React, { useRef, useState, useEffect } from "react";
 import { IoIosArrowForward } from "react-icons/io";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const CustomServiceCard = ({ service, index }: { service: any; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const updateSize = () => {
@@ -75,7 +77,7 @@ const CustomServiceCard = ({ service, index }: { service: any; index: number }) 
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.6 }}
-      viewport={{ once: true }}
+      viewport={{ once: isMobile }}
       style={dimensions.width ? { clipPath: `url(#${clipId})` } : { overflow: 'hidden', borderRadius: '32px' }}
       className="relative group shadow-2xl transition-all duration-500 p-1 bg-blue-100"
     >
@@ -104,7 +106,7 @@ const CustomServiceCard = ({ service, index }: { service: any; index: number }) 
       />
 
       <div className="relative z-10 h-full flex flex-col justify-between">
-        <div className="h-full flex flex-col justify-between bg-blue-500/60 mt-30 rounded-4xl p-4 backdrop-blur-md">
+        <div className="h-full flex flex-col justify-between bg-blue-500/60 mt-24 md:mt-30 rounded-4xl p-6 md:p-8 backdrop-blur-md">
           {/* Top content wrapper (Title & Desc) */}
           <div className="w-70">
             <h3 className="text-xl font-semibold text-white">
@@ -263,6 +265,7 @@ const MarqueeImageCard = ({ src, alt, i, direction }: { src: string; alt: string
 };
 
 export default function seServiceSection() {
+  const isMobile = useIsMobile();
   const services = [
     {
       icon: <Layers />,
@@ -321,7 +324,7 @@ export default function seServiceSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          viewport={{ once: isMobile }}
           className="text-center"
         >
           <h2 className="text-4xl sm:text-7xl text-[#2052bd]">
@@ -336,7 +339,7 @@ export default function seServiceSection() {
           </p>
         </motion.div>
 
-        <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+        <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8 lg:gap-10">
           {services.map((service, index) => (
             <CustomServiceCard key={index} service={service} index={index} />
           ))}
