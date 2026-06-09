@@ -63,7 +63,7 @@ export default function TestimonialSection() {
                     </button>
                     <button
                         onClick={() => router.push("/about")}
-                        className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
+                        className="flex items-center rounded-full bg-linear-to-r px-6 sm:px-10 md:px-16 lg:px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
                     >
                         See More
                     </button>

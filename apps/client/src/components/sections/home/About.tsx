@@ -98,8 +98,8 @@ export default function AboutSection() {
       </div>
       
       {/* Ambient lighting */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 h-[40rem] w-[40rem] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 h-[40rem] w-[40rem] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 h-[40rem] w-[40rem] max-w-[100vw] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none hidden md:block" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 h-[40rem] w-[40rem] max-w-[100vw] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none hidden md:block" />
     </section>
   );
 }

@@ -22,7 +22,7 @@ const FooterCTA: React.FC = () => {
         initial={{ y: 50 }}
         whileInView={{ y: 0 }}
         transition={{ duration: 1 }}
-        className="absolute top-60 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 overflow-hidden"
+        className="absolute top-60 left-1/2 -translate-x-1/2 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 overflow-hidden"
       >
          <Particles
         className="absolute inset-0 z-0"

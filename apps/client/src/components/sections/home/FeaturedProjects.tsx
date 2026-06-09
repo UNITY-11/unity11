@@ -85,7 +85,7 @@ export default function FeaturedProjectsSection() {
         </motion.div>
 
         {/* cards */}
-        <div className="flex gap-4 overflow-x-auto hide-scrollbar pb-4">
+        <div className="flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory px-4 -mx-4 sm:px-0 sm:mx-0 pb-4">
           {projects.map((p, index) => (
             <ProjectCard key={p.id} index={index} {...p} />
           ))}
@@ -99,7 +99,7 @@ export default function FeaturedProjectsSection() {
           </button>
           <button
             onClick={() => router.push("/projects")}
-            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
+            className="flex items-center rounded-full bg-linear-to-r px-6 sm:px-10 md:px-16 lg:px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
           >
             See More
           </button>
@@ -126,7 +126,7 @@ function ProjectCard({
       initial={{ y: "30%" }}
       whileInView={{ y: 0 }}
       transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
-      className={`group ${bg} min-w-[290px] max-w-[300px] rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between z-40`}
+      className={`group ${bg} min-w-[85vw] sm:min-w-[290px] max-w-[300px] snap-center rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between z-40`}
     >
       <motion.div className="p-5">
         {/* tags */}

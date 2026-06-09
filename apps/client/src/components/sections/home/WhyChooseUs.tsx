@@ -60,9 +60,9 @@ const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
       </motion.div>
 
       <motion.div {...textAnimation(index)} className="w-full md:w-1/2 md:p-8">
-        <div className="flex items-center justify-center text-center mb-4">
-          <item.icon className="w-14 h-14 mr-4 text-blue-500" />
-          <h3 className="text-3xl md:text-5xl text-transparent text-nowrap pb-2 bg-clip-text bg-linear-to-r from-blue-700 to-cyan-500 text-center">
+        <div className="flex flex-col sm:flex-row items-center justify-center text-center gap-2 sm:gap-0 mb-4">
+          <item.icon className="w-14 h-14 sm:mr-4 text-blue-500 shrink-0" />
+          <h3 className="text-3xl md:text-5xl text-transparent pb-2 bg-clip-text bg-linear-to-r from-blue-700 to-cyan-500 text-center">
             {item.title}
           </h3>
         </div>
@@ -126,12 +126,12 @@ export default function WhyChooseUs() {
         initial={{ y: 50 }}
         whileInView={{ y: 0 }}
         transition={{ duration: 1 }}
-        className="absolute top-60 w-[150vw] h-[150vw] -ml-[25vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3"
+        className="absolute top-60 left-1/2 -translate-x-1/2 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3"
       >
         <div className="w-full h-full rounded-full bg-black"></div>
       </motion.div>
 
-      <div className="absolute bottom-0 bg-linear-to-b from-black to-blue-700 w-screen h-16" />
+      <div className="absolute bottom-0 bg-linear-to-b from-black to-blue-700 w-full h-16" />
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-blue-500 opacity-10 blur-3xl" />
       <div className="container mx-auto px-6 lg:px-8 relative z-10 mt-10">
         <motion.div

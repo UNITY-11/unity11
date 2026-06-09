@@ -85,10 +85,10 @@ const techIcons = [
 
 export default function Technologies() {
   return (
-    <section className="relative h-screen py-20 overflow-hidden">
+    <section className="relative min-h-screen lg:h-screen py-20 overflow-hidden">
       <div className="max-w-7xl h-full mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 gap-10">
         {/* Left side text */}
-        <div className="flex-1 text-center lg:text-left sm:w-[50%]">
+        <div className="flex-1 w-full text-center lg:text-left lg:w-1/2">
           <h2 className="text-3xl md:text-6xl leading-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
             TECHNOLOGIES <br /> OUR TEAM USES
           </h2>
@@ -240,7 +240,7 @@ export default function Technologies() {
           </div>
         </motion.div> */}
 
-        <div className="relative overflow-hidden sm:w-[50%] sm:-mr-40">
+        <div className="relative w-full max-w-full overflow-hidden lg:w-1/2 lg:-mr-20 xl:-mr-40">
           <IconCloud icons={techIcons} />
         </div>
       </div>

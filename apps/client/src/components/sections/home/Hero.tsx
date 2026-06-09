@@ -94,6 +94,29 @@ const TechPill = ({ label, index, offset }: { label: typeof TECH_LABELS[0]; inde
   </React.Fragment>
 );
 
+const MobileTab: React.FC<{
+  tab: Tab;
+  delay: number;
+  gradientDirection: "to-t" | "to-b";
+}> = ({ tab, delay, gradientDirection }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 16 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay }}
+    className={cn(
+      "rounded-2xl p-4 flex items-center justify-between shadow-md min-h-[72px]",
+      gradientDirection === "to-t"
+        ? "bg-gradient-to-r from-[#2052bd] to-[#7fcbe4]"
+        : "bg-gradient-to-r from-[#7fcbe4] to-[#2052bd]"
+    )}
+  >
+    <span className="text-white font-medium text-sm leading-tight">{tab.label}</span>
+    <span className="w-8 h-8 shrink-0 rounded-full bg-gray-200/80 flex items-center justify-center text-xs font-semibold text-gray-700">
+      {tab.id}
+    </span>
+  </motion.div>
+);
+
 const VerticalTab: React.FC<{
   tab: Tab;
   delay: number;
@@ -144,7 +167,7 @@ const MetricItem = ({ value, label, delay }: { value: string; label: string; del
     className="flex items-center gap-1.5"
   >
     <span className="text-blue-600 font-bold text-sm md:text-base">{value}</span>
-    <span className="text-gray-700 font-medium text-xs md:text-sm whitespace-nowrap">{label}</span>
+    <span className="text-gray-700 font-medium text-xs md:text-sm">{label}</span>
   </motion.div>
 );
 
@@ -157,10 +180,10 @@ export const Hero: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-center items-center w-full overflow-x-hidden pt-[80px] pb-8"
+      className="relative min-h-screen flex flex-col justify-start lg:justify-center items-center w-full overflow-x-hidden pt-[80px] pb-8"
       aria-label="Hero section"
     >
-      <div className="relative z-10 flex justify-between items-stretch container mx-auto px-4 gap-2 lg:gap-4 w-full">
+      <div className="relative z-10 flex flex-col lg:flex-row justify-between items-stretch container mx-auto px-4 gap-4 lg:gap-4 w-full">
         {/* --- Hero Card 01: TECH STACK --- */}
         <motion.article
           initial={{ opacity: 0, x: -50 }}
@@ -209,6 +232,12 @@ export const Hero: React.FC = () => {
           </div>
         </motion.article>
 
+        {/* --- Mobile Tabs (left pair) --- */}
+        <div className="grid grid-cols-2 gap-3 w-full lg:hidden">
+          <MobileTab tab={TABS[0]} delay={0.4} gradientDirection="to-t" />
+          <MobileTab tab={TABS[1]} delay={0.5} gradientDirection="to-b" />
+        </div>
+
         {/* --- Vertical Tabs (Left) --- */}
         <VerticalTab tab={TABS[0]} delay={0.4} gradientDirection="to-t" isBold />
         <VerticalTab tab={TABS[1]} delay={0.5} gradientDirection="to-b" />
@@ -250,6 +279,12 @@ export const Hero: React.FC = () => {
         {/* --- Vertical Tabs (Right) --- */}
         <VerticalTab tab={TABS[2]} delay={0.6} gradientDirection="to-b" isBold />
         <VerticalTab tab={TABS[3]} delay={0.7} gradientDirection="to-t" />
+
+        {/* --- Mobile Tabs (right pair) --- */}
+        <div className="grid grid-cols-2 gap-3 w-full lg:hidden">
+          <MobileTab tab={TABS[2]} delay={0.6} gradientDirection="to-b" />
+          <MobileTab tab={TABS[3]} delay={0.7} gradientDirection="to-t" />
+        </div>
       </div>
 
       {/* --- Lower Section --- */}

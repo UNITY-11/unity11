@@ -71,7 +71,7 @@ export default function ProcessSection() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: easeInOut }}
-              className={`group relative bg-linear-to-b from-white to-transparent hover:to-white text-blue-700 rounded-4xl p-8 h-52 flex justify-between overflow-hidden transition-colors duration-300 ${
+              className={`group relative bg-linear-to-b from-white to-transparent hover:to-white text-blue-700 rounded-4xl p-8 min-h-52 h-auto sm:h-52 flex justify-between overflow-hidden transition-colors duration-300 ${
                 index > 1 ? "flex-row-reverse" : ""
               }`}
             >
@@ -85,8 +85,8 @@ export default function ProcessSection() {
                     delay: index * 0.05,
                     ease: easeInOut,
                   }}
-                  className={`text-blue-700 absolute -top-8 group-hover:-top-16 transition-all duration-500  text-[90px] sm:text-[250px] ${
-                    index > 1 ? "-right-6" : "-left-6"
+                  className={`text-blue-700 absolute -top-8 group-hover:-top-16 transition-all duration-500 text-[72px] sm:text-[120px] md:text-[160px] lg:text-[200px] ${
+                    index > 1 ? "right-0 sm:-right-4" : "left-0 sm:-left-4"
                   }`}
                 >
                   {step.number}

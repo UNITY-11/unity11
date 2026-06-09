@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Comfortaa } from "next/font/google";
 import "./globals.css";
 
 // Import your Navbar and the new Footer component
@@ -10,14 +10,10 @@ import { ScrollProgress } from "@/components/ui/MagicUi/ScrollProgress";
 
 import SmoothScroll from "@/components/providers/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const comfortaa = Comfortaa({
+  variable: "--font-comfortaa",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -35,17 +31,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={comfortaa.variable} suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} font-sans bg-white text-gray-900 antialiased`}
+        className={`${comfortaa.className} font-sans bg-white text-gray-900 antialiased`}
       >
         <SmoothScroll>
           <CustomeCursor />
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <ScrollProgress />
-            <main>{children}</main>
+            <main className="w-full overflow-x-hidden">{children}</main>
             <Footer />
           </div>
         </SmoothScroll>

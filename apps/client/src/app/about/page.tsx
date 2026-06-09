@@ -311,7 +311,7 @@ export default function AboutPage() {
       {/* Excellence Highlights */}
       <section className="bg-[#f8fafc] py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {excellenceHighlights.map((card, index) => {
               if (card.type === "image") {
                 return (
@@ -404,7 +404,7 @@ export default function AboutPage() {
       {/* Team Dashboard Snapshot */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-6 lg:grid-cols-[1fr_1fr_auto]">
+          <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-[1fr_1fr_auto]">
             <div className="rounded-[40px] bg-[#f6f8ff] p-6 shadow-[0_25px_50px_rgba(15,23,42,0.08)]">
               <div className="flex gap-2">
                 {dashboardChips.map((chip, idx) => (

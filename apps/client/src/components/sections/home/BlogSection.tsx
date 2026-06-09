@@ -6,28 +6,29 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
-const sideDistance = 200;
+const getCardVariants = (i: number) => {
+  const sideDistance =
+    typeof window !== "undefined" && window.innerWidth < 768 ? 40 : 200;
 
-const getCardVariants = (i: number) => { 
   if (i === 0) {
     return {
-      initial: {x: sideDistance, scale:1},
-      animate: {x: 0, scale:0.85},
+      initial: { x: sideDistance, scale: 1 },
+      animate: { x: 0, scale: 0.85 },
     };
   } else if (i === 1) {
     return {
-      initial: { x: 0,},
-      animate: {x:0,},
+      initial: { x: 0 },
+      animate: { x: 0 },
     };
   } else if (i === 2) {
     return {
-      initial: {x: -sideDistance, scale:1,},
-      animate: {x: 0, scale:0.85},
+      initial: { x: -sideDistance, scale: 1 },
+      animate: { x: 0, scale: 0.85 },
     };
   } else {
     return {
-      initial: {x: 30 },
-      animate: {x: 0 },
+      initial: { x: 30 },
+      animate: { x: 0 },
     };
   }
 };
@@ -96,7 +97,7 @@ export default function BlogSection() {
           </button>
           <button
             onClick={() => router.push("/blogs")}
-            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
+            className="flex items-center rounded-full bg-linear-to-r px-6 sm:px-10 md:px-16 lg:px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
           >
             See More
           </button>

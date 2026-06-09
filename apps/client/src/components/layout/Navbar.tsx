@@ -64,9 +64,9 @@ const Navbar: React.FC = () => {
       }}
       className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black"
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
+      <div className="relative max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 ml-10 md:ml-0">
           <Image
             src="/images/logos/unity11-logo.gif"
             alt="Unity11 logo icon"
@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
         {/* CTA Button (Desktop) */}
         <Link
           href="/get-started"
-          className="hidden sm:flex items-center gap-1.5 rounded-full bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 transition"
+          className="hidden md:flex items-center gap-1.5 rounded-full bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] px-5 py-2.5 text-sm font-medium text-white hover:opacity-90 transition"
         >
           Get started
           <IoIosArrowForward size={16} />
@@ -129,7 +129,7 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-white absolute left-5"
+          className="md:hidden text-white absolute left-4 top-1/2 -translate-y-1/2 z-10"
         >
           {menuOpen ? <IoIosClose size={40} /> : <IoIosMenu size={28} />}
         </button>
@@ -141,7 +141,7 @@ const Navbar: React.FC = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-black border-t border-gray-800 mt-3 h-screen flex justify-center items-center py-10"
+          className="md:hidden bg-black border-t border-gray-800 mt-3 max-h-[calc(100dvh-4rem)] overflow-y-auto flex justify-center items-center py-10"
         >
           <ul className="h-full flex flex-col gap-10 items-center">
             {navLinks.map((link) => (

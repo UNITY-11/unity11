@@ -103,7 +103,7 @@ export default function seServiceSection() {
               <div className="relative z-10 h-full flex flex-col justify-between">
                 <div className="h-full flex flex-col justify-between bg-blue-500/60 mt-30 rounded-4xl p-4 backdrop-blur-md">
                   {/* Top content wrapper (Title & Desc) */}
-                  <div className="w-70">
+                  <div className="w-full max-w-xs">
                     <h3 className="text-xl font-semibold text-white">
                       {service.title}
                     </h3>
@@ -128,7 +128,7 @@ export default function seServiceSection() {
         </div>
       </div>
 
-      <div className="relative w-screen">
+      <div className="relative w-full max-w-full overflow-hidden">
         <ScrollVelocityContainer className="text-4xl md:text-8xl mt-30 mb-5 bg-clip-text text-blue-500 pb-2 z-10">
           <ScrollVelocityRow baseVelocity={1} direction={1} className="pb-2 flex items-center">
             {["Custom Software Development", "Mobile Apps", "Web Apps", "SaaS Platforms"].map((item, i) => (

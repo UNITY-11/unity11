@@ -346,7 +346,7 @@ export function IconCloud({ icons, images }: IconCloudProps) {
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
           const fontSize = 24 * sizeFactor;
-          ctx.font = `${fontSize}px Arial`;
+          ctx.font = `${fontSize}px Comfortaa, sans-serif`;
           ctx.fillText(`${icon.id + 1}`, 0, 0);
         }
 
@@ -383,7 +383,7 @@ export function IconCloud({ icons, images }: IconCloudProps) {
   return (
     <div
       ref={containerRef}
-      className="w-full h-full min-h-[300px] min-w-[300px]" // Use full size of parent container
+      className="w-full h-full min-h-[300px] min-w-0 max-w-full"
     >
       <canvas
         ref={canvasRef}

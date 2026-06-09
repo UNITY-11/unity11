@@ -5,7 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 export default function NotFound() {
   return (
-    <div className="flex h-screen overflow-hidden flex-col items-center justify-center bg-black text-center font-faleway">
+    <div className="flex h-screen overflow-hidden flex-col items-center justify-center bg-black text-center">
       {/* Animated 404 Text */}
       <h1 className="text-[55vw] max-sm:mb-[60%] bg-linear-to-tr from-[#0051ff] to-[#00bfff] bg-clip-text text-transparent animate-linear-x">
         404
