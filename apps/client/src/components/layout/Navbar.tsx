@@ -64,7 +64,9 @@ const Navbar: React.FC = () => {
         duration: 1.4,
         ease: [0.25, 1, 0.5, 1],
       }}
-      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black"
+      className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-colors duration-300 ${
+        pathname === "/" && lastScrollY < 50 ? "bg-transparent" : "bg-black/95"
+      }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between px-4 py-3">
         {/* Logo */}
