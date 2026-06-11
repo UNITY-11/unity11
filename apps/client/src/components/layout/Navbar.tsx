@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
         {/* CTA Button (Desktop) */}
         <Link
           href="/get-started"
-          className="hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 bg-white p-0.5 transition-transform"
+          className="hidden sm:inline-flex group relative h-10 w-[140px] items-center overflow-hidden rounded-full border border-blue-400 bg-black p-0.5 transition-transform"
         >
           {/* Dynamic Section */}
           <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] transition-all duration-500 ease-in-out group-hover:w-full">
@@ -176,7 +176,7 @@ const Navbar: React.FC = () => {
             <Link
               href="/get-started"
               onClick={() => setMenuOpen(false)}
-              className="group relative inline-flex h-12 w-[160px] items-center overflow-hidden rounded-full border border-blue-400 bg-white p-0.5 transition-transform shadow-md"
+              className="group relative inline-flex h-12 w-[160px] items-center overflow-hidden rounded-full border border-blue-400 bg-black p-0.5 transition-transform shadow-md"
             >
               {/* Dynamic Section */}
               <div className="flex h-full w-[80%] items-center justify-center rounded-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] transition-all duration-500 ease-in-out group-hover:w-full">
