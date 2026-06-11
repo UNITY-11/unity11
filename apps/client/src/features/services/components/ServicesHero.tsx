@@ -2,15 +2,15 @@
 
 import { motion } from "motion/react";
 import { Blocks, BarChart3, Link } from "lucide-react";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export function ServicesHero() {
   return (
     <div className="relative w-full flex flex-col items-center pt-32 pb-24 px-4 min-h-[80vh] overflow-hidden bg-[#010514] border-b border-white/5">
-      {/* Starry Background / Noise (Simulated with tiny dots pattern if possible, or just deep radial gradients) */}
-      <div 
-        className="absolute inset-0 z-0 opacity-40" 
-        style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '32px 32px' }}
-      ></div>
+      {/* Grid Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <BackgroundBeams />
+      </div>
       
       {/* Huge Glowing Orb in the center/bottom */}
       <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-[150vw] max-w-[800px] h-[500px] bg-blue-600/30 rounded-[100%] blur-[120px] pointer-events-none"></div>
