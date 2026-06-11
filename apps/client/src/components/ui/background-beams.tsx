@@ -1,13 +1,35 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
+import { motion, useMotionValue, useSpring } from "motion/react";
+import { useEffect } from "react";
 
 export const BackgroundBeams = ({ className }: { className?: string }) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX - window.innerWidth / 2) / 25;
+      const y = (e.clientY - window.innerHeight / 2) / 25;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
-    <div className={cn("absolute inset-0 z-0 pointer-events-none flex items-center justify-center", className)}>
+    <div className={cn("absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden", className)}>
       <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 via-cyan-400/40 to-blue-600/40 [mask-image:radial-gradient(circle_at_2px_2px,#000_2px,transparent_0)] [mask-size:32px_32px]" />
+        <motion.div 
+          style={{ x: springX, y: springY }}
+          className="absolute -inset-[10%] w-[120%] h-[120%] bg-gradient-to-br from-blue-500/40 via-cyan-400/40 to-blue-600/40 [mask-image:radial-gradient(circle_at_2px_2px,#000_2px,transparent_0)] [mask-size:32px_32px]" 
+        />
       </div>
     </div>
   );
