@@ -57,14 +57,10 @@ const Navbar: React.FC = () => {
   }, [pathname]);
 
   return (
-    <motion.nav
-      initial={{ y: 0 }}
-      animate={{ y: showNav ? 0 : -100 }}
-      transition={{
-        duration: 1.4,
-        ease: [0.25, 1, 0.5, 1],
-      }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
+        showNav ? "translate-y-0" : "-translate-y-full"
+      } ${
         pathname === "/" && lastScrollY < 50 ? "bg-transparent border-transparent" : "bg-black/95 backdrop-blur-md border-b border-white/10"
       }`}
     >
@@ -197,7 +193,7 @@ const Navbar: React.FC = () => {
           </ul>
         </motion.div>
       )}
-    </motion.nav>
+    </nav>
   );
 };
 
