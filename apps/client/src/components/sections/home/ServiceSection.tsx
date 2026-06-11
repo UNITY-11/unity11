@@ -135,8 +135,8 @@ export default function seServiceSection() {
               <React.Fragment key={i}>
                 <span className="mx-6">{item}</span>
                 <div className="relative flex items-center justify-center w-20 h-8 sm:w-28 sm:h-10 md:w-40 md:h-14 mx-6 shrink-0 group cursor-pointer">
-                  <div className="absolute w-full h-full rounded-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-16 group-hover:h-16 sm:group-hover:w-20 sm:group-hover:h-20 md:group-hover:w-28 md:group-hover:h-28 group-hover:rounded-xl group-hover:rotate-6 z-50 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=400&auto=format&fit=crop" alt="capsule" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-24 group-hover:h-24 sm:group-hover:w-32 sm:group-hover:h-32 md:group-hover:w-48 md:group-hover:h-32 group-hover:rounded-2xl group-hover:rotate-3 z-50 shadow-2xl">
+                    <img src={`/images/blog/blog${(i % 3) + 1}.png`} alt="project" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   </div>
                 </div>
               </React.Fragment>
@@ -152,8 +152,8 @@ export default function seServiceSection() {
               <React.Fragment key={i}>
                 <span className="mx-6">{item}</span>
                 <div className="relative flex items-center justify-center w-20 h-8 sm:w-28 sm:h-10 md:w-40 md:h-14 mx-6 shrink-0 group cursor-pointer">
-                  <div className="absolute w-full h-full rounded-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-16 group-hover:h-16 sm:group-hover:w-20 sm:group-hover:h-20 md:group-hover:w-28 md:group-hover:h-28 group-hover:rounded-xl group-hover:-rotate-6 z-50 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=400&auto=format&fit=crop" alt="capsule" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125" />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-24 group-hover:h-24 sm:group-hover:w-32 sm:group-hover:h-32 md:group-hover:w-48 md:group-hover:h-32 group-hover:rounded-2xl group-hover:-rotate-3 z-50 shadow-2xl">
+                    <img src={`/images/blog/blog${(i % 3) + 1}.png`} alt="project" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   </div>
                 </div>
               </React.Fragment>
