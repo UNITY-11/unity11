@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 // --- Types & Constants (From Original Design) ---
 interface Tab {
@@ -79,7 +80,11 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       className="relative w-full min-h-screen bg-black pt-32 pb-12 overflow-hidden flex flex-col justify-center"
     >
-      <div className="max-w-[1600px] mx-auto w-full px-4 lg:px-8 flex flex-col gap-10 lg:gap-14">
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <BackgroundBeams />
+      </div>
+
+      <div className="relative z-10 max-w-[1600px] mx-auto w-full px-4 lg:px-8 flex flex-col gap-10 lg:gap-14">
         
         {/* --- 1. TOP TYPOGRAPHY SECTION --- */}
         <div className="flex flex-col xl:flex-row justify-between items-start gap-8">
