@@ -6,7 +6,7 @@ import { ProjectToolbar } from "./ProjectToolbar";
 import { ProjectTable } from "./ProjectTable";
 import { ProjectGrid } from "./ProjectGrid";
 
-export function ProjectsView() {
+export function ProjectsView({ projects }: { projects: import("../types").Project[] }) {
   const {
     viewMode, setViewMode,
     searchQuery, setSearchQuery,
@@ -14,8 +14,9 @@ export function ProjectsView() {
     selectedTag, setSelectedTag,
     total, completed, newProjects, pending, workingOn,
     availableTags,
+    handleStatusChange,
     filteredAndSortedProjects
-  } = useProjects();
+  } = useProjects(projects);
 
   return (
     <div className="h-full flex flex-col max-w-7xl mx-auto space-y-6">
@@ -44,7 +45,7 @@ export function ProjectsView() {
           <p className="text-text-muted">Try adjusting your search query or filters.</p>
         </div>
       ) : viewMode === 'table' ? (
-        <ProjectTable projects={filteredAndSortedProjects} />
+        <ProjectTable projects={filteredAndSortedProjects} onStatusChange={handleStatusChange} />
       ) : (
         <ProjectGrid projects={filteredAndSortedProjects} />
       )}

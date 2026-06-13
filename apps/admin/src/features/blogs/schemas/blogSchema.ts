@@ -30,15 +30,71 @@ export const blogSchema = defineType({
       },
     }),
     defineField({
+      name: 'author',
+      title: 'Author',
+      type: 'string',
+    }),
+    defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Draft', value: 'Draft' },
+          { title: 'Published', value: 'Published' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'views',
+      title: 'Views',
+      type: 'number',
+    }),
+    defineField({
+      name: 'likes',
+      title: 'Likes',
+      type: 'number',
+    }),
+    defineField({
+      name: 'bodyHtml',
+      title: 'Body HTML',
+      type: 'text',
+    }),
+    defineField({
+      name: 'metaTitle',
+      title: 'Meta Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'Meta Description',
+      type: 'text',
+    }),
+    defineField({
+      name: 'keywords',
+      title: 'Keywords',
+      type: 'string',
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }],
     }),
   ],
 })

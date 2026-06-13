@@ -1,10 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Blog } from "../types";
 
-export function BlogTable({ blogs }: { blogs: Blog[] }) {
+function formatBlogDate(date: string) {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+export function BlogTable({
+  blogs,
+  onStatusChange,
+}: {
+  blogs: Blog[];
+  onStatusChange: (id: string, status: string) => void;
+}) {
   const formatNumber = (num: number) => {
-    if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
+    if (num >= 1000) return (num / 1000).toFixed(1) + "k";
     return num.toString();
   };
 
@@ -30,16 +46,28 @@ export function BlogTable({ blogs }: { blogs: Blog[] }) {
                   </div>
                   <div>
                     <p className="text-foreground font-medium group-hover:text-primary transition-colors line-clamp-1">{blog.title}</p>
-                    <p className="text-text-muted text-xs mt-0.5">By {blog.author} • {blog.category}</p>
+                    <p className="text-text-muted text-xs mt-0.5">By {blog.author} • {blog.category || "Uncategorized"}</p>
+                    {blog.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1.5">
+                        {blog.tags.slice(0, 3).map((tag) => (
+                          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-surface-hover border border-border-muted text-text-dim">
+                            {tag}
+                          </span>
+                        ))}
+                        {blog.tags.length > 3 && (
+                          <span className="text-[10px] px-2 py-0.5 text-text-dim">+{blog.tags.length - 3}</span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </td>
                 <td className="px-6 py-4 relative">
                   <div className="relative inline-block">
-                    <select 
-                      defaultValue={blog.status}
+                    <select
+                      value={blog.status}
+                      onChange={(e) => onStatusChange(blog.id, e.target.value)}
                       className={`appearance-none px-3 py-1.5 pr-8 rounded-full text-xs font-medium border bg-surface hover:bg-surface-hover transition-colors cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#007ee1] ${
-                        blog.status === 'Published' ? 'text-primary border-primary/30' :
-                        'text-text-muted border-border-muted'
+                        blog.status === "Published" ? "text-primary border-primary/30" : "text-text-muted border-border-muted"
                       }`}
                     >
                       <option value="Published" className="text-foreground bg-surface">Published</option>
@@ -62,8 +90,8 @@ export function BlogTable({ blogs }: { blogs: Blog[] }) {
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-text-muted text-sm" suppressHydrationWarning>
-                  {new Date(blog.date).toLocaleDateString()}
+                <td className="px-6 py-4 text-text-muted text-sm">
+                  {formatBlogDate(blog.date)}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <Link href={`/blogs/${blog.id}/edit`} className="inline-block p-2 text-text-muted hover:text-[#00b4d8] transition-colors" title="Edit Blog">

@@ -35,6 +35,35 @@ export const projectSchema = defineType({
       type: 'text',
     }),
     defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'New', value: 'new' },
+          { title: 'Working On', value: 'working' },
+          { title: 'Pending', value: 'pending' },
+          { title: 'Completed', value: 'completed' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'bgStart',
+      title: 'Gradient Start Color',
+      type: 'string',
+    }),
+    defineField({
+      name: 'bgEnd',
+      title: 'Gradient End Color',
+      type: 'string',
+    }),
+    defineField({
       name: 'client',
       title: 'Client',
       type: 'reference',

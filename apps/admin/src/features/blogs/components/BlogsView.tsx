@@ -7,7 +7,7 @@ import { BlogFilters } from "./BlogFilters";
 import { BlogTable } from "./BlogTable";
 import { BlogGrid } from "./BlogGrid";
 
-export function BlogsView() {
+export function BlogsView({ blogs }: { blogs: import("../types").Blog[] }) {
   const {
     viewMode, setViewMode,
     searchQuery, setSearchQuery,
@@ -15,8 +15,9 @@ export function BlogsView() {
     selectedCategory, setSelectedCategory,
     total, published, drafts, totalViews, totalLikes,
     availableCategories,
+    handleStatusChange,
     filteredAndSortedBlogs
-  } = useBlogs();
+  } = useBlogs(blogs);
 
   return (
     <div className="h-full flex flex-col max-w-7xl mx-auto space-y-6">
@@ -58,7 +59,7 @@ export function BlogsView() {
           <p className="text-text-muted">Try adjusting your search query or filters.</p>
         </div>
       ) : viewMode === 'table' ? (
-        <BlogTable blogs={filteredAndSortedBlogs} />
+        <BlogTable blogs={filteredAndSortedBlogs} onStatusChange={handleStatusChange} />
       ) : (
         <BlogGrid blogs={filteredAndSortedBlogs} />
       )}

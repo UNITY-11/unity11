@@ -1,146 +1,142 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useActionState, useState, useEffect } from "react";
+import type { AdminProfile } from "../types";
+import { updateAdminProfile } from "../actions/profileActions";
 
-export function ProfileView() {
-  const [formData, setFormData] = useState({
-    name: 'Admin User',
-  });
-  
-  const email = 'admin@unity11.com';
-  const role = 'Lead Architect';
-
+export function ProfileView({ profile: initialProfile }: { profile: AdminProfile }) {
+  const [profile, setProfile] = useState(initialProfile);
   const [isEditing, setIsEditing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
+  const [state, formAction, isPending] = useActionState(updateAdminProfile, null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSaving(true);
-    setTimeout(() => {
-      setIsSaving(false);
+  useEffect(() => {
+    if (state?.success && state.profile) {
+      setProfile((prev) => ({ ...prev, ...state.profile }));
       setIsEditing(false);
-    }, 800);
-  };
+    }
+  }, [state]);
+
+  const initials = profile.name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <div className="flex flex-col w-full px-6 lg:px-8 h-[calc(100vh-5rem)] overflow-hidden pt-4">
-      
-      {/* Profile Card */}
-      <div className="w-full rounded-2xl overflow-hidden shadow-lg flex-1 flex flex-col" style={{ backgroundColor: '#141824' }}>
-        
-        {/* Gradient Banner */}
-        <div className="h-[200px] relative" style={{ background: 'linear-gradient(135deg, #007ee1 0%, #00b4d8 100%)' }}>
-        </div>
-        
-        {/* Info Strip - distinct dark navy */}
-        <div className="px-8 pb-8 flex-1" style={{ backgroundColor: '#1a1f2e' }}>
-          <div className="flex items-end gap-8">
-            
-            {/* Avatar - 30% overlay into banner */}
-            <div 
+      <div className="w-full rounded-2xl overflow-hidden shadow-lg flex-1 flex flex-col" style={{ backgroundColor: "#141824" }}>
+        <div className="h-[200px] relative" style={{ background: "linear-gradient(135deg, #007ee1 0%, #00b4d8 100%)" }} />
+
+        <div className="px-8 pb-8 flex-1" style={{ backgroundColor: "#1a1f2e" }}>
+          {state?.error && (
+            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-sm">{state.error}</div>
+          )}
+          {state?.success && (
+            <div className="mt-4 p-3 bg-green-500/10 border border-green-500/20 text-green-400 rounded-lg text-sm">Profile saved to Sanity.</div>
+          )}
+
+          <form action={formAction} className="flex items-end gap-8">
+            {profile.id && <input type="hidden" name="id" value={profile.id} />}
+            <input type="hidden" name="existingAvatar" value={profile.avatar} />
+
+            <div
               className="shrink-0 rounded-2xl overflow-hidden shadow-2xl z-10 flex items-center justify-center"
-              style={{ 
-                width: '180px', 
-                height: '180px', 
-                marginTop: '-70px',
-                backgroundColor: '#007ee1',
-                border: '6px solid #1a1f2e'
+              style={{
+                width: "180px",
+                height: "180px",
+                marginTop: "-70px",
+                backgroundColor: "#007ee1",
+                border: "6px solid #1a1f2e",
               }}
             >
-              <span className="text-[64px] font-bold text-white select-none">AU</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
             </div>
-            
-            {/* Name + Badges */}
-            <div className="flex-1 min-w-0 pb-1" style={{ marginTop: '20px' }}>
+
+            <div className="flex-1 min-w-0 pb-1" style={{ marginTop: "20px" }}>
               {isEditing ? (
-                <form onSubmit={handleSave} className="flex items-center gap-4 mb-3">
-                  <input 
-                    type="text" 
-                    name="name" 
-                    value={formData.name} 
-                    onChange={handleChange}
+                <div className="space-y-3 mb-3">
+                  <input
+                    type="text"
+                    name="name"
+                    defaultValue={profile.name}
                     autoFocus
-                    className="font-bold font-[family-name:var(--font-comfortaa)] rounded-lg focus:outline-none"
-                    style={{ 
-                      fontSize: '38px', 
-                      color: '#ffffff',
-                      backgroundColor: '#141824',
-                      border: '2px solid #007ee1',
-                      padding: '4px 16px',
-                      width: '100%',
-                      maxWidth: '500px'
-                    }}
+                    className="font-bold font-[family-name:var(--font-comfortaa)] rounded-lg focus:outline-none w-full max-w-lg"
+                    style={{ fontSize: "38px", color: "#ffffff", backgroundColor: "#141824", border: "2px solid #007ee1", padding: "4px 16px" }}
                     required
                   />
-                  <button 
-                    type="submit"
-                    disabled={isSaving}
-                    className="font-mono font-bold tracking-wider rounded-lg transition-all shrink-0"
-                    style={{ 
-                      padding: '10px 24px',
-                      fontSize: '13px',
-                      color: '#ffffff',
-                      backgroundColor: '#007ee1'
-                    }}
-                  >
-                    {isSaving ? 'Saving...' : 'Save'}
-                  </button>
-                </form>
+                  <input
+                    type="email"
+                    name="email"
+                    defaultValue={profile.email}
+                    className="rounded-lg focus:outline-none w-full max-w-lg"
+                    style={{ color: "#ffffff", backgroundColor: "#141824", border: "2px solid #2e3446", padding: "8px 16px" }}
+                    required
+                  />
+                  <input
+                    type="text"
+                    name="role"
+                    defaultValue={profile.role}
+                    className="rounded-lg focus:outline-none w-full max-w-lg"
+                    style={{ color: "#ffffff", backgroundColor: "#141824", border: "2px solid #2e3446", padding: "8px 16px" }}
+                  />
+                  <input type="file" name="avatarFile" accept="image/*" className="text-sm text-text-muted" />
+                </div>
               ) : (
-                <h2 
-                  className="font-bold leading-tight mb-3 font-[family-name:var(--font-comfortaa)]"
-                  style={{ fontSize: '38px', color: '#ffffff' }}
-                >
-                  {formData.name}
-                </h2>
+                <>
+                  <h2 className="font-bold leading-tight mb-3 font-[family-name:var(--font-comfortaa)]" style={{ fontSize: "38px", color: "#ffffff" }}>
+                    {profile.name}
+                  </h2>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className="inline-flex items-center gap-1.5 text-[12px] font-mono tracking-wider px-3 py-1.5 rounded" style={{ backgroundColor: "rgba(0,126,225,0.15)", color: "#00b4d8", border: "1px solid rgba(0,180,216,0.25)" }}>
+                      {profile.role}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-[12px] font-mono tracking-wider px-3 py-1.5 rounded" style={{ backgroundColor: "#252a3a", color: "#94a3b8", border: "1px solid #2e3446" }}>
+                      {profile.email}
+                    </span>
+                  </div>
+                </>
               )}
-              <div className="flex items-center gap-3 flex-wrap">
-                <span 
-                  className="inline-flex items-center gap-1.5 text-[12px] font-mono tracking-wider px-3 py-1.5 rounded"
-                  style={{ backgroundColor: 'rgba(0,126,225,0.15)', color: '#00b4d8', border: '1px solid rgba(0,180,216,0.25)' }}
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                  {role}
-                </span>
-                <span 
-                  className="inline-flex items-center gap-1.5 text-[12px] font-mono tracking-wider px-3 py-1.5 rounded"
-                  style={{ backgroundColor: '#252a3a', color: '#94a3b8', border: '1px solid #2e3446' }}
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                  {email}
-                </span>
-              </div>
             </div>
-            
-            {/* Edit Button - solid blue bg */}
-            <div className="shrink-0 pb-1">
-              <button 
-                onClick={() => setIsEditing(!isEditing)}
-                className="font-mono font-bold tracking-wider rounded-lg transition-all"
-                style={{ 
-                  padding: '10px 24px',
-                  fontSize: '13px',
-                  color: '#ffffff',
-                  backgroundColor: '#007ee1',
-                  border: '2px solid #007ee1',
-                  boxShadow: '0 0 12px rgba(0,126,225,0.3)'
-                }}
-              >
-                {isEditing ? 'Cancel Edit' : 'Edit Profile'}
-              </button>
+
+            <div className="shrink-0 pb-1 flex gap-2">
+              {isEditing ? (
+                <>
+                  <button
+                    type="submit"
+                    disabled={isPending}
+                    className="font-mono font-bold tracking-wider rounded-lg"
+                    style={{ padding: "10px 24px", fontSize: "13px", color: "#ffffff", backgroundColor: "#007ee1" }}
+                  >
+                    {isPending ? "Saving..." : "Save"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(false)}
+                    className="font-mono font-bold tracking-wider rounded-lg"
+                    style={{ padding: "10px 24px", fontSize: "13px", color: "#94a3b8", backgroundColor: "#252a3a" }}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setIsEditing(true)}
+                  className="font-mono font-bold tracking-wider rounded-lg"
+                  style={{ padding: "10px 24px", fontSize: "13px", color: "#ffffff", backgroundColor: "#007ee1", border: "2px solid #007ee1" }}
+                >
+                  Edit Profile
+                </button>
+              )}
             </div>
-            
-          </div>
+          </form>
+          {!isEditing && (
+            <p className="text-text-dim text-xs mt-6">Profile stored in Sanity. Initials: {initials}</p>
+          )}
         </div>
       </div>
-
-
-      
     </div>
   );
 }

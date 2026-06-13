@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 
-export function Header() {
+export function Header({ profileAvatar, unreadNotifications }: { profileAvatar: string; unreadNotifications: number }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
@@ -93,11 +93,14 @@ export function Header() {
 
         {/* Notification Button */}
         <Link href="/notifications" className="p-2 text-text-muted hover:text-foreground transition-colors relative block">
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full border border-background"></span>
+          {unreadNotifications > 0 && (
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full border border-background"></span>
+          )}
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
         </Link>
         <Link href="/profile" className="w-10 h-10 rounded-full border border-border-muted overflow-hidden shrink-0 block hover:ring-2 hover:ring-primary transition-all">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Admin" className="w-full h-full object-cover" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={profileAvatar} alt="Admin" className="w-full h-full object-cover" />
         </Link>
       </div>
     </header>

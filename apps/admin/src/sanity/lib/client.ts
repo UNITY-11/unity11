@@ -6,5 +6,13 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  useCdn: true,
+})
+
+/** Fresh reads for admin CRUD — avoids stale CDN cache after writes */
+export const readClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
 })

@@ -1,8 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Project } from "../types";
 
-export function ProjectTable({ projects }: { projects: Project[] }) {
+function formatProjectDate(date: string) {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+export function ProjectTable({
+  projects,
+  onStatusChange,
+}: {
+  projects: Project[];
+  onStatusChange: (id: string, status: string) => void;
+}) {
   return (
     <div className="bg-surface rounded-t-[24px] rounded-b-none border-b-0 shadow-sm border border-border-base flex flex-col flex-1 min-h-0">
       <div className="overflow-auto flex-1 custom-scrollbar rounded-t-[24px] rounded-b-none">
@@ -42,8 +58,9 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
                 </td>
                 <td className="px-6 py-4 relative">
                   <div className="relative inline-block">
-                    <select 
-                      defaultValue={project.status}
+                    <select
+                      value={project.status}
+                      onChange={(e) => onStatusChange(project.id, e.target.value)}
                       className={`appearance-none px-3 py-1.5 pr-8 rounded-full text-xs font-medium border bg-surface hover:bg-surface-hover transition-colors cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#007ee1] ${
                         project.status === 'Completed' ? 'text-primary border-primary/30' :
                         project.status === 'Working On' ? 'text-[#00b4d8] border-[#00b4d8]/30' :
@@ -62,7 +79,7 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
                   </div>
                 </td>
                 <td className="px-6 py-4 text-text-muted text-sm">
-                  {new Date(project.date).toLocaleDateString()}
+                  {formatProjectDate(project.date)}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <Link href={`/projects/${project.id}/edit`} className="inline-block p-2 text-text-muted hover:text-[#00b4d8] transition-colors" title="Edit Project">

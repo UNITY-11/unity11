@@ -35,6 +35,12 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
 
             <div className="px-6 pb-6 pt-2 bg-gradient-to-b from-transparent to-surface-active/50 relative z-20 mt-auto">
               <div className="flex w-full gap-3">
+                <Link
+                  href={`/team/${member.id}/edit`}
+                  className="flex-1 flex items-center justify-center py-3 bg-surface rounded-full text-foreground hover:bg-primary hover:text-white transition-colors duration-300 shadow-md text-sm font-medium"
+                >
+                  Edit
+                </Link>
                 <a 
                   href={`tel:${member.phone.replace(/[^0-9+]/g, '')}`} 
                   className="flex-1 flex items-center justify-center py-3 bg-surface rounded-full text-primary hover:bg-primary hover:text-white transition-colors duration-300 shadow-md"

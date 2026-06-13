@@ -1,182 +1,110 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import type { Client } from "../types";
+import { updateClientDetails } from "../actions/clientActions";
 
-// Shared extended mock data
-const mockClientsData = [
-  {
-    id: 1,
-    name: "Apple Inc.",
-    logo: "https://www.google.com/s2/favicons?sz=128&domain=apple.com",
-    contactNumber: "+1 (555) 123-4567",
-    projectStatus: "Active",
-    email: "contact@apple.com",
-    details: {
-      startDate: "Oct 1, 2025",
-      targetDate: "Mar 31, 2026",
-      budget: 120000,
-      scope: "Redesign of global e-commerce platform including new 3D product viewer and seamless checkout flow.",
-      milestones: [
-        { title: "Project Kickoff", date: "Oct 5, 2025", status: "completed" },
-        { title: "UX Wireframes", date: "Nov 15, 2025", status: "completed" },
-        { title: "UI Design & Prototyping", date: "Dec 20, 2025", status: "completed" },
-        { title: "Frontend Development", date: "Feb 10, 2026", status: "in-progress" },
-        { title: "UAT & Launch", date: "Mar 31, 2026", status: "upcoming" }
-      ],
-      payments: [
-        { description: "Initial Deposit (30%)", amount: 36000, date: "Oct 5, 2025", status: "paid" },
-        { description: "Design Approval (30%)", amount: 36000, date: "Dec 22, 2025", status: "paid" },
-        { description: "Beta Release (20%)", amount: 24000, date: "Mar 1, 2026", status: "pending" },
-        { description: "Final Handover (20%)", amount: 24000, date: "Mar 31, 2026", status: "pending" }
-      ],
-      team: [
-        { name: "Sarah Connor", role: "Project Manager", avatar: "https://i.pravatar.cc/150?u=sarah" },
-        { name: "Alex Chen", role: "Lead Designer", avatar: "https://i.pravatar.cc/150?u=alex" },
-        { name: "Marcus Johnson", role: "Frontend Dev", avatar: "https://i.pravatar.cc/150?u=marcus" }
-      ],
-      documents: ['Project Proposal.pdf', 'Design Assets.zip', 'Q3 Invoice.pdf']
-    }
-  },
-  {
-    id: 2,
-    name: "Google",
-    logo: "https://www.google.com/s2/favicons?sz=128&domain=google.com",
-    contactNumber: "+1 (555) 987-6543",
-    projectStatus: "Pending",
-    email: "hello@google.com",
-    details: {
-      startDate: "TBD",
-      targetDate: "TBD",
-      budget: 85000,
-      scope: "Development of internal dashboard analytics tool with real-time data visualization.",
-      milestones: [
-        { title: "Contract Signing", date: "Pending", status: "in-progress" },
-        { title: "Project Kickoff", date: "TBD", status: "upcoming" },
-      ],
-      payments: [
-        { description: "Retainer", amount: 10000, date: "TBD", status: "pending" }
-      ],
-      team: [
-        { name: "Sarah Connor", role: "Project Manager", avatar: "https://i.pravatar.cc/150?u=sarah" }
-      ],
-      documents: ['NDA.pdf']
-    }
-  },
-  {
-    id: 3,
-    name: "Microsoft",
-    logo: "https://www.google.com/s2/favicons?sz=128&domain=microsoft.com",
-    contactNumber: "+1 (555) 555-0199",
-    projectStatus: "Completed",
-    email: "info@microsoft.com",
-    details: {
-      startDate: "Jan 10, 2025",
-      targetDate: "Aug 30, 2025",
-      budget: 250000,
-      scope: "Cloud infrastructure migration and enterprise security audit.",
-      milestones: [
-        { title: "Initial Audit", date: "Feb 1, 2025", status: "completed" },
-        { title: "Final Handover", date: "Aug 30, 2025", status: "completed" }
-      ],
-      payments: [
-        { description: "Full Contract", amount: 250000, date: "Sep 1, 2025", status: "paid" }
-      ],
-      team: [
-        { name: "David Kim", role: "Cloud Architect", avatar: "https://i.pravatar.cc/150?u=david" }
-      ],
-      documents: ['Final Audit Report.pdf']
-    }
-  }
-];
-
-// Fallback for missing clients
-const getClientData = (id: number) => {
-  return mockClientsData.find(c => c.id === id) || {
-    id, name: "Unknown Client", logo: "", contactNumber: "", projectStatus: "Active", email: "",
-    details: { startDate: "TBD", targetDate: "TBD", budget: 0, scope: "N/A", milestones: [], payments: [], team: [], documents: [] }
-  };
-}
-
-export function ClientDetailView({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const clientId = parseInt(resolvedParams.id);
-  const initialClient = getClientData(clientId);
-
-  if (initialClient.name === "Unknown Client") {
-    notFound();
-  }
-
-  const [clientData, setClientData] = useState(initialClient);
+export function ClientDetailView({ client }: { client: Client }) {
+  const [clientData, setClientData] = useState(client);
+  const [isSaving, setIsSaving] = useState(false);
   const [activeModal, setActiveModal] = useState<'milestone' | 'document' | 'payment' | 'member' | null>(null);
 
-  // Form states
   const [newMilestone, setNewMilestone] = useState({ title: '', date: '', status: 'upcoming' });
   const [newDocument, setNewDocument] = useState('');
   const [newPayment, setNewPayment] = useState({ description: '', amount: '', date: '', status: 'pending' });
   const [newMember, setNewMember] = useState({ name: '', role: '' });
 
-  // Computed Financials
+  const saveDetails = async (next: Client) => {
+    setClientData(next);
+    setIsSaving(true);
+    const result = await updateClientDetails(
+      next.id,
+      JSON.stringify({
+        scope: next.details.scope,
+        budget: next.details.budget,
+        milestones: next.details.milestones,
+        payments: next.details.payments,
+        documents: next.details.documents,
+        team: next.details.team,
+      })
+    );
+    if (result?.error) alert(result.error);
+    setIsSaving(false);
+  };
+
   const totalBudget = clientData.details.budget;
   const totalPaid = clientData.details.payments.filter(p => p.status === 'paid').reduce((sum, p) => sum + p.amount, 0);
   const totalPending = totalBudget - totalPaid;
 
-  const handleAddMilestone = (e: React.FormEvent) => {
+  const handleAddMilestone = async (e: React.FormEvent) => {
     e.preventDefault();
-    setClientData({
+    const next = {
       ...clientData,
-      details: { ...clientData.details, milestones: [...clientData.details.milestones, newMilestone] }
-    });
+      details: { ...clientData.details, milestones: [...clientData.details.milestones, newMilestone] },
+    };
+    await saveDetails(next);
     setActiveModal(null);
     setNewMilestone({ title: '', date: '', status: 'upcoming' });
   };
 
-  const handleAddDocument = (e: React.FormEvent) => {
+  const handleAddDocument = async (e: React.FormEvent) => {
     e.preventDefault();
-    setClientData({
+    const next = {
       ...clientData,
-      details: { ...clientData.details, documents: [newDocument, ...clientData.details.documents] }
-    });
+      details: { ...clientData.details, documents: [newDocument, ...clientData.details.documents] },
+    };
+    await saveDetails(next);
     setActiveModal(null);
     setNewDocument('');
   };
 
-  const handleAddPayment = (e: React.FormEvent) => {
+  const handleAddPayment = async (e: React.FormEvent) => {
     e.preventDefault();
-    setClientData({
+    const next = {
       ...clientData,
-      details: { ...clientData.details, payments: [...clientData.details.payments, { ...newPayment, amount: Number(newPayment.amount) }] }
-    });
+      details: {
+        ...clientData.details,
+        payments: [...clientData.details.payments, { ...newPayment, amount: Number(newPayment.amount) }],
+      },
+    };
+    await saveDetails(next);
     setActiveModal(null);
     setNewPayment({ description: '', amount: '', date: '', status: 'pending' });
   };
 
-  const handleAddMember = (e: React.FormEvent) => {
+  const handleAddMember = async (e: React.FormEvent) => {
     e.preventDefault();
-    setClientData({
+    const next = {
       ...clientData,
-      details: { ...clientData.details, team: [...clientData.details.team, { ...newMember, avatar: `https://i.pravatar.cc/150?u=${Math.random()}` }] }
-    });
+      details: {
+        ...clientData.details,
+        team: [
+          ...clientData.details.team,
+          { ...newMember, avatar: `https://i.pravatar.cc/150?u=${encodeURIComponent(newMember.name)}` },
+        ],
+      },
+    };
+    await saveDetails(next);
     setActiveModal(null);
     setNewMember({ name: '', role: '' });
   };
 
-  const handleUpdateMilestoneStatus = (idx: number, newStatus: string) => {
+  const handleUpdateMilestoneStatus = async (idx: number, newStatus: string) => {
     const updatedMilestones = [...clientData.details.milestones];
-    updatedMilestones[idx].status = newStatus;
-    setClientData({
+    updatedMilestones[idx] = { ...updatedMilestones[idx], status: newStatus };
+    await saveDetails({
       ...clientData,
-      details: { ...clientData.details, milestones: updatedMilestones }
+      details: { ...clientData.details, milestones: updatedMilestones },
     });
   };
 
-  const handleUpdatePaymentStatus = (idx: number, newStatus: string) => {
+  const handleUpdatePaymentStatus = async (idx: number, newStatus: string) => {
     const updatedPayments = [...clientData.details.payments];
-    updatedPayments[idx].status = newStatus;
-    setClientData({
+    updatedPayments[idx] = { ...updatedPayments[idx], status: newStatus };
+    await saveDetails({
       ...clientData,
-      details: { ...clientData.details, payments: updatedPayments }
+      details: { ...clientData.details, payments: updatedPayments },
     });
   };
 
@@ -211,7 +139,10 @@ export function ClientDetailView({ params }: { params: Promise<{ id: string }> }
                   <span className="text-foreground font-medium tracking-wide uppercase text-xs">{clientData.projectStatus}</span>
                 </div>
               </div>
-              <p className="text-text-muted max-w-2xl text-lg leading-relaxed">{clientData.details.scope}</p>
+              <p className="text-text-muted max-w-2xl text-lg leading-relaxed">
+                {clientData.details.scope || "No project scope defined yet."}
+              </p>
+              {isSaving && <p className="text-xs text-primary mt-2">Saving...</p>}
             </div>
           </div>
 

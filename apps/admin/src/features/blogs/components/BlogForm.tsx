@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useEditor, EditorContent, Extension } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -16,6 +16,27 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
 import Placeholder from '@tiptap/extension-placeholder';
+import { useRouter } from "next/navigation";
+import { createBlog, updateBlog, deleteBlog } from "../actions/blogActions";
+import { stashListMutation } from "@/lib/adminListCache";
+
+type BlogEditData = {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  tags: string[];
+  description: string;
+  bodyHtml: string;
+  status: string;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string;
+  image: string;
+  views: number;
+  likes: number;
+  date: string;
+};
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -141,48 +162,67 @@ const FontSizeExtension = Extension.create({
   },
 });
 
-export function BlogForm() {
-  // Form State
-  const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
-  const [tags, setTags] = useState<string[]>(["Tech", "Design"]);
+const CATEGORY_PRESETS = ["Engineering", "Design", "Business", "Culture"];
+
+export function BlogForm({ blog }: { blog?: BlogEditData }) {
+  const isEdit = Boolean(blog?.id);
+  const router = useRouter();
+
+  const [title, setTitle] = useState(blog?.title ?? "");
+  const [slug, setSlug] = useState(blog?.slug ?? "");
+  const [tags, setTags] = useState<string[]>(() => blog?.tags ?? []);
   const [tagInput, setTagInput] = useState("");
-  const [metaTitle, setMetaTitle] = useState("");
-  const [metaDescription, setMetaDescription] = useState("");
-  const [keywords, setKeywords] = useState("");
+  const [metaTitle, setMetaTitle] = useState(blog?.metaTitle ?? "");
+  const [metaDescription, setMetaDescription] = useState(blog?.metaDescription ?? blog?.description ?? "");
+  const [keywords, setKeywords] = useState(blog?.keywords ?? "");
   const [visibility, setVisibility] = useState("Public");
   const [schedule, setSchedule] = useState("Immediate");
   const [coverMedia, setCoverMedia] = useState<File | null>(null);
+  const [coverPreview, setCoverPreview] = useState<string | null>(blog?.image ?? null);
   const [isSaving, setIsSaving] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [category, setCategory] = useState(blog?.category ?? "");
 
-  // Custom Dropdown States
-  const [category, setCategory] = useState("");
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const categoryRef = useRef<HTMLDivElement>(null);
-
-  const categories = ["Engineering", "Design", "Business", "Culture"];
-  const colors = ["#ffffff", "#888888", "var(--primary)", "var(--primary-light)", "#ff4444", "#00c853", "#ffc107"];
-
-  // Handle clicking outside to close dropdowns
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (categoryRef.current && !categoryRef.current.contains(event.target as Node)) {
-        setIsCategoryOpen(false);
-      }
+  const categoryOptions = useMemo(() => {
+    if (category && !CATEGORY_PRESETS.includes(category)) {
+      return [category, ...CATEGORY_PRESETS];
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    return CATEGORY_PRESETS;
+  }, [category]);
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && tagInput.trim()) {
+    if ((e.key === "Enter" || e.key === ",") && tagInput.trim()) {
       e.preventDefault();
-      if (!tags.includes(tagInput.trim())) {
-        setTags([...tags, tagInput.trim()]);
+      const newTag = tagInput.trim().replace(/,$/, "");
+      if (newTag && !tags.includes(newTag)) {
+        setTags([...tags, newTag]);
       }
       setTagInput("");
     }
+  };
+
+  const commitPendingTag = () => {
+    const pending = tagInput.trim().replace(/,+$/, "");
+    if (!pending) return;
+    const newTags = pending
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean)
+      .filter((t) => !tags.includes(t));
+    if (newTags.length) {
+      setTags((prev) => [...prev, ...newTags]);
+    }
+    setTagInput("");
+  };
+
+  const getTagsForSave = () => {
+    const pending = tagInput
+      .trim()
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean)
+      .filter((t) => !tags.includes(t));
+    return [...tags, ...pending];
   };
 
   const removeTag = (tagToRemove: string) => {
@@ -193,6 +233,7 @@ export function BlogForm() {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setCoverMedia(e.target.files[0]);
+      setCoverPreview(URL.createObjectURL(e.target.files[0]));
     }
   };
 
@@ -241,7 +282,8 @@ export function BlogForm() {
 
   const editor = useEditor({
     extensions,
-    content: '',
+    content: blog?.bodyHtml ?? '',
+    immediatelyRender: false,
     editorProps,
     onUpdate({ editor }) {
       setCanUndo(editor.can().undo());
@@ -278,30 +320,59 @@ export function BlogForm() {
     }
   }, [editor]);
 
-  const handleSave = (type: "Publish" | "Draft") => {
+  const handleSave = async (type: "Publish" | "Draft") => {
     setIsSaving(true);
-    const formData = {
-      title,
-      slug,
-      content: editor?.getHTML(),
-      coverMedia: coverMedia?.name || null,
-      category,
-      tags,
-      metaTitle,
-      metaDescription,
-      keywords,
-      visibility,
-      schedule,
-      status: type
-    };
 
-    console.log("=== Saving Blog Post ===");
-    console.log(formData);
-    
-    setTimeout(() => {
+    const tagsToSave = getTagsForSave();
+    setTags(tagsToSave);
+    setTagInput("");
+
+    const formData = new FormData();
+    if (isEdit && blog?.id) {
+      formData.append("id", blog.id);
+      formData.append("existingViews", String(blog.views ?? 0));
+      formData.append("existingLikes", String(blog.likes ?? 0));
+      formData.append("existingImage", blog.image ?? "");
+      formData.append("existingDate", blog.date ?? "");
+    }
+    formData.append("title", title);
+    formData.append("slug", slug || title);
+    formData.append("category", category.trim());
+    formData.append("tags", JSON.stringify(tagsToSave));
+    formData.append("description", metaDescription);
+    formData.append("bodyHtml", editor?.getHTML() || "");
+    formData.append("status", type === "Publish" ? "Published" : "Draft");
+    formData.append("metaTitle", metaTitle);
+    formData.append("metaDescription", metaDescription);
+    formData.append("keywords", keywords);
+    if (coverMedia) formData.append("cover", coverMedia);
+
+    const result = isEdit ? await updateBlog(formData) : await createBlog(formData);
+    if (result?.error) {
+      alert(result.error);
       setIsSaving(false);
-      alert(`Post successfully saved as ${type}! Check console for payload.`);
-    }, 1000);
+      return;
+    }
+
+    if (result?.success && result.item) {
+      const item = {
+        ...result.item,
+        image: coverPreview || blog?.image || result.item.image,
+      };
+      stashListMutation("blogs", { op: isEdit ? "update" : "add", item });
+      router.push("/blogs");
+    }
+    setIsSaving(false);
+  };
+
+  const handleDelete = async () => {
+    if (!blog?.id || !confirm("Delete this blog post?")) return;
+    const result = await deleteBlog(blog.id);
+    if (result?.error) alert(result.error);
+    else {
+      stashListMutation("blogs", { op: "remove", id: blog.id });
+      router.push("/blogs");
+    }
   };
 
   return (
@@ -320,6 +391,15 @@ export function BlogForm() {
         </div>
         
         <div className="flex items-center gap-3">
+          {isEdit && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="px-4 py-2 rounded-full text-sm font-medium border border-danger/30 text-danger hover:bg-danger/10 transition-colors"
+            >
+              Delete
+            </button>
+          )}
           <button 
             type="button" 
             onClick={() => setIsPreviewOpen(true)}
@@ -360,8 +440,8 @@ export function BlogForm() {
                 className="w-full aspect-[21/9] rounded-xl border-2 border-dashed border-border-muted hover:border-primary bg-background flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors relative overflow-hidden group"
                 onClick={() => fileInputRef.current?.click()}
               >
-                {coverMedia ? (
-                  <img src={URL.createObjectURL(coverMedia)} alt="Cover" className="w-full h-full object-cover" />
+                {coverPreview ? (
+                  <img src={coverPreview} alt="Cover" className="w-full h-full object-cover" />
                 ) : (
                   <>
                     <div className="w-10 h-10 rounded-full bg-surface-hover flex items-center justify-center group-hover:bg-primary/10 group-hover:text-primary transition-colors">
@@ -375,39 +455,47 @@ export function BlogForm() {
             </div>
           </div>
 
-          <div className="bg-surface border border-border-base rounded-[24px] overflow-hidden shadow-lg">
+          <div className="bg-surface border border-border-base rounded-[24px] shadow-lg relative z-10">
             <div className="p-5 border-b border-border-base">
               <h3 className="font-semibold text-foreground">Organization</h3>
             </div>
             <div className="p-5 space-y-5">
-              <div className="space-y-2 relative" ref={categoryRef}>
-                <label className="text-sm font-medium text-text-muted">Category</label>
-                <div 
-                  className="w-full px-4 py-3 rounded-xl border border-border-muted bg-background flex items-center justify-between cursor-pointer hover:border-border-muted transition-colors"
-                  onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                >
-                  <span className={category ? "text-foreground" : "text-text-dim"}>{category || "Select a category..."}</span>
-                  <svg className={`w-4 h-4 text-text-muted transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                </div>
-                {isCategoryOpen && (
-                  <div className="absolute top-full left-0 w-full mt-2 bg-surface-hover border border-border-muted rounded-xl overflow-hidden shadow-2xl z-20">
-                    {categories.map(cat => (
-                      <div 
-                        key={cat} 
-                        className="px-4 py-3 hover:bg-primary/10 hover:text-primary cursor-pointer transition-colors"
-                        onClick={() => { setCategory(cat); setIsCategoryOpen(false); }}
-                      >
+              <div className="space-y-2">
+                <label htmlFor="blog-category" className="text-sm font-medium text-text-muted">Category</label>
+                <div className="relative">
+                  <select
+                    id="blog-category"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full px-4 py-3 pr-10 rounded-xl border border-border-muted bg-background text-foreground focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                  >
+                    <option value="" disabled={Boolean(category)}>
+                      Select a category...
+                    </option>
+                    {categoryOptions.map((cat) => (
+                      <option key={cat} value={cat}>
                         {cat}
-                      </div>
+                      </option>
                     ))}
-                  </div>
-                )}
+                  </select>
+                  <svg
+                    className="w-4 h-4 text-text-muted pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-text-muted">Tags</label>
                 <div className="w-full min-h-[50px] p-2 rounded-xl border border-border-muted bg-background flex flex-wrap gap-2 items-center focus-within:border-primary transition-colors">
-                  {tags.map(tag => (
+                  {tags.length === 0 && (
+                    <span className="text-xs text-text-dim px-2">No tags yet — type and press Enter</span>
+                  )}
+                  {tags.map((tag) => (
                     <span key={tag} className="px-3 py-1 bg-surface-hover border border-border-muted rounded-lg text-sm flex items-center gap-2">
                       {tag}
                       <button type="button" onClick={() => removeTag(tag)} className="text-text-muted hover:text-danger transition-colors">
@@ -420,8 +508,9 @@ export function BlogForm() {
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
                     onKeyDown={handleAddTag}
+                    onBlur={commitPendingTag}
                     className="flex-1 min-w-[100px] bg-transparent border-none focus:outline-none text-sm px-2 text-foreground placeholder:text-text-dim"
-                    placeholder="Add tags..."
+                    placeholder="Add tags (Enter or comma)..."
                   />
                 </div>
               </div>
