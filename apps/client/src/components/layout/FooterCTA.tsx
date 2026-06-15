@@ -15,10 +15,10 @@ const FooterCTA: React.FC = () => {
         text-center px-10 pb-30  pt-60"
     >
       <motion.div
-        initial={{ y: "100%", x: "100%" }}
-        whileInView={{ y: 0, x: -20 }}
-        transition={{ delay: 0.5, duration: 5, ease: "easeOut" }}
-        className=" absolute w-[350px] h-[350px] rounded-full bg-linear-to-b from-white to-blue-600 top-14 left-16 blur-xl rotate-90"
+        initial={{ y: "100%", x: "100%", opacity: 0 }}
+        whileInView={{ y: 0, x: -20, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 3, ease: "easeOut" }}
+        className="absolute w-[200px] h-[200px] rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-yellow-200 via-orange-400 to-orange-600 top-14 left-1/2 -translate-x-1/2 md:left-32 md:-translate-x-0 blur-2xl opacity-90"
       />
       <motion.div
         initial={{ y: 50 }}
