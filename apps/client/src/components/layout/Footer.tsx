@@ -96,15 +96,15 @@ const Footer: React.FC = () => {
                 {exploreLinks.map((link) => (
                   <li
                     key={link.name}
-                    className="flex justify-between items-center text-transparent hover:text-[#2052bd]"
+                    className="group flex justify-between items-center text-gray-300 hover:text-[#2052bd] transition-colors duration-200"
                   >
                     <Link
                       href={link.href}
-                      className="bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent hover:text-[#2052bd] transition-colors duration-200"
+                      className="transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
-                    <IoIosArrowForward />
+                    <IoIosArrowForward className="opacity-0 group-hover:opacity-100 text-[#2052bd] transition-opacity duration-200" />
                   </li>
                 ))}
               </ul>
@@ -119,15 +119,15 @@ const Footer: React.FC = () => {
                 {supportLinks.map((link) => (
                   <li
                     key={link.name}
-                    className="flex justify-between text-transparent hover:text-[#2052bd] items-center"
+                    className="group flex justify-between items-center text-gray-300 hover:text-[#2052bd] transition-colors duration-200"
                   >
                     <Link
                       href={link.href}
-                      className="bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent hover:text-[#2052bd] transition-colors duration-200"
+                      className="transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
-                    <IoIosArrowForward />
+                    <IoIosArrowForward className="opacity-0 group-hover:opacity-100 text-[#2052bd] transition-opacity duration-200" />
                   </li>
                 ))}
               </ul>
@@ -146,11 +146,11 @@ const Footer: React.FC = () => {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 bg-linear-to-tr from-[#073ba9] to-[#7fcbe4] bg-clip-text text-transparent hover:text-[#2052bd] transition-colors duration-200"
+                      className="group flex items-center gap-3 text-gray-300 hover:text-[#2052bd] transition-colors duration-200"
                     >
                       <span className="text-blue-400"> {link.icon}</span>
                       <span>{link.name}</span>
-                      <IoIosArrowForward />
+                      <IoIosArrowForward className="opacity-0 group-hover:opacity-100 text-[#2052bd] transition-opacity duration-200" />
                     </a>
                   </li>
                 ))}
