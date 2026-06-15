@@ -71,30 +71,30 @@ export default function ProcessSection() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: easeInOut }}
-              className={`group relative bg-[#2b6deb] hover:bg-blue-600 text-white rounded-3xl md:rounded-4xl p-8 md:p-12 min-h-[14rem] md:h-56 lg:h-[260px] flex flex-col justify-center overflow-hidden transition-colors duration-300`}
+              className={`group relative bg-[#2b6deb] hover:bg-blue-600 text-white rounded-3xl md:rounded-4xl p-6 md:p-12 min-h-[14rem] md:h-56 lg:h-[260px] flex flex-col justify-between md:justify-center overflow-hidden transition-colors duration-300`}
             >
-              <motion.h3
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`absolute text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${isEven ? "-left-2 md:left-4" : "-right-2 md:right-4"} -bottom-10 md:-bottom-14 lg:-bottom-16 group-hover:-translate-y-8 md:group-hover:-translate-y-12 lg:group-hover:-translate-y-16 text-[140px] sm:text-[160px] md:text-[180px] lg:text-[220px]`}
-              >
-                {step.number}
-              </motion.h3>
-
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
-                className={`relative z-10 w-full md:w-1/2 flex flex-col justify-center text-left mt-8 md:mt-0 ${isEven ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
+                className={`relative z-10 w-full md:w-1/2 flex flex-col justify-center text-left mb-2 md:mb-0 ${isEven ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
               >
-                <p className="text-lg md:text-xl lg:text-2xl font-bold mb-2">
+                <p className="text-xl md:text-xl lg:text-2xl font-bold mb-2 mt-2 md:mt-0">
                   {step.title}
                 </p>
                 <p className="text-sm opacity-90 leading-relaxed font-medium">
                   {step.desc}
                 </p>
               </motion.div>
+
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${isEven ? "self-start md:left-4" : "self-end md:right-4"} md:absolute md:-bottom-14 lg:-bottom-16 md:group-hover:-translate-y-12 lg:group-hover:-translate-y-16 text-[100px] sm:text-[120px] md:text-[180px] lg:text-[220px] -mb-4 md:mb-0`}
+              >
+                {step.number}
+              </motion.h3>
             </motion.div>
           )})}
         </div>
