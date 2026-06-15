@@ -1,9 +1,9 @@
 "use client";
 
-import { financialStats } from "../data/mockDashboard";
 import { motion } from "framer-motion";
+import type { DashboardFinancials as FinancialsData } from "../types";
 
-export function DashboardFinancials() {
+export function DashboardFinancials({ data }: { data: FinancialsData }) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -12,24 +12,21 @@ export function DashboardFinancials() {
     }).format(amount);
   };
 
-  const generateRandomBars = (count: number) => {
-    return Array.from({ length: count }, () => Math.floor(Math.random() * 60) + 40);
+  const generateBars = (values: number[]) => {
+    const max = Math.max(...values, 1);
+    return values.map((v) => Math.round((v / max) * 100));
   };
 
-  const AnimatedBars = ({ color = "bg-primary" }: { color?: string }) => {
-    const bars = generateRandomBars(12);
+  const AnimatedBars = ({ values, color = "bg-primary" }: { values: number[]; color?: string }) => {
+    const bars = generateBars(values);
     return (
       <div className="flex items-end justify-between gap-1 h-12 mt-6 w-full opacity-60">
         {bars.map((h, i) => (
           <motion.div
             key={i}
             initial={{ height: 0 }}
-            animate={{ height: `${h}%` }}
-            transition={{ 
-              duration: 1, 
-              delay: i * 0.05, 
-              ease: "easeOut" 
-            }}
+            animate={{ height: `${Math.max(h, 8)}%` }}
+            transition={{ duration: 1, delay: i * 0.05, ease: "easeOut" }}
             className={`w-full ${color} rounded-t-sm`}
           />
         ))}
@@ -37,17 +34,16 @@ export function DashboardFinancials() {
     );
   };
 
+  const paidRatio = data.totalRevenue ? Math.round((data.totalPaid / data.totalRevenue) * 100) : 0;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {/* Total Revenue - Solid Primary Card */}
       <div className="bg-primary rounded-2xl p-6 shadow-lg relative overflow-hidden group flex flex-col justify-between min-h-[160px]">
-        {/* Decorative background shape */}
         <div className="absolute -right-6 -bottom-6 opacity-10">
           <svg width="120" height="120" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2L2 22h20L12 2z" />
           </svg>
         </div>
-        
         <div className="flex items-center gap-2 mb-4 relative z-10">
           <div className="p-1.5 bg-white/20 rounded-lg text-white">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -56,20 +52,12 @@ export function DashboardFinancials() {
           </div>
           <p className="text-white font-medium">Total Revenue</p>
         </div>
-        
         <div className="relative z-10">
-          <h2 className="text-4xl font-bold text-white tracking-tight mb-3">{formatCurrency(financialStats.totalRevenue)}</h2>
-          <div className="flex items-center gap-2 text-white/90 text-sm">
-            <span className="flex items-center gap-1 bg-white/20 px-2 py-0.5 rounded text-xs font-semibold">
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-              9.7%
-            </span>
-            <span>vs last month</span>
-          </div>
+          <h2 className="text-4xl font-bold text-white tracking-tight mb-3">{formatCurrency(data.totalRevenue)}</h2>
+          <p className="text-white/80 text-sm">From all client budgets</p>
         </div>
       </div>
 
-      {/* Total Paid */}
       <div className="bg-surface rounded-2xl p-6 shadow-sm border border-border-base relative overflow-hidden group flex flex-col justify-between min-h-[160px]">
         <div className="flex items-center gap-2 mb-4">
           <div className="text-text-muted">
@@ -79,20 +67,13 @@ export function DashboardFinancials() {
           </div>
           <p className="text-text-muted font-medium">Total Paid</p>
         </div>
-        
         <div>
-          <h2 className="text-4xl font-bold text-foreground tracking-tight mb-3">{formatCurrency(financialStats.totalPaid)}</h2>
-          <div className="flex items-center gap-2 text-text-muted text-sm">
-            <span className="flex items-center gap-1 text-green-500 bg-green-500/10 px-2 py-0.5 rounded text-xs font-semibold">
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-              4.2%
-            </span>
-            <span>vs last month</span>
-          </div>
+          <h2 className="text-4xl font-bold text-foreground tracking-tight mb-3">{formatCurrency(data.totalPaid)}</h2>
+          <p className="text-text-muted text-sm">{paidRatio}% of total revenue collected</p>
+          <AnimatedBars values={[data.totalPaid, data.totalRevenue * 0.3, data.totalPaid * 0.8]} />
         </div>
       </div>
 
-      {/* Outstanding / Remaining */}
       <div className="bg-surface rounded-2xl p-6 shadow-sm border border-border-base relative overflow-hidden group flex flex-col justify-between min-h-[160px]">
         <div className="flex items-center gap-2 mb-4">
           <div className="text-text-muted">
@@ -102,20 +83,12 @@ export function DashboardFinancials() {
           </div>
           <p className="text-text-muted font-medium">Remaining Amount</p>
         </div>
-        
         <div>
-          <h2 className="text-4xl font-bold text-foreground tracking-tight mb-3">{formatCurrency(financialStats.outstanding)}</h2>
-          <div className="flex items-center gap-2 text-text-muted text-sm">
-            <span className="flex items-center gap-1 text-red-500 bg-red-500/10 px-2 py-0.5 rounded text-xs font-semibold">
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-              1.5%
-            </span>
-            <span>vs last month</span>
-          </div>
+          <h2 className="text-4xl font-bold text-foreground tracking-tight mb-3">{formatCurrency(data.outstanding)}</h2>
+          <p className="text-text-muted text-sm">Outstanding from client contracts</p>
         </div>
       </div>
 
-      {/* Upcoming Invoices */}
       <div className="bg-surface rounded-2xl p-6 shadow-sm border border-border-base relative overflow-hidden group flex flex-col justify-between min-h-[160px]">
         <div className="flex items-center gap-2 mb-4">
           <div className="text-text-muted">
@@ -125,16 +98,9 @@ export function DashboardFinancials() {
           </div>
           <p className="text-text-muted font-medium">Upcoming Invoices</p>
         </div>
-        
         <div>
-          <h2 className="text-4xl font-bold text-foreground tracking-tight mb-3">{formatCurrency(financialStats.upcomingInvoices)}</h2>
-          <div className="flex items-center gap-2 text-text-muted text-sm">
-            <span className="flex items-center gap-1 text-green-500 bg-green-500/10 px-2 py-0.5 rounded text-xs font-semibold">
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-              8.3%
-            </span>
-            <span>vs last month</span>
-          </div>
+          <h2 className="text-4xl font-bold text-foreground tracking-tight mb-3">{formatCurrency(data.upcomingInvoices)}</h2>
+          <p className="text-text-muted text-sm">Pending payment milestones</p>
         </div>
       </div>
     </div>

@@ -18,6 +18,21 @@ export const teamMemberSchema = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'department',
+      title: 'Department',
+      type: 'string',
+    }),
+    defineField({
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+    }),
+    defineField({
+      name: 'phone',
+      title: 'Phone',
+      type: 'string',
+    }),
+    defineField({
       name: 'image',
       title: 'Profile Image',
       type: 'image',
@@ -29,6 +44,19 @@ export const teamMemberSchema = defineType({
       name: 'bio',
       title: 'Biography',
       type: 'text',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: ['Active', 'On Leave', 'Inactive'],
+      },
+    }),
+    defineField({
+      name: 'joinDate',
+      title: 'Join Date',
+      type: 'datetime',
     }),
   ],
 })

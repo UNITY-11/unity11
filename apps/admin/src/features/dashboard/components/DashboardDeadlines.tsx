@@ -1,6 +1,7 @@
-import { upcomingDeadlines } from "../data/mockDashboard";
+import Link from "next/link";
+import type { DashboardDeadline } from "../types";
 
-export function DashboardDeadlines() {
+export function DashboardDeadlines({ deadlines }: { deadlines: DashboardDeadline[] }) {
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case "high":
@@ -25,17 +26,21 @@ export function DashboardDeadlines() {
           </div>
           Upcoming Deadlines
         </h3>
-        <button className="text-primary hover:text-primary-light text-sm font-medium transition-colors">
-          View Calendar
-        </button>
+        <Link href="/clients" className="text-primary hover:text-primary-light text-sm font-medium transition-colors">
+          View Clients
+        </Link>
       </div>
 
       <div className="space-y-4">
-        {upcomingDeadlines.map((item) => (
-          <div key={item.id} className="group relative flex flex-col p-4 rounded-xl border border-border-muted bg-background hover:border-primary/50 transition-colors">
+        {deadlines.map((item) => (
+          <Link
+            key={item.id}
+            href={`/clients/${item.id}`}
+            className="group relative flex flex-col p-4 rounded-xl border border-border-muted bg-background hover:border-primary/50 transition-colors"
+          >
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary-light rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div className="flex justify-between items-start mb-2">
-              <h4 className="text-sm font-semibold text-foreground leading-tight pr-2">{item.project}</h4>
+              <h4 className="text-sm font-semibold text-foreground leading-tight pr-2 line-clamp-2">{item.project}</h4>
               {getSeverityBadge(item.severity)}
             </div>
             <div className="flex justify-between items-end mt-auto pt-2 border-t border-border-base">
@@ -47,11 +52,11 @@ export function DashboardDeadlines() {
                 {item.due}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
-        {upcomingDeadlines.length === 0 && (
+        {deadlines.length === 0 && (
           <div className="text-center py-6 text-text-muted text-sm">
-            No deadlines approaching this week.
+            No deadlines approaching. Add end dates to clients.
           </div>
         )}
       </div>

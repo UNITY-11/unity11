@@ -1,9 +1,7 @@
-import { initialProjects } from "../../projects/data/mockProjects";
+import Link from "next/link";
+import type { Project } from "@/features/projects/types";
 
-export function ActiveProjectsTable() {
-  // Taking a subset of projects for the dashboard
-  const displayProjects = initialProjects.slice(0, 5);
-
+export function ActiveProjectsTable({ projects }: { projects: Project[] }) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Completed":
@@ -38,9 +36,9 @@ export function ActiveProjectsTable() {
           </svg>
           Active Projects
         </h3>
-        <button className="text-primary hover:text-primary-light text-sm font-medium transition-colors">
+        <Link href="/projects" className="text-primary hover:text-primary-light text-sm font-medium transition-colors">
           View All
-        </button>
+        </Link>
       </div>
 
       <div className="overflow-x-auto">
@@ -55,8 +53,8 @@ export function ActiveProjectsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border-base">
-            {displayProjects.map((project, i) => (
-              <tr key={i} className="hover:bg-surface-hover transition-colors group">
+            {projects.map((project) => (
+              <tr key={project.id} className="hover:bg-surface-hover transition-colors group">
                 <td className="py-4">
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${project.bg} shadow-lg shadow-black/20`}>
@@ -80,8 +78,8 @@ export function ActiveProjectsTable() {
                       <span className="text-text-muted">{getProgress(project.status)}%</span>
                     </div>
                     <div className="w-full bg-background rounded-full h-1.5 overflow-hidden border border-border-base">
-                      <div 
-                        className="bg-gradient-to-r from-primary to-primary-light h-full rounded-full transition-all duration-1000 ease-out" 
+                      <div
+                        className="bg-gradient-to-r from-primary to-primary-light h-full rounded-full transition-all duration-1000 ease-out"
                         style={{ width: `${getProgress(project.status)}%` }}
                       ></div>
                     </div>
@@ -93,14 +91,21 @@ export function ActiveProjectsTable() {
                   </span>
                 </td>
                 <td className="py-4 text-right">
-                  <button className="text-text-muted hover:text-primary transition-colors opacity-0 group-hover:opacity-100 p-2">
+                  <Link href={`/projects/${project.id}/edit`} className="text-text-muted hover:text-primary transition-colors opacity-0 group-hover:opacity-100 p-2 inline-block">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}
+            {projects.length === 0 && (
+              <tr>
+                <td colSpan={5} className="py-8 text-center text-text-muted text-sm">
+                  No projects yet. <Link href="/projects/new" className="text-primary hover:underline">Create one</Link>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

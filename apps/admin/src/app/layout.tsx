@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Comfortaa } from "next/font/google";
 import { Sidebar } from "@/components/layout/Sidebar";
-import { Header } from "@/components/layout/Header";
+import { HeaderShell } from "@/components/layout/HeaderShell";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -41,7 +41,7 @@ export default function RootLayout({
         <Sidebar />
         <div className="flex-1 flex flex-col min-w-0 relative">
           
-          <Header />
+          <HeaderShell />
           <main className="flex-1 overflow-y-auto relative z-10">
             {children}
           </main>

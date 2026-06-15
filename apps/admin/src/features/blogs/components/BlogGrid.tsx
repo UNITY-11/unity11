@@ -33,7 +33,7 @@ export function BlogGrid({ blogs }: { blogs: Blog[] }) {
             {/* Category Badge */}
             <div className="absolute bottom-4 left-4 z-20">
               <span className="text-xs px-3 py-1.5 rounded-full text-white bg-white/20 backdrop-blur-md border border-white/20 shadow-sm font-medium">
-                {blog.category}
+                {blog.category || "Uncategorized"}
               </span>
             </div>
 
@@ -55,9 +55,19 @@ export function BlogGrid({ blogs }: { blogs: Blog[] }) {
             <h3 className="text-xl font-bold mb-3 text-white leading-snug group-hover:text-[#00b4d8] transition-colors">
               {blog.title}
             </h3>
-            <p className="text-sm text-text-muted line-clamp-2 leading-relaxed mb-6 flex-1">
+            <p className="text-sm text-text-muted line-clamp-2 leading-relaxed mb-4 flex-1">
               {blog.description}
             </p>
+
+            {blog.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {blog.tags.map((tag) => (
+                  <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-surface-hover border border-border-muted text-text-muted">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {/* Metrics Divider & Footer */}
             <div className="pt-4 border-t border-border-base flex items-center justify-between mt-auto">

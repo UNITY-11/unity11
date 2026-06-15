@@ -5,7 +5,7 @@ import { ClientStats } from "./ClientStats";
 import { ClientToolbar } from "./ClientToolbar";
 import { ClientGrid } from "./ClientGrid";
 
-export function ClientsView() {
+export function ClientsView({ clients }: { clients: import("../types").Client[] }) {
   const {
     searchQuery, setSearchQuery,
     filterStatus, setFilterStatus,
@@ -14,7 +14,7 @@ export function ClientsView() {
     isSortOpen, setIsSortOpen,
     total, active, pending, completed, onHold,
     filteredClients
-  } = useClients();
+  } = useClients(clients);
 
   return (
     <div className="flex flex-col h-full max-w-7xl mx-auto space-y-6">

@@ -5,7 +5,7 @@ import { TeamStats } from "./TeamStats";
 import { TeamToolbar } from "./TeamToolbar";
 import { TeamGrid } from "./TeamGrid";
 
-export function TeamView() {
+export function TeamView({ team }: { team: import("../types").TeamMember[] }) {
   const {
     searchQuery, setSearchQuery,
     filterDepartment, setFilterDepartment,
@@ -15,7 +15,7 @@ export function TeamView() {
     totalMembers, engineering, design, management,
     departments,
     filteredTeam
-  } = useTeam();
+  } = useTeam(team);
 
   return (
     <div className="p-8 max-w-[1600px] mx-auto min-h-full">

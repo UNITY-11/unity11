@@ -1,81 +1,176 @@
-"use server"
+"use server";
 
-import { client } from "@/sanity/lib/client"
-import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
+import { getWriteClient } from "@/sanity/lib/writeClient";
+import { imageRef, slugify, uploadImage } from "@/sanity/lib/helpers";
+import { mapProjectStatus, mapProjectStatusToValue } from "@/sanity/lib/mappers";
+import { createNotification } from "@/features/notifications/actions/notificationActions";
+import type { Project } from "../types";
 
-export async function createProject(prevState: any, formData: FormData) {
+function buildProjectListItem(
+  id: string,
+  fields: {
+    title: string;
+    description: string;
+    status: string;
+    tags: string[];
+    bgStart: string;
+    bgEnd: string;
+    mainImage?: { asset: { _ref: string } } | null;
+    imageUrl?: string;
+    date?: string;
+  }
+): Project {
+  const tags: string[] = fields.tags ?? [];
+  return {
+    id,
+    title: fields.title,
+    description: fields.description,
+    tag1: tags[0] ?? "General",
+    tag2: tags[1] ?? "",
+    image: fields.imageUrl ?? "/images/blog/blog1.png",
+    bg:
+      fields.bgStart && fields.bgEnd
+        ? `linear-gradient(to right, ${fields.bgStart}, ${fields.bgEnd})`
+        : "linear-gradient(to right, #2052bd, #7fcbe4)",
+    date: fields.date ?? new Date().toISOString(),
+    status: mapProjectStatus(fields.status),
+  };
+}
+
+export async function createProject(prevState: unknown, formData: FormData) {
   try {
-    const title = formData.get("title") as string
-    const description = formData.get("description") as string
-    const status = formData.get("status") as string
-    const tagsRaw = formData.get("tags") as string
-    const tags = tagsRaw ? JSON.parse(tagsRaw) : []
-    const image = formData.get("image") as File | null
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const status = formData.get("status") as string;
+    const tagsRaw = formData.get("tags") as string;
+    const tags = tagsRaw ? JSON.parse(tagsRaw) : [];
+    const bgStart = formData.get("bgStart") as string;
+    const bgEnd = formData.get("bgEnd") as string;
+    const image = formData.get("image") as File | null;
+    const previewImage = (formData.get("previewImage") as string) || "";
 
-    if (!title) {
-      return { error: "Title is required" }
-    }
+    if (!title) return { error: "Title is required" };
 
-    if (!process.env.SANITY_API_TOKEN) {
-        return { error: "SANITY_API_TOKEN is missing in .env.local" }
-    }
+    const writeClient = getWriteClient();
+    const imageAsset = await uploadImage(image);
 
-    // Initialize write client
-    const writeClient = client.withConfig({
-      token: process.env.SANITY_API_TOKEN,
-      useCdn: false, // Don't use CDN for writes
-    })
-
-    let imageAsset = null
-
-    // Upload image if it exists
-    if (image && image.size > 0) {
-      const bytes = await image.arrayBuffer()
-      const buffer = Buffer.from(bytes)
-      
-      imageAsset = await writeClient.assets.upload('image', buffer, {
-        filename: image.name,
-      })
-    }
-
-    // Convert title to a basic slug
-    const slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)+/g, "")
-
-    // Create the document matching the schema
-    const doc = {
+    const created = await writeClient.create({
       _type: "project",
       title,
-      slug: {
-        _type: "slug",
-        current: slug,
-      },
+      slug: { _type: "slug", current: slugify(title) },
       description,
-      // Passing status and tags even though they aren't fully declared in schema yet, 
-      // Sanity will save them and they can be added to the schema visually later.
       status,
       tags,
-      ...(imageAsset && {
-        mainImage: {
-          _type: "image",
-          asset: {
-            _type: "reference",
-            _ref: imageAsset._id,
-          },
-        },
+      bgStart: bgStart || "#2052bd",
+      bgEnd: bgEnd || "#7fcbe4",
+      completionDate: new Date().toISOString(),
+      ...(imageAsset && { mainImage: imageRef(imageAsset._id) }),
+    });
+
+    await createNotification({
+      type: "success",
+      title: "New Project Created",
+      message: `"${title}" was added to Sanity.`,
+      link: "/projects",
+    });
+
+    return {
+      success: true,
+      item: buildProjectListItem(created._id, {
+        title,
+        description,
+        status,
+        tags,
+        bgStart: bgStart || "#2052bd",
+        bgEnd: bgEnd || "#7fcbe4",
+        imageUrl: previewImage || undefined,
+        date: created.completionDate ?? new Date().toISOString(),
       }),
+    };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to create project.";
+    return { error: message };
+  }
+}
+
+export async function updateProject(prevState: unknown, formData: FormData) {
+  const id = formData.get("id") as string;
+
+  try {
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const status = formData.get("status") as string;
+    const tagsRaw = formData.get("tags") as string;
+    const tags = tagsRaw ? JSON.parse(tagsRaw) : [];
+    const bgStart = formData.get("bgStart") as string;
+    const bgEnd = formData.get("bgEnd") as string;
+    const image = formData.get("image") as File | null;
+    const previewImage = (formData.get("previewImage") as string) || "";
+    const existingDate = (formData.get("existingDate") as string) || new Date().toISOString();
+
+    if (!id || !title) return { error: "Project ID and title are required" };
+
+    const writeClient = getWriteClient();
+    const imageAsset = await uploadImage(image);
+
+    await writeClient
+      .patch(id)
+      .set({
+        title,
+        slug: { _type: "slug", current: slugify(title) },
+        description,
+        status,
+        tags,
+        bgStart: bgStart || "#2052bd",
+        bgEnd: bgEnd || "#7fcbe4",
+      })
+      .setIfMissing({ completionDate: new Date().toISOString() })
+      .commit();
+
+    if (imageAsset) {
+      await writeClient.patch(id).set({ mainImage: imageRef(imageAsset._id) }).commit();
     }
 
-    await writeClient.create(doc)
-
-  } catch (error: any) {
-    console.error("Failed to create project:", error)
-    return { error: error.message || "Failed to create project." }
+    return {
+      success: true,
+      item: buildProjectListItem(id, {
+        title,
+        description,
+        status,
+        tags,
+        bgStart: bgStart || "#2052bd",
+        bgEnd: bgEnd || "#7fcbe4",
+        imageUrl: previewImage || undefined,
+        date: existingDate,
+      }),
+    };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update project.";
+    return { error: message };
   }
+}
 
-  revalidatePath("/projects")
-  redirect("/projects")
+export async function deleteProject(id: string) {
+  try {
+    const writeClient = getWriteClient();
+    await writeClient.delete(id);
+    return { success: true, id };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to delete project.";
+    return { error: message };
+  }
+}
+
+export async function updateProjectStatus(id: string, status: string) {
+  try {
+    const writeClient = getWriteClient();
+    await writeClient
+      .patch(id)
+      .set({ status: mapProjectStatusToValue(status) })
+      .commit();
+    return { success: true, id, status };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to update project status.";
+    return { error: message };
+  }
 }
