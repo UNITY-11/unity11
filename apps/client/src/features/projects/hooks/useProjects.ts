@@ -1,41 +1,36 @@
 import { useState, useMemo } from "react";
-import { mockProjects } from "@/features/projects";
+import type { Project } from "../types";
 
-export function useProjects() {
+export function useProjects(projects: Project[]) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState("All");
   const [sortBy, setSortBy] = useState("latest");
 
-  // Format images for the 3D marquee
   const marqueeImages = useMemo(() => {
-    return mockProjects.map((p) => ({
+    return projects.map((p) => ({
       src: p.image,
       alt: p.title,
     }));
-  }, []);
+  }, [projects]);
 
-  // Extract unique tags from mock data
   const availableTags = useMemo(() => {
     const tags = new Set<string>();
-    mockProjects.forEach((p) => {
+    projects.forEach((p) => {
       if (p.tag1) tags.add(p.tag1);
       if (p.tag2) tags.add(p.tag2);
     });
     return Array.from(tags);
-  }, []);
+  }, [projects]);
 
-  // Filter and sort the projects
   const filteredAndSortedProjects = useMemo(() => {
-    let result = [...mockProjects];
+    let result = [...projects];
 
-    // Filter by tag
     if (selectedTag !== "All") {
       result = result.filter(
         (p) => p.tag1 === selectedTag || p.tag2 === selectedTag
       );
     }
 
-    // Filter by search query
     if (searchQuery.trim() !== "") {
       const lowerQuery = searchQuery.toLowerCase();
       result = result.filter(
@@ -45,7 +40,6 @@ export function useProjects() {
       );
     }
 
-    // Sort
     result.sort((a, b) => {
       const dateA = new Date(a.date).getTime();
       const dateB = new Date(b.date).getTime();
@@ -57,7 +51,7 @@ export function useProjects() {
     });
 
     return result;
-  }, [searchQuery, selectedTag, sortBy]);
+  }, [projects, searchQuery, selectedTag, sortBy]);
 
   return {
     searchQuery,

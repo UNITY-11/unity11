@@ -1,16 +1,17 @@
 import { notFound } from "next/navigation";
-import { posts } from "@/features/blogs/data/blogs";
 import { ArticleLayout } from "@/features/blogs/components";
-// Static generation for known blog posts
+import { fetchBlogBySlug, fetchBlogSlugs } from "@/sanity/lib/fetchers";
+
+export const revalidate = 60;
+
 export async function generateStaticParams() {
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  const slugs = await fetchBlogSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const post = posts.find((p) => p.slug === resolvedParams.slug);
+  const post = await fetchBlogBySlug(resolvedParams.slug);
 
   if (!post) {
     return { title: "Post Not Found" };
@@ -36,17 +37,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const post = posts.find((p) => p.slug === resolvedParams.slug);
+  const post = await fetchBlogBySlug(resolvedParams.slug);
 
   if (!post) {
     notFound();
   }
 
-  // Provide fallback author if not found in mock data
   const defaultAuthor = {
     name: "Unity11 Team",
-    avatar: "/images/logos/unity11-logo.gif",
-    role: "Editorial Staff"
+    avatar: "",
+    role: "Editorial Staff",
   };
 
   const author = post.author || defaultAuthor;
@@ -83,6 +83,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         title={post.title}
         excerpt={post.excerpt}
         content={content}
+        bodyHtml={post.bodyHtml}
         image={post.image}
         date={post.date}
         readTime={post.readTime}

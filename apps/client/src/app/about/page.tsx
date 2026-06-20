@@ -31,7 +31,6 @@ export default function AboutPage() {
       <CoreValues />
       <Stats />
       
-      {/* Testimonials Section */}
       <section className="py-24 bg-[#050505] flex items-center justify-center">
         <StaggerTestimonials />
       </section>

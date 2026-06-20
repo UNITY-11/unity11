@@ -1,4 +1,7 @@
 import { ProjectsClient } from "@/features/projects/components/ProjectsClient";
+import { fetchPublishedProjects } from "@/sanity/lib/fetchers";
+
+export const revalidate = 60;
 
 export const metadata = {
   title: "Our Projects | Unity11",
@@ -12,7 +15,9 @@ export const metadata = {
   },
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await fetchPublishedProjects();
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -27,7 +32,7 @@ export default function ProjectsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProjectsClient />
+      <ProjectsClient projects={projects} />
     </>
   );
 }

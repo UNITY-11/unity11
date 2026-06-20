@@ -8,6 +8,12 @@ import TestimonialSection from "@/features/home/components/TestimonialSection";
 import Technologies from "@/features/home/components/Technologies";
 import BlogSection from "@/features/home/components/BlogSection";
 import FeaturesProjects from "@/features/home/components/FeaturedProjects";
+import {
+  fetchPublishedBlogs,
+  fetchPublishedProjects,
+} from "@/sanity/lib/fetchers";
+
+export const revalidate = 60;
 
 export const metadata = {
   title: "Software Development & IT Solutions | Unity11",
@@ -24,7 +30,12 @@ export const metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const [projects, blogs] = await Promise.all([
+    fetchPublishedProjects(),
+    fetchPublishedBlogs(),
+  ]);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -49,10 +60,10 @@ export default function Home() {
       <ServiceSection />
       <WhyChooseUs />
       <ProcessSection />
-      <FeaturesProjects />
+      <FeaturesProjects projects={projects} />
       <TestimonialSection />
       <Technologies />
-      <BlogSection />
+      <BlogSection posts={blogs} />
     </div>
   );
 }

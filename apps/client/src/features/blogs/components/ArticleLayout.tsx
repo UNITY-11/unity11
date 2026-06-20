@@ -6,11 +6,13 @@ import { motion } from "motion/react";
 import { IoIosArrowBack } from "react-icons/io";
 
 import { ArticleProps } from "../types";
+import { AuthorAvatar } from "./AuthorAvatar";
 
 export const ArticleLayout = ({
   title,
   excerpt,
   content,
+  bodyHtml,
   image,
   date,
   readTime,
@@ -63,14 +65,7 @@ export const ArticleLayout = ({
 
           {/* Author Block */}
           <div className="flex items-center gap-4 border-t border-white/10 pt-8 mt-8">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/20">
-              <Image
-                src={author.avatar}
-                alt={author.name}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <AuthorAvatar name={author.name} avatar={author.avatar} size={48} />
             <div>
               <div className="text-white font-medium">{author.name}</div>
               <div className="text-gray-400 text-sm">{author.role}</div>
@@ -110,11 +105,18 @@ export const ArticleLayout = ({
             prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300
             prose-strong:text-white prose-strong:font-semibold"
         >
-          {content.map((paragraph, idx) => (
-            <p key={idx} className="text-lg md:text-xl text-gray-300 font-light leading-[1.8] tracking-wide">
-              {paragraph}
-            </p>
-          ))}
+          {bodyHtml ? (
+            <div
+              className="text-lg md:text-xl text-gray-300 font-light leading-[1.8] tracking-wide [&_p]:mb-8 [&_h2]:text-white [&_h3]:text-white"
+              dangerouslySetInnerHTML={{ __html: bodyHtml }}
+            />
+          ) : (
+            content.map((paragraph, idx) => (
+              <p key={idx} className="text-lg md:text-xl text-gray-300 font-light leading-[1.8] tracking-wide">
+                {paragraph}
+              </p>
+            ))
+          )}
         </motion.div>
 
         {/* Article Footer */}

@@ -12,12 +12,15 @@ export function ProjectCard({
   bg,
   index = 0,
 }: ProjectCardProps) {
+  const isGradient = bg.startsWith("linear-gradient");
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
-      className={`group ${bg} w-full rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between relative`}
+      style={isGradient ? { background: bg } : undefined}
+      className={`group ${isGradient ? "" : bg} w-full rounded-4xl overflow-hidden shadow-sm flex flex-col justify-between relative`}
     >
       <div className="p-6">
         {/* tags */}

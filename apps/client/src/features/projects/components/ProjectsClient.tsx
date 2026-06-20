@@ -4,8 +4,13 @@ import { motion } from "motion/react";
 import { ProjectsFilter, ProjectsGrid } from "./";
 import { ThreeDMarquee } from "@/components/ui/ThreeDMarquee";
 import { useProjects } from "../hooks/useProjects";
+import type { Project } from "../types";
 
-export function ProjectsClient() {
+interface ProjectsClientProps {
+  projects: Project[];
+}
+
+export function ProjectsClient({ projects }: ProjectsClientProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -16,7 +21,7 @@ export function ProjectsClient() {
     marqueeImages,
     availableTags,
     filteredAndSortedProjects,
-  } = useProjects();
+  } = useProjects(projects);
 
   return (
     <main className="min-h-screen bg-black pt-28 pb-20">

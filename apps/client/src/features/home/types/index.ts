@@ -11,6 +11,12 @@ export interface FeaturedProject {
   index?: number;
 }
 
+export interface ClientLogo {
+  id: string;
+  name: string;
+  logo: string;
+}
+
 export interface Tab {
   id: string;
   label: string;

@@ -4,62 +4,24 @@ import Image from "next/image";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { motion } from "motion/react";
 
 import { FeaturedProject } from "../types";
 import { useIsMobile } from "@/hooks/use-mobile";
+import type { Project } from "@/features/projects/types";
 
-const projects: FeaturedProject[] = [
-  {
-    id: "ai-insights-1",
-    tag1: "AI + Analytics",
-    tag2: "Dashboard",
-    title: "AI-Powered Insights Platform",
-    description:
-      "Built an insights dashboard with real-time analytics, LLM automation, and advanced monitoring tools.",
-    image: "/images/blog/blog2.png",
-    bg: "bg-linear-to-t from-purple-600 to-blue-300", // soft purple
-  },
-  {
-    id: "fintech-app-1",
-    tag1: "2024",
-    tag2: "Mobile App",
-    title: "Fintech App Modernization",
-    description:
-      "A complete redesign + modernization of an outdated fintech application, improving speed, UX, and scalability.",
-    image: "/images/blog/blog1.png",
-    bg: "bg-linear-to-tl from-gray-700 to-gray-300", // neon green
-  },
-  {
-    id: "ecommerce-1",
-    tag1: "E-commerce",
-    tag2: "Branding",
-    title: "Next-Gen Storefront",
-    description:
-      "A complete e-commerce revamp with improved conversion flow, brand identity, and blazing fast UI.",
-    image: "/images/blog/blog3.png",
-    bg: "bg-linear-to-t from-white to-blue-700",
-  },
-  {
-    id: "mobile-app-1",
-    tag1: "2024",
-    tag2: "Mobile App",
-    title: "Fintech App Modernization",
-    description:
-      "A complete redesign + modernization of an outdated fintech application, improving speed, UX, and scalability.",
-    image: "/images/blog/blog1.png",
-    bg: "bg-linear-to-tl from-gray-700 to-gray-300",
-  },
-];
+interface FeaturedProjectsSectionProps {
+  projects: Project[];
+}
 
-export default function FeaturedProjectsSection() {
+export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
+  const featured = projects.slice(0, 4);
 
   return (
     <section className="w-full py-16 md:py-24 lg:py-32 bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* heading */}
         <motion.div
           initial={{ y: "30%" }}
           whileInView={{ y: 0 }}
@@ -79,12 +41,15 @@ export default function FeaturedProjectsSection() {
           </div>
         </motion.div>
 
-        {/* cards */}
+        {featured.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 lg:gap-8">
-          {projects.slice(0, 4).map((p, index) => (
+          {featured.map((p, index) => (
             <ProjectCard key={p.id} index={index} {...p} />
           ))}
         </div>
+        ) : (
+          <p className="text-center text-gray-400">No projects available yet.</p>
+        )}
       </div>
 
       <div className="mt-10 right-0 flex justify-center text-blue-500">
@@ -119,6 +84,7 @@ function ProjectCard({
   const isMobile = useIsMobile();
   const cardRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const isGradient = bg.startsWith("linear-gradient");
 
   useEffect(() => {
     const updateSize = () => {
@@ -129,23 +95,22 @@ function ProjectCard({
         });
       }
     };
-    
+
     updateSize();
     const observer = new ResizeObserver(updateSize);
     if (cardRef.current) observer.observe(cardRef.current);
-    
+
     return () => observer.disconnect();
   }, []);
 
   const generateCardPath = (width: number, height: number) => {
     if (!width || !height) return "";
-    const R = 32; // inner/outer corner radius
-    
-    // Top-right cutout parameters matching ServiceCard math
+    const R = 32;
+
     let CW = width > 400 ? 200 : 120;
-    let SW = width > 400 ? 70 : 50;   
-    const NH = 35;                    
-    let CS = 30;                      
+    let SW = width > 400 ? 70 : 50;
+    const NH = 35;
+    let CS = 30;
 
     if (width < CW + R + 20) {
       CW = width - R - 20;
@@ -153,12 +118,11 @@ function ProjectCard({
       CS = SW * 0.45;
     }
 
-    // Bottom-center notch parameters
     const cx = width / 2;
-    const NW = width > 400 ? 180 : 140; 
+    const NW = width > 400 ? 180 : 140;
     const N_SW = width > 400 ? 50 : 40;
     const N_CS = N_SW * 0.5;
-    const N_Depth = 20; // Reduced depth for bottom notch
+    const N_Depth = 20;
 
     return `
       M ${R} 0
@@ -177,7 +141,7 @@ function ProjectCard({
       L 0 ${R}
       A ${R} ${R} 0 0 1 ${R} 0
       Z
-    `.replace(/\s+/g, ' ').trim();
+    `.replace(/\s+/g, " ").trim();
   };
 
   const pathD = generateCardPath(dimensions.width, dimensions.height);
@@ -189,8 +153,13 @@ function ProjectCard({
       whileInView={{ y: 0 }}
       viewport={{ once: isMobile }}
       transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
-      style={dimensions.width ? { clipPath: `url(#clip-project-${index})` } : { overflow: 'hidden', borderRadius: '2rem' }}
-      className={`group ${bg} w-full shadow-sm flex flex-col justify-between z-40 relative`}
+      style={{
+        ...(isGradient ? { background: bg } : {}),
+        ...(dimensions.width
+          ? { clipPath: `url(#clip-project-${index})` }
+          : { overflow: "hidden", borderRadius: "2rem" }),
+      }}
+      className={`group ${isGradient ? "" : bg} w-full shadow-sm flex flex-col justify-between z-40 relative`}
     >
       {pathD && (
         <svg width="0" height="0" className="absolute pointer-events-none">
@@ -202,7 +171,6 @@ function ProjectCard({
         </svg>
       )}
       <motion.div className="p-5">
-        {/* tags */}
         <div className="flex items-center gap-2 mb-2">
           <span className="text-xs bg- px-3 py-1.5 rounded-full  text-white bg-white/40 backdrop-blur-3xl">
             {tag1}
@@ -212,12 +180,10 @@ function ProjectCard({
           </span>
         </div>
 
-        {/* title & desc */}
         <h3 className="text-2xl font-semibold mb-2 text-white">{title}</h3>
         <p className="text-sm text-gray-100">{description}</p>
       </motion.div>
 
-      {/* image */}
       <motion.div
         transition={{ duration: 1, ease: "easeOut" }}
         className="relative w-full h-[200px] rounded-t-4xl overflow-hidden"
@@ -228,7 +194,6 @@ function ProjectCard({
           fill
           className="object-cover group-hover:scale-105 transition-all duration-500"
         />
-        {/* CTA */}
         <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white hover:bg-white hover:text-black opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg z-50">
           <IoIosArrowForward className="text-4xl -rotate-45" />
         </button>

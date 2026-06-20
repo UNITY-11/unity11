@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { posts } from "@/features/blogs/data/blogs";
+import type { BlogPost } from "@/features/blogs/types";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform } from "motion/react";
@@ -41,9 +41,14 @@ const getCardVariants = (i: number, isMobile: boolean) => {
   }
 };
 
-export default function BlogSection() {
+interface BlogSectionProps {
+  posts: BlogPost[];
+}
+
+export default function BlogSection({ posts }: BlogSectionProps) {
   const router = useRouter();
-  const [isMobile, setIsMobile] = useState(true); // default true to prevent huge cards before hydration
+  const [isMobile, setIsMobile] = useState(true);
+  const displayPosts = posts.slice(0, 3);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -87,12 +92,13 @@ export default function BlogSection() {
             </h2>
           </div>
 
+        {displayPosts.length > 0 ? (
         <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-6 md:px-0 pb-8 md:pb-0">
-          {posts.map((post, i) => {
+          {displayPosts.map((post, i) => {
             const cardVariants = getCardVariants(i, isMobile);
 
             return (
-              <Link href={`/blog/${post.slug}`} key={i} className="block shrink-0 w-[85vw] sm:w-[350px] md:w-auto snap-center">
+              <Link href={`/blog/${post.slug}`} key={post.id} className="block shrink-0 w-[85vw] sm:w-[350px] md:w-auto snap-center">
                 <motion.div
                   className={`group h-full bg-linear-to-t backdrop-blur-xl shadow-2xl rounded-4xl p-4 hover:bg-white/10 transition-all duration-300 ${post.bgColor} ${i == 1 ? 'z-20' : 'z-10'}`}
                   initial={cardVariants.initial}
@@ -134,6 +140,9 @@ export default function BlogSection() {
             );
           })}
         </div>
+        ) : (
+          <p className="text-center text-gray-400 px-6">No blog posts published yet.</p>
+        )}
       </div>
       <div className="mt-12 md:mt-16 lg:mt-20 right-0 flex justify-center text-blue-500 w-full overflow-hidden px-4">
         <div className="flex justify-between items-center w-full max-w-md mx-auto">
@@ -141,7 +150,7 @@ export default function BlogSection() {
             <IoIosArrowBack className="text-lg" />
           </button>
           <button
-            onClick={() => router.push("/blogs")}
+            onClick={() => router.push("/blog")}
             className="flex items-center justify-center rounded-full border-2 border-blue-500 px-8 sm:px-12 py-2 text-[#2052bd] shadow-lg transition-all gap-2 sm:gap-4 hover:gap-8 duration-500 flex-1 whitespace-nowrap font-semibold"
           >
             See More
