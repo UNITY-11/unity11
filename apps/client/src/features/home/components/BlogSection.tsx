@@ -73,6 +73,10 @@ export default function BlogSection({ posts }: BlogSectionProps) {
       ]
   );
 
+  if (displayPosts.length === 0) {
+    return null;
+  }
+
   return (
     <div id="blog" ref={containerRef} className="w-full flex justify-center bg-white">
       <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden bg-black text-white">
@@ -92,7 +96,6 @@ export default function BlogSection({ posts }: BlogSectionProps) {
             </h2>
           </div>
 
-        {displayPosts.length > 0 ? (
         <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-6 md:px-0 pb-8 md:pb-0">
           {displayPosts.map((post, i) => {
             const cardVariants = getCardVariants(i, isMobile);
@@ -110,7 +113,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                   }}
                 >
                   <div className="relative w-full h-52 rounded-2xl overflow-hidden mb-4">
-                    <Image
+                     <Image
                       src={post.image}
                       alt={post.title}
                       fill
@@ -140,9 +143,6 @@ export default function BlogSection({ posts }: BlogSectionProps) {
             );
           })}
         </div>
-        ) : (
-          <p className="text-center text-gray-400 px-6">No blog posts published yet.</p>
-        )}
       </div>
       <div className="mt-12 md:mt-16 lg:mt-20 right-0 flex justify-center text-blue-500 w-full overflow-hidden px-4">
         <div className="flex justify-between items-center w-full max-w-md mx-auto">
