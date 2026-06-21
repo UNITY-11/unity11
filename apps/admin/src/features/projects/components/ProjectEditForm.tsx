@@ -23,6 +23,8 @@ type ProjectEditData = {
   bgEnd: string;
   image: string;
   date?: string;
+  visibility?: "public" | "private";
+  liveLink?: string;
 };
 
 export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
@@ -49,6 +51,8 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
   const [tagInput, setTagInput] = useState("");
   const [startColor, setStartColor] = useState(project?.bgStart ?? "#2052bd");
   const [endColor, setEndColor] = useState(project?.bgEnd ?? "#7fcbe4");
+  const [visibility, setVisibility] = useState<"public" | "private">(project?.visibility ?? "public");
+  const [liveLink, setLiveLink] = useState(project?.liveLink ?? "");
   const [previewImage, setPreviewImage] = useState<string | null>(project?.image ?? null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -104,6 +108,8 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
           <input type="hidden" name="tags" value={JSON.stringify(tags)} />
           <input type="hidden" name="bgStart" value={startColor} />
           <input type="hidden" name="bgEnd" value={endColor} />
+          <input type="hidden" name="visibility" value={visibility} />
+          <input type="hidden" name="liveLink" value={liveLink} />
           <input type="hidden" name="previewImage" value={previewImage ?? ""} />
           {isEdit && (
             <input type="hidden" name="existingDate" value={project?.date ?? ""} />
@@ -168,6 +174,53 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                   </div>
                 )}
               </div>
+
+              {status === "completed" && (
+                <div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-text-muted">Visibility</label>
+                    <div className="flex gap-6 px-4 py-3 border border-border-base rounded-xl bg-background">
+                      <label className="flex items-center gap-2 cursor-pointer text-foreground">
+                        <input
+                          type="radio"
+                          name="visibility_radio"
+                          value="public"
+                          checked={visibility === "public"}
+                          onChange={() => setVisibility("public")}
+                          className="accent-primary"
+                        />
+                        Public
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer text-foreground">
+                        <input
+                          type="radio"
+                          name="visibility_radio"
+                          value="private"
+                          checked={visibility === "private"}
+                          onChange={() => setVisibility("private")}
+                          className="accent-primary"
+                        />
+                        Private
+                      </label>
+                    </div>
+                  </div>
+
+                  {visibility === "public" && (
+                    <div className="space-y-2">
+                      <label htmlFor="liveLink_input" className="block text-sm font-medium text-text-muted">Project Live Link</label>
+                      <input
+                        type="url"
+                        id="liveLink_input"
+                        value={liveLink}
+                        onChange={(e) => setLiveLink(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                        placeholder="https://yourproject.com"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
 
               <div className="col-span-1 md:col-span-2 space-y-2">
                 <label htmlFor="description" className="block text-sm font-medium text-text-muted">Description</label>
