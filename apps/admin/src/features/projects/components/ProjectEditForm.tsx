@@ -276,9 +276,9 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
 
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-surface rounded-[24px] border border-border-base p-6 shadow-xl space-y-4">
-              <label className="block text-sm font-medium text-text-muted">Project Image (4:3)</label>
+              <label className="block text-sm font-medium text-text-muted">Project Image (16:9)</label>
               <div
-                className="border-2 border-dashed border-border-muted rounded-[16px] cursor-pointer aspect-[4/3] relative overflow-hidden"
+                className="border-2 border-dashed border-border-muted rounded-[16px] cursor-pointer aspect-video relative overflow-hidden"
                 onClick={() => fileInputRef.current?.click()}
               >
                 <input type="file" name="image" ref={fileInputRef} onChange={handleImageChange} accept="image/*" className="hidden" />
