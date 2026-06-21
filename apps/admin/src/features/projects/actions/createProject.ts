@@ -54,6 +54,7 @@ export async function createProject(prevState: unknown, formData: FormData) {
     const liveLink = formData.get("liveLink") as string;
     const image = formData.get("image") as File | null;
     const previewImage = (formData.get("previewImage") as string) || "";
+    const existingDate = (formData.get("existingDate") as string) || new Date().toISOString();
 
     if (!title) return { error: "Title is required" };
 
@@ -71,7 +72,7 @@ export async function createProject(prevState: unknown, formData: FormData) {
       bgEnd: bgEnd || "#7fcbe4",
       visibility: status === "completed" ? visibility : undefined,
       liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
-      completionDate: new Date().toISOString(),
+      completionDate: status === "completed" ? new Date(existingDate).toISOString() : new Date().toISOString(),
       ...(imageAsset && { mainImage: imageRef(imageAsset._id) }),
     });
 
@@ -92,7 +93,7 @@ export async function createProject(prevState: unknown, formData: FormData) {
         bgStart: bgStart || "#2052bd",
         bgEnd: bgEnd || "#7fcbe4",
         imageUrl: previewImage || undefined,
-        date: created.completionDate ?? new Date().toISOString(),
+        date: created.completionDate ?? existingDate,
         visibility: status === "completed" ? visibility : undefined,
         liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
       }),
@@ -137,6 +138,7 @@ export async function updateProject(prevState: unknown, formData: FormData) {
         bgEnd: bgEnd || "#7fcbe4",
         visibility: status === "completed" ? visibility : null,
         liveLink: status === "completed" && visibility === "public" ? liveLink : null,
+        ...(status === "completed" ? { completionDate: new Date(existingDate).toISOString() } : {}),
       })
       .setIfMissing({ completionDate: new Date().toISOString() })
       .commit();

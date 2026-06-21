@@ -45,7 +45,10 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
     }
   }, [state, router, isEdit]);
 
+  const [title, setTitle] = useState(project?.title ?? "");
+  const [description, setDescription] = useState(project?.description ?? "");
   const [status, setStatus] = useState(project?.status ?? "new");
+  const [date, setDate] = useState(project?.date ? new Date(project.date).toISOString().split("T")[0] : "");
   const [isStatusOpen, setIsStatusOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [tags, setTags] = useState<string[]>(project?.tags ?? []);
@@ -56,6 +59,9 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
   const [liveLink, setLiveLink] = useState(project?.liveLink ?? "");
   const [previewImage, setPreviewImage] = useState<string | null>(project?.image ?? null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const TITLE_LIMIT = 30;
+  const DESC_LIMIT = 150;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" || e.key === ",") {
@@ -85,6 +91,24 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (title.length > TITLE_LIMIT) {
+      e.preventDefault();
+      alert(`Title exceeds the ${TITLE_LIMIT} character limit.`);
+      return;
+    }
+    if (description.length > DESC_LIMIT) {
+      e.preventDefault();
+      alert(`Description exceeds the ${DESC_LIMIT} character limit.`);
+      return;
+    }
+    if (status === "completed" && !date) {
+      e.preventDefault();
+      alert("Please select a valid completion date.");
+      return;
+    }
+  };
+
   return (
     <div className="p-8">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -103,7 +127,7 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
           </div>
         )}
 
-        <form action={formAction} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <form action={formAction} onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {isEdit && <input type="hidden" name="id" value={project?.id} />}
           <input type="hidden" name="status" value={status} />
           <input type="hidden" name="tags" value={JSON.stringify(tags)} />
@@ -112,20 +136,24 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
           <input type="hidden" name="visibility" value={visibility} />
           <input type="hidden" name="liveLink" value={liveLink} />
           <input type="hidden" name="previewImage" value={previewImage ?? ""} />
-          {isEdit && (
-            <input type="hidden" name="existingDate" value={project?.date ?? ""} />
-          )}
 
           <div className="lg:col-span-2 space-y-6 bg-surface rounded-[24px] border border-border-base p-8 shadow-xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="col-span-1 md:col-span-2 space-y-2">
-                <label htmlFor="title" className="block text-sm font-medium text-text-muted">Project Title</label>
+                <div className="flex justify-between items-center">
+                  <label htmlFor="title" className="block text-sm font-medium text-text-muted">Project Title</label>
+                  <span className={`text-xs ${title.length > TITLE_LIMIT ? "text-red-500" : "text-text-dim"}`}>
+                    {TITLE_LIMIT - title.length} characters left
+                  </span>
+                </div>
                 <input
                   required
                   type="text"
                   id="title"
                   name="title"
-                  defaultValue={project?.title}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  maxLength={TITLE_LIMIT}
                   className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                   placeholder="e.g. Modern E-Commerce Platform"
                 />
@@ -243,17 +271,37 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                       />
                     </div>
                   )}
+
+                  <div className="space-y-2">
+                    <label htmlFor="date" className="block text-sm font-medium text-text-muted">Completion Date</label>
+                    <input
+                      type="date"
+                      id="date"
+                      name="existingDate"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      max={new Date().toISOString().split("T")[0]}
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                  </div>
                 </div>
               )}
 
-
               <div className="col-span-1 md:col-span-2 space-y-2">
-                <label htmlFor="description" className="block text-sm font-medium text-text-muted">Description</label>
+                <div className="flex justify-between items-center">
+                  <label htmlFor="description" className="block text-sm font-medium text-text-muted">Description</label>
+                  <span className={`text-xs ${description.length > DESC_LIMIT ? "text-red-500" : "text-text-dim"}`}>
+                    {DESC_LIMIT - description.length} characters left
+                  </span>
+                </div>
                 <textarea
                   id="description"
                   name="description"
                   rows={5}
-                  defaultValue={project?.description}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  maxLength={DESC_LIMIT}
                   className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none resize-none"
                 />
               </div>
@@ -304,3 +352,4 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
     </div>
   );
 }
+
