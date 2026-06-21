@@ -9,6 +9,8 @@ const projectFields = `
   bgEnd,
   mainImage,
   completionDate,
+  visibility,
+  liveLink,
   _createdAt
 `;
 

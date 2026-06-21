@@ -10,6 +10,7 @@ import {
 
 export async function fetchPublishedProjects() {
   const docs = await client.fetch(publishedProjectsQuery);
+  console.log("Fetched raw projects from Sanity:", docs);
   return docs.map(mapSanityProject);
 }
 

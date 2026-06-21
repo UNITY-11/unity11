@@ -9,6 +9,8 @@ export const projectsQuery = `*[_type == "project"] | order(_createdAt desc) {
   bgEnd,
   mainImage,
   completionDate,
+  visibility,
+  liveLink,
   _createdAt,
   _updatedAt
 }`;
@@ -24,6 +26,8 @@ export const projectByIdQuery = `*[_type == "project" && _id == $id][0] {
   bgEnd,
   mainImage,
   completionDate,
+  visibility,
+  liveLink,
   _createdAt
 }`;
 
