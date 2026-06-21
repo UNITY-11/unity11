@@ -195,6 +195,14 @@ export async function updateProjectStatus(id: string, status: string) {
 
 export async function toggleProjectFeatured(id: string, featured: boolean) {
   try {
+    if (featured) {
+      const { readClient } = await import("@/sanity/lib/client");
+      const count = await readClient.fetch(`count(*[_type == "project" && featured == true])`);
+      if (count >= 10) {
+        return { error: "Maximum of 10 projects can be featured. Please un-star an existing project first." };
+      }
+    }
+
     const writeClient = getWriteClient();
     await writeClient.patch(id).set({ featured }).commit();
     return { success: true, id, featured };
