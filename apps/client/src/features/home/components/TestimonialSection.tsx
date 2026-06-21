@@ -13,7 +13,10 @@ export default function TestimonialSection() {
 
     const [isMobile, setIsMobile] = useState(true);
 
+    const [isMounted, setIsMounted] = useState(false);
+
     useEffect(() => {
+        setIsMounted(true);
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
         checkMobile();
         window.addEventListener("resize", checkMobile);
@@ -21,7 +24,7 @@ export default function TestimonialSection() {
     }, []);
 
     const { scrollYProgress } = useScroll({
-        target: containerRef,
+        target: isMounted ? containerRef : undefined,
         offset: ["start 80%", "start 20%"]
     });
 

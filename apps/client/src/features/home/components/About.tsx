@@ -12,8 +12,14 @@ const ScrollWord = ({ children, progress, range }: { children: React.ReactNode, 
 
 export default function AboutSection() {
   const containerRef = useRef<HTMLElement>(null);
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: isMounted ? containerRef : undefined,
     offset: ["start 80%", "center 30%"],
   });
 

@@ -58,9 +58,14 @@ export default function BlogSection({ posts }: BlogSectionProps) {
   }, []);
 
   const containerRef = useRef(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const { scrollYProgress } = useScroll({
-      target: containerRef,
+      target: isMounted ? containerRef : undefined,
       offset: ["start 80%", "start 20%"]
   });
 

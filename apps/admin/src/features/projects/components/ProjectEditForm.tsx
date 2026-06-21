@@ -176,6 +176,7 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                 {isTypeOpen && (
                   <div className="absolute top-full left-0 right-0 mt-2 bg-surface border border-border-base rounded-xl shadow-xl overflow-hidden z-50 max-h-60 overflow-y-auto">
                     {[
+                      "UI/UX Design",
                       "Landing Page",
                       "Corporate Website",
                       "Portfolio Website",
