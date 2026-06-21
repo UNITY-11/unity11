@@ -102,11 +102,6 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
       alert(`Description exceeds the ${DESC_LIMIT} character limit.`);
       return;
     }
-    if (status === "completed" && !date) {
-      e.preventDefault();
-      alert("Please select a valid completion date.");
-      return;
-    }
   };
 
   return (
@@ -273,19 +268,6 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                     </div>
                   )}
 
-                  <div className="space-y-2">
-                    <label htmlFor="date" className="block text-sm font-medium text-text-muted">Completion Date</label>
-                    <input
-                      type="date"
-                      id="date"
-                      name="existingDate"
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                      max={new Date().toISOString().split("T")[0]}
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                    />
-                  </div>
                 </div>
               )}
 
