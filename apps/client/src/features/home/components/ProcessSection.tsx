@@ -103,7 +103,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       style={dimensions.width ? { clipPath: `url(#clip-process-${index})` } : { overflow: 'hidden', borderRadius: '2rem' }}
-      className={`group relative text-white p-6 md:p-12 min-h-[14rem] md:h-56 lg:h-[260px] flex flex-col justify-center`}
+      className={`group relative text-white px-6 py-12 sm:py-14 md:px-12 md:py-20 min-h-[18rem] md:min-h-[20rem] lg:min-h-[320px] flex flex-col justify-center`}
     >
       {pathD_normal && pathD_hover && (
         <svg width="0" height="0" className="absolute pointer-events-none">
@@ -134,13 +134,13 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
       
       <div className="absolute inset-0 bg-[#2b6deb] group-hover:bg-blue-600 transition-colors duration-300 -z-10" />
 
-      <div className="relative z-10 w-full h-full flex flex-col justify-center">
+      <div className="relative z-10 w-full h-full flex flex-col justify-between md:justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: isMobile }}
           transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
-          className={`w-full md:w-1/2 flex flex-col justify-center text-left mb-2 md:mb-0 ${isAlignLeft ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
+          className={`w-full md:w-1/2 flex flex-col justify-center text-left ${isAlignLeft ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
         >
           <p className="text-xl md:text-xl lg:text-2xl font-bold mb-2 mt-2 md:mt-0">
             {step.title}
@@ -155,7 +155,11 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: isMobile }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
-          className={`text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] absolute ${isAlignLeft ? "left-4" : "right-4"} -bottom-8 md:-bottom-14 lg:-bottom-16 text-[100px] sm:text-[120px] md:text-[180px] lg:text-[220px]`}
+          className={`text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] 
+            mt-4 md:mt-0 relative md:absolute 
+            ${isAlignLeft ? "self-start md:left-4" : "self-end md:right-4"} 
+            md:-bottom-14 lg:-bottom-16 
+            text-[80px] sm:text-[100px] md:text-[180px] lg:text-[220px]`}
         >
           {step.number}
         </motion.h3>
@@ -198,24 +202,34 @@ export default function ProcessSection() {
       className="relative bg-black text-white py-16 md:py-24 lg:py-32 overflow-hidden"
     >
       {/* Top Notched Border */}
-      <div className="absolute top-0 left-0 w-full flex pointer-events-none z-20">
+      <div className="absolute top-0 left-0 w-full flex items-start pointer-events-none z-20">
         <div className="flex-1 border-t-[1.5px] border-[#2b6deb]" />
-        <svg width="480" height="60" viewBox="0 0 480 60" className="shrink-0 -mx-[0.5px]">
-          <path 
+        <svg viewBox="0 0 480 60" className="w-[280px] sm:w-[380px] md:w-[480px] shrink-0 -mx-[0.5px]">
+          <motion.path 
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
             d="M 0 0.75 C 48 0.75, 72 56.75, 144 56.75 L 336 56.75 C 408 56.75, 432 0.75, 480 0.75" 
             fill="none" stroke="#2b6deb" strokeWidth="1.5" 
+            vectorEffect="non-scaling-stroke"
           />
         </svg>
         <div className="flex-1 border-t-[1.5px] border-[#2b6deb]" />
       </div>
 
       {/* Bottom Notched Border */}
-      <div className="absolute bottom-0 left-0 w-full flex pointer-events-none z-20">
+      <div className="absolute bottom-0 left-0 w-full flex items-end pointer-events-none z-20">
         <div className="flex-1 border-b-[1.5px] border-[#2b6deb]" />
-        <svg width="480" height="60" viewBox="0 0 480 60" className="shrink-0 -mx-[0.5px]">
-          <path 
+        <svg viewBox="0 0 480 60" className="w-[280px] sm:w-[380px] md:w-[480px] shrink-0 -mx-[0.5px]">
+          <motion.path 
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
             d="M 0 59.25 C 48 59.25, 72 3.25, 144 3.25 L 336 3.25 C 408 3.25, 432 59.25, 480 59.25" 
             fill="none" stroke="#2b6deb" strokeWidth="1.5" 
+            vectorEffect="non-scaling-stroke"
           />
         </svg>
         <div className="flex-1 border-b-[1.5px] border-[#2b6deb]" />
