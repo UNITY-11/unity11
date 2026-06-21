@@ -142,7 +142,7 @@ export default function WhyChooseUs() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 mt-10">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl relative z-10 mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

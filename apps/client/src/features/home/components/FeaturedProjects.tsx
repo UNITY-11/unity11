@@ -21,7 +21,7 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
 
   return (
     <section className="w-full py-16 md:py-24 lg:py-32 bg-black">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl">
         <motion.div
           initial={{ y: "30%" }}
           whileInView={{ y: 0 }}

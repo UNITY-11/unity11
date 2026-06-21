@@ -86,7 +86,7 @@ const techIcons = [
 export default function Technologies() {
   return (
     <section id="technologies" className="relative min-h-[100svh] lg:h-screen py-16 md:py-24 lg:py-32 overflow-hidden bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl h-full flex flex-col lg:flex-row items-center justify-between gap-10">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl h-full flex flex-col lg:flex-row items-center justify-between gap-10">
         {/* Left side text */}
         <div className="flex-1 text-center lg:text-left sm:w-[50%]">
           <h2 className="text-3xl md:text-6xl leading-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">

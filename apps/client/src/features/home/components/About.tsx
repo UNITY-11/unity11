@@ -37,7 +37,7 @@ export default function AboutSection() {
         </motion.h1>
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-5xl">
+      <div className="container relative z-10 mx-auto px-2 sm:px-4 lg:px-4 text-center max-w-5xl">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight leading-[1.3] md:leading-[1.3] flex flex-wrap justify-center items-center gap-x-2 sm:gap-x-3 gap-y-2">
           <ScrollWord progress={scrollYProgress} range={[0.0, 0.15]}>
             <span className="text-white/60">We&apos;re Unity.</span>

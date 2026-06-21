@@ -12,14 +12,14 @@ interface BlogGridProps {
 export const BlogGrid = ({ posts }: BlogGridProps) => {
   if (posts.length === 0) {
     return (
-      <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+      <section className="relative w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-4 py-20 md:py-32">
         <p className="text-center text-gray-400">No blog posts published yet.</p>
       </section>
     );
   }
 
   return (
-    <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+    <section className="relative w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-4 py-20 md:py-32">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post, i) => (
           <Link href={`/blog/${post.slug}`} key={post.id}>

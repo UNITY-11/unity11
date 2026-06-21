@@ -319,7 +319,7 @@ export const Hero: React.FC = () => {
         <BackgroundBeams />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col gap-8 lg:gap-10 h-full flex-1 justify-center">
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-2 sm:px-4 lg:px-4 flex flex-col gap-8 lg:gap-10 h-full flex-1 justify-center">
         
         {/* --- 1. TOP TYPOGRAPHY SECTION --- */}
         <div className="flex flex-col xl:flex-row justify-between items-start gap-8">

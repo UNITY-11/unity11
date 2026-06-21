@@ -224,7 +224,7 @@ export default function ProcessSection() {
       {/* linear accents */}
       <div className="absolute bottom-10 right-10 h-64 w-64 bg-linear-to-tr from-cyan-500 to-blue-400 opacity-20 blur-3xl" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

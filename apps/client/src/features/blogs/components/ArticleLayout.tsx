@@ -30,7 +30,7 @@ export const ArticleLayout = ({
       />
 
       {/* Navigation Bar inside Article */}
-      <div className="absolute top-24 left-0 right-0 z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="absolute top-24 left-0 right-0 z-20 max-w-4xl mx-auto px-2 sm:px-4 lg:px-4">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
@@ -41,7 +41,7 @@ export const ArticleLayout = ({
       </div>
 
       {/* Hero Section */}
-      <header className="relative pt-36 pb-20 md:pt-48 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto z-10">
+      <header className="relative pt-36 pb-20 md:pt-48 md:pb-32 px-2 sm:px-4 lg:px-4 max-w-4xl mx-auto z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export const ArticleLayout = ({
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10"
+        className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-4 mb-20 relative z-10"
       >
         <div className="relative w-full h-[400px] md:h-[600px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10">
           <Image
@@ -94,7 +94,7 @@ export const ArticleLayout = ({
       </motion.div>
 
       {/* Article Content */}
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 relative z-10">
+      <main className="max-w-3xl mx-auto px-2 sm:px-4 lg:px-4 pb-32 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

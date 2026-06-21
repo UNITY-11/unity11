@@ -48,7 +48,7 @@ export default function TestimonialSection() {
                         />
                     </svg>
                 </div>
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl">
                 <div className="relative w-full flex flex-col justify-center items-center text-start">
                     <h2 className="text-4xl sm:text-6xl text-[#2052bd]">
                         What{" "}

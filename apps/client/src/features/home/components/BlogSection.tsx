@@ -85,7 +85,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                 />
             </svg>
         </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl">
           <div className="relative flex items-center justify-center mb-12 md:mb-16 lg:mb-20 px-6 md:px-0">
             <h2 className="text-3xl md:text-6xl text-transparent bg-clip-text bg-linear-to-r pb-1 from-[#2052bd] to-[#7fcbe4]">
               Our Blogs
