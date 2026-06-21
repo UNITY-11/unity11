@@ -8,6 +8,7 @@ export interface Project {
   image: string;
   bgStart?: string;
   bgEnd?: string;
+  bg?: string;
   date: string;
   visibility?: "public" | "private" | string;
   liveLink?: string;

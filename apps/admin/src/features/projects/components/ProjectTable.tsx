@@ -29,7 +29,8 @@ export function ProjectTable({
             <tr className="text-foreground font-semibold text-sm uppercase tracking-wider">
               <th className="px-6 py-4 font-medium">Project</th>
               <th className="px-6 py-4 font-medium">Featured</th>
-              <th className="px-6 py-4 font-medium">Category</th>
+              <th className="px-6 py-4 font-medium">Visibility</th>
+              <th className="px-6 py-4 font-medium">Tags</th>
               <th className="px-6 py-4 font-medium">Status</th>
               <th className="px-6 py-4 font-medium">Date</th>
               <th className="px-6 py-4 font-medium text-right">Actions</th>
@@ -51,7 +52,7 @@ export function ProjectTable({
                   <button
                     onClick={() => onFeaturedToggle(project.id, !project.featured)}
                     className={`p-2 rounded-full transition-colors ${
-                      project.featured ? "text-yellow-400 hover:text-yellow-500 hover:bg-yellow-400/10" : "text-text-muted hover:text-yellow-400 hover:bg-yellow-400/10"
+                      project.featured ? "text-blue-500 hover:text-blue-600 hover:bg-blue-500/10" : "text-text-muted hover:text-blue-500 hover:bg-blue-500/10"
                     }`}
                     title={project.featured ? "Unfeature project" : "Feature project"}
                   >
@@ -61,11 +62,22 @@ export function ProjectTable({
                   </button>
                 </td>
                 <td className="px-6 py-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium border ${
+                    project.visibility?.toLowerCase() === 'public' ? 'bg-green-500/10 text-green-500 border-green-500/20' : 
+                    project.visibility?.toLowerCase() === 'private' ? 'bg-orange-500/10 text-orange-500 border-orange-500/20' : 
+                    'bg-surface-hover text-text-muted border-border-muted'
+                  }`}>
+                    {project.visibility ? project.visibility.charAt(0).toUpperCase() + project.visibility.slice(1) : "N/A"}
+                  </span>
+                </td>
+                <td className="px-6 py-4">
                   <div className="flex gap-1 flex-wrap">
-                    <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
-                      {project.tag1}
-                    </span>
-                    {project.tag2 && (
+                    {project.tag1 && project.tag1.toLowerCase() !== project.visibility?.toLowerCase() && (
+                      <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
+                        {project.tag1}
+                      </span>
+                    )}
+                    {project.tag2 && project.tag2.toLowerCase() !== project.visibility?.toLowerCase() && (
                       <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
                         {project.tag2}
                       </span>

@@ -12,7 +12,7 @@ export function ProjectGrid({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {projects.map((project) => (
-        <div key={project.id} className={`group ${project.bg} w-full rounded-[2rem] overflow-hidden shadow-sm flex flex-col justify-between relative min-h-[400px]`}>
+        <div key={project.id} className={`group w-full rounded-[2rem] overflow-hidden shadow-sm flex flex-col justify-between relative min-h-[400px]`} style={{ background: project.bg }}>
           
           <div className="p-6 pb-0 flex flex-col">
             <div className="flex items-center justify-between gap-2 mb-4">
@@ -29,7 +29,7 @@ export function ProjectGrid({
               <button
                 onClick={() => onFeaturedToggle(project.id, !project.featured)}
                 className={`p-1.5 rounded-full backdrop-blur-md shadow-sm transition-colors z-20 ${
-                  project.featured ? "text-yellow-400 bg-white/30 hover:bg-white/40" : "text-white/70 bg-white/10 hover:text-yellow-400 hover:bg-white/30"
+                  project.featured ? "text-blue-500 bg-white/30 hover:bg-white/40" : "text-white/70 bg-white/10 hover:text-blue-500 hover:bg-white/30"
                 }`}
                 title={project.featured ? "Unfeature project" : "Feature project"}
               >
