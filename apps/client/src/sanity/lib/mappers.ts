@@ -21,6 +21,7 @@ export function mapSanityProject(doc: {
   completionDate?: string;
   visibility?: string;
   liveLink?: string;
+  featured?: boolean;
   _createdAt?: string;
 }): Project {
   const tags: string[] = doc.tags ?? [];
@@ -40,6 +41,7 @@ export function mapSanityProject(doc: {
     date: doc.completionDate ?? doc._createdAt ?? new Date().toISOString(),
     visibility: doc.visibility,
     liveLink: doc.liveLink,
+    featured: doc.featured ?? false,
   };
 }
 

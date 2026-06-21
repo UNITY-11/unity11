@@ -15,9 +15,11 @@ function formatProjectDate(date: string) {
 export function ProjectTable({
   projects,
   onStatusChange,
+  onFeaturedToggle,
 }: {
   projects: Project[];
   onStatusChange: (id: string, status: string) => void;
+  onFeaturedToggle: (id: string, featured: boolean) => void;
 }) {
   return (
     <div className="bg-surface rounded-t-[24px] rounded-b-none border-b-0 shadow-sm border border-border-base flex flex-col flex-1 min-h-0">
@@ -26,6 +28,7 @@ export function ProjectTable({
           <thead className="bg-surface z-30 border-b border-border-base sticky top-0">
             <tr className="text-foreground font-semibold text-sm uppercase tracking-wider">
               <th className="px-6 py-4 font-medium">Project</th>
+              <th className="px-6 py-4 font-medium">Featured</th>
               <th className="px-6 py-4 font-medium">Category</th>
               <th className="px-6 py-4 font-medium">Status</th>
               <th className="px-6 py-4 font-medium">Date</th>
@@ -43,6 +46,19 @@ export function ProjectTable({
                     <p className="text-foreground font-medium group-hover:text-primary transition-colors">{project.title}</p>
                     <p className="text-text-muted text-xs mt-0.5">{project.id}</p>
                   </div>
+                </td>
+                <td className="px-6 py-4">
+                  <button
+                    onClick={() => onFeaturedToggle(project.id, !project.featured)}
+                    className={`p-2 rounded-full transition-colors ${
+                      project.featured ? "text-yellow-400 hover:text-yellow-500 hover:bg-yellow-400/10" : "text-text-muted hover:text-yellow-400 hover:bg-yellow-400/10"
+                    }`}
+                    title={project.featured ? "Unfeature project" : "Feature project"}
+                  >
+                    <svg className="w-6 h-6" fill={project.featured ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                  </button>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-1 flex-wrap">

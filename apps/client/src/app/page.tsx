@@ -10,7 +10,7 @@ import BlogSection from "@/features/home/components/BlogSection";
 import FeaturesProjects from "@/features/home/components/FeaturedProjects";
 import {
   fetchPublishedBlogs,
-  fetchPublishedProjects,
+  fetchFeaturedProjects,
 } from "@/sanity/lib/fetchers";
 
 export const revalidate = 60;
@@ -32,7 +32,7 @@ export const metadata = {
 
 export default async function Home() {
   const [projects, blogs] = await Promise.all([
-    fetchPublishedProjects(),
+    fetchFeaturedProjects(),
     fetchPublishedBlogs(),
   ]);
 

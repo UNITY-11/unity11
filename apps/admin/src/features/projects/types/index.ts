@@ -1,13 +1,15 @@
 export interface Project {
   id: string;
-  tag1: string;
-  tag2: string;
   title: string;
   description: string;
+  status: "New" | "Working On" | "Pending" | "Completed" | string;
+  tag1: string;
+  tag2: string;
   image: string;
-  bg: string;
+  bgStart?: string;
+  bgEnd?: string;
   date: string;
-  status: string;
-  visibility?: string;
+  visibility?: "public" | "private" | string;
   liveLink?: string;
+  featured?: boolean;
 }

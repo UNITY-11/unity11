@@ -11,6 +11,7 @@ const projectFields = `
   completionDate,
   visibility,
   liveLink,
+  featured,
   _createdAt
 `;
 
@@ -39,6 +40,10 @@ const blogDetailFields = `
 `;
 
 export const publishedProjectsQuery = `*[_type == "project"] | order(completionDate desc, _createdAt desc) {
+  ${projectFields}
+}`;
+
+export const featuredProjectsQuery = `*[_type == "project" && featured == true] | order(completionDate desc, _createdAt desc) {
   ${projectFields}
 }`;
 

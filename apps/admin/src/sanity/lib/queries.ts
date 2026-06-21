@@ -1,4 +1,4 @@
-export const projectsQuery = `*[_type == "project"] | order(_createdAt desc) {
+const projectFields = `
   _id,
   title,
   slug,
@@ -11,24 +11,17 @@ export const projectsQuery = `*[_type == "project"] | order(_createdAt desc) {
   completionDate,
   visibility,
   liveLink,
+  featured,
   _createdAt,
   _updatedAt
+`;
+
+export const projectsQuery = `*[_type == "project"] | order(_createdAt desc) {
+  ${projectFields}
 }`;
 
 export const projectByIdQuery = `*[_type == "project" && _id == $id][0] {
-  _id,
-  title,
-  slug,
-  description,
-  status,
-  tags,
-  bgStart,
-  bgEnd,
-  mainImage,
-  completionDate,
-  visibility,
-  liveLink,
-  _createdAt
+  ${projectFields}
 }`;
 
 export const blogsQuery = `*[_type == "blog"] | order(publishedAt desc, _createdAt desc) {

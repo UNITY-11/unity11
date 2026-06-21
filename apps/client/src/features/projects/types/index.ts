@@ -9,6 +9,7 @@ export interface Project {
   date: string; // ISO date string for sorting
   visibility?: string;
   liveLink?: string;
+  featured?: boolean;
 }
 
 export interface ProjectCardProps extends Project {

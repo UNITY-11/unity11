@@ -60,6 +60,7 @@ export function mapSanityProject(doc: any): Project {
     status: mapProjectStatus(doc.status),
     visibility: doc.visibility,
     liveLink: doc.liveLink,
+    featured: doc.featured ?? false,
   };
 }
 

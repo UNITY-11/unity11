@@ -192,3 +192,14 @@ export async function updateProjectStatus(id: string, status: string) {
     return { error: message };
   }
 }
+
+export async function toggleProjectFeatured(id: string, featured: boolean) {
+  try {
+    const writeClient = getWriteClient();
+    await writeClient.patch(id).set({ featured }).commit();
+    return { success: true, id, featured };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to toggle featured status.";
+    return { error: message };
+  }
+}
