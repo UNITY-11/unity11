@@ -23,7 +23,8 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
 
   const getVisibleProjects = () => {
     if (projects.length === 0) return [];
-    const visibleCount = Math.min(4, projects.length);
+    // Show 1 item on mobile, 4 on desktop
+    const visibleCount = Math.min(isMobile ? 1 : 4, projects.length);
     const visible = [];
     for (let i = 0; i < visibleCount; i++) {
       visible.push(projects[(startIndex + i) % projects.length]);
@@ -84,7 +85,7 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={hasInteracted ? { opacity: 0, x: direction * -50, scale: 0.95 } : undefined}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="w-[85vw] sm:w-[350px] md:w-auto shrink-0 md:shrink snap-center"
+                    className="w-[90vw] sm:w-[350px] md:w-auto shrink-0 md:shrink snap-center mx-auto"
                   >
                     <ProjectCard index={index} disableAnimation={hasInteracted} {...p} />
                   </motion.div>

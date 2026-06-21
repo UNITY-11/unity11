@@ -89,10 +89,10 @@ export function ProjectCard({
   const cardContent = (
     <motion.div
       ref={cardRef}
-      initial={disableAnimation ? false : { y: "30%" }}
-      whileInView={{ y: 0 }}
+      initial={disableAnimation ? false : { x: "20%", opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
       viewport={{ once: true }}
-      transition={disableAnimation ? { duration: 0 } : { delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
+      transition={disableAnimation ? { duration: 0 } : { delay: (index ?? 0) * 0.1, duration: 0.8, ease: "easeOut" }}
       style={{
         ...(isGradient ? { background: bg } : {}),
         ...(dimensions.width
@@ -111,23 +111,21 @@ export function ProjectCard({
         </svg>
       )}
       <motion.div className="p-5">
-        {(tag1 || tag2) && (
-          <div className="flex items-center gap-2 mb-2">
-            {tag1 && (
-              <span className="text-xs px-3 py-1.5 rounded-full text-white bg-white/40 backdrop-blur-3xl">
-                {tag1}
-              </span>
-            )}
-            {tag2 && (
-              <span className="text-xs px-3 py-1.5 rounded-full text-white bg-white/40 backdrop-blur-3xl">
-                {tag2}
-              </span>
-            )}
-          </div>
-        )}
+        <div className="flex items-center gap-2 mb-2 min-h-[28px]">
+          {tag1 && (
+            <span className="text-xs px-3 py-1.5 rounded-full text-white bg-white/40 backdrop-blur-3xl">
+              {tag1}
+            </span>
+          )}
+          {tag2 && (
+            <span className="text-xs px-3 py-1.5 rounded-full text-white bg-white/40 backdrop-blur-3xl">
+              {tag2}
+            </span>
+          )}
+        </div>
 
-        <h3 className="text-2xl font-semibold mb-2 text-white line-clamp-2">{title}</h3>
-        <p className="text-sm text-gray-100 line-clamp-3">{description}</p>
+        <h3 className="text-2xl font-semibold mb-2 text-white line-clamp-2 min-h-[4rem]">{title}</h3>
+        <p className="text-sm text-gray-100 line-clamp-3 min-h-[3.75rem]">{description}</p>
       </motion.div>
 
       <motion.div
