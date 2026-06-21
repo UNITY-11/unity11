@@ -125,13 +125,13 @@ export function ProjectCard({
           </div>
         )}
 
-        <h3 className="text-2xl font-semibold mb-2 text-white">{title}</h3>
-        <p className="text-sm text-gray-100">{description}</p>
+        <h3 className="text-2xl font-semibold mb-2 text-white line-clamp-2">{title}</h3>
+        <p className="text-sm text-gray-100 line-clamp-3">{description}</p>
       </motion.div>
 
       <motion.div
         transition={{ duration: 1, ease: "easeOut" }}
-        className="relative w-full h-[200px] rounded-t-4xl overflow-hidden"
+        className="relative w-full aspect-video rounded-t-4xl overflow-hidden mt-auto"
       >
         <Image
           src={image}
