@@ -65,7 +65,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
   }, []);
 
   const { scrollYProgress } = useScroll({
-      target: isMounted ? containerRef : undefined,
+      target: isMounted && displayPosts.length > 0 ? containerRef : undefined,
       offset: ["start 80%", "start 20%"]
   });
 
