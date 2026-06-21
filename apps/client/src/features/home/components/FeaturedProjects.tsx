@@ -74,7 +74,7 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
           <div className="relative p-4 -m-4 w-full">
             <motion.div 
               layout
-              className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              className="flex justify-center md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full"
             >
               <AnimatePresence mode="popLayout">
                 {featured.map((p, index) => (
@@ -84,8 +84,7 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
                     initial={hasInteracted ? { opacity: 0, x: direction * 50, scale: 0.95 } : false}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={hasInteracted ? { opacity: 0, x: direction * -50, scale: 0.95 } : undefined}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="w-[90vw] sm:w-[350px] md:w-auto shrink-0 md:shrink snap-center mx-auto"
+                    className="w-[90vw] sm:w-[350px] md:w-auto shrink-0 md:shrink"
                   >
                     <ProjectCard index={index} disableAnimation={hasInteracted} {...p} />
                   </motion.div>
