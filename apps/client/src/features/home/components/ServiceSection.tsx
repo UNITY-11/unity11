@@ -77,7 +77,7 @@ const CustomServiceCard = ({ service, index }: { service: any; index: number }) 
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.6 }}
-      viewport={{ once: isMobile }}
+      viewport={{ once: true }}
       style={dimensions.width ? { clipPath: `url(#${clipId})` } : { overflow: 'hidden', borderRadius: '32px' }}
       className="relative group shadow-2xl transition-all duration-500 p-1 bg-blue-100"
     >
@@ -324,7 +324,7 @@ export default function seServiceSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: isMobile }}
+          viewport={{ once: true }}
           className="text-center"
         >
           <h2 className="text-4xl sm:text-7xl text-[#2052bd]">

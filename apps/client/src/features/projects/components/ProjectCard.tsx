@@ -91,7 +91,7 @@ export function ProjectCard({
       ref={cardRef}
       initial={disableAnimation ? false : { y: "30%" }}
       whileInView={{ y: 0 }}
-      viewport={{ once: isMobile }}
+      viewport={{ once: true }}
       transition={disableAnimation ? { duration: 0 } : { delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
       style={{
         ...(isGradient ? { background: bg } : {}),

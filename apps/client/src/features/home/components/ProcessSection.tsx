@@ -98,7 +98,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
       ref={cardRef}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: isMobile }}
+      viewport={{ once: true }}
       transition={{ duration: 0.3, ease: easeInOut }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
@@ -138,7 +138,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: isMobile }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
           className={`w-full md:w-1/2 flex flex-col justify-center text-left ${isAlignLeft ? "md:ml-auto md:pl-6" : "md:mr-auto md:pr-6"}`}
         >
@@ -153,7 +153,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: isMobile }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
           className={`text-black font-bold leading-none tracking-tighter transition-transform duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] 
             mt-4 md:mt-0 relative md:absolute 

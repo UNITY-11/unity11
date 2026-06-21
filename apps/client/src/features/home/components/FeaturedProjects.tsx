@@ -53,7 +53,7 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
         <motion.div
           initial={{ y: "30%" }}
           whileInView={{ y: 0 }}
-          viewport={{ once: isMobile }}
+          viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="mb-12 md:mb-16 lg:mb-20 flex flex-col justify-center items-center text-center"
         >

@@ -41,7 +41,7 @@ const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
     >
       <motion.div
         {...imageAnimation(index)}
-        viewport={{ once: isMobile }}
+        viewport={{ once: true }}
         className="w-full md:w-1/2 p-4 flex justify-center relative group"
       >
         <div className="relative w-full max-w-sm aspect-square flex items-center justify-center cursor-crosshair">
@@ -53,7 +53,7 @@ const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
         </div>
       </motion.div>
 
-      <motion.div {...textAnimation(index)} viewport={{ once: isMobile }} className="w-full md:w-1/2 md:p-8">
+      <motion.div {...textAnimation(index)} viewport={{ once: true }} className="w-full md:w-1/2 md:p-8">
         <div className="flex items-center justify-center text-center mb-4">
           <h3 className="text-3xl md:text-5xl text-transparent text-nowrap pb-2 bg-clip-text bg-linear-to-r from-blue-700 to-cyan-500 text-center">
             {item.title}
@@ -121,7 +121,7 @@ export default function WhyChooseUs() {
       <motion.div
         initial={{ y: 50 }}
         whileInView={{ y: 0 }}
-        viewport={{ once: isMobile }}
+        viewport={{ once: true }}
         transition={{ duration: 1 }}
         className="absolute top-[340px] sm:top-72 md:top-60 left-1/2 -translate-x-1/2 w-[200vw] md:w-[150vw] h-[200vw] md:h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 z-0 pointer-events-none"
       >
@@ -146,7 +146,7 @@ export default function WhyChooseUs() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: isMobile }}
+          viewport={{ once: true }}
           transition={{ duration: 1 }}
           className="text-center mb-12 md:mb-16 lg:mb-20"
         >

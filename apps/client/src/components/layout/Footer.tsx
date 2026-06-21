@@ -167,7 +167,7 @@ const Footer: React.FC = () => {
               duration: 1.4,
               ease: [0.25, 1, 0.5, 1],
             }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             className="flex justify-center w-full"
           >
             <Image
