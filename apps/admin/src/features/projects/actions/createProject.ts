@@ -18,6 +18,8 @@ function buildProjectListItem(
     mainImage?: { asset: { _ref: string } } | null;
     imageUrl?: string;
     date?: string;
+    visibility?: string;
+    liveLink?: string;
   }
 ): Project {
   const tags: string[] = fields.tags ?? [];
@@ -34,6 +36,8 @@ function buildProjectListItem(
         : "linear-gradient(to right, #2052bd, #7fcbe4)",
     date: fields.date ?? new Date().toISOString(),
     status: mapProjectStatus(fields.status),
+    visibility: fields.visibility,
+    liveLink: fields.liveLink,
   };
 }
 
@@ -46,6 +50,8 @@ export async function createProject(prevState: unknown, formData: FormData) {
     const tags = tagsRaw ? JSON.parse(tagsRaw) : [];
     const bgStart = formData.get("bgStart") as string;
     const bgEnd = formData.get("bgEnd") as string;
+    const visibility = formData.get("visibility") as string;
+    const liveLink = formData.get("liveLink") as string;
     const image = formData.get("image") as File | null;
     const previewImage = (formData.get("previewImage") as string) || "";
 
@@ -63,6 +69,8 @@ export async function createProject(prevState: unknown, formData: FormData) {
       tags,
       bgStart: bgStart || "#2052bd",
       bgEnd: bgEnd || "#7fcbe4",
+      visibility: status === "completed" ? visibility : undefined,
+      liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
       completionDate: new Date().toISOString(),
       ...(imageAsset && { mainImage: imageRef(imageAsset._id) }),
     });
@@ -85,6 +93,8 @@ export async function createProject(prevState: unknown, formData: FormData) {
         bgEnd: bgEnd || "#7fcbe4",
         imageUrl: previewImage || undefined,
         date: created.completionDate ?? new Date().toISOString(),
+        visibility: status === "completed" ? visibility : undefined,
+        liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
       }),
     };
   } catch (error: unknown) {
@@ -104,6 +114,8 @@ export async function updateProject(prevState: unknown, formData: FormData) {
     const tags = tagsRaw ? JSON.parse(tagsRaw) : [];
     const bgStart = formData.get("bgStart") as string;
     const bgEnd = formData.get("bgEnd") as string;
+    const visibility = formData.get("visibility") as string;
+    const liveLink = formData.get("liveLink") as string;
     const image = formData.get("image") as File | null;
     const previewImage = (formData.get("previewImage") as string) || "";
     const existingDate = (formData.get("existingDate") as string) || new Date().toISOString();
@@ -123,6 +135,8 @@ export async function updateProject(prevState: unknown, formData: FormData) {
         tags,
         bgStart: bgStart || "#2052bd",
         bgEnd: bgEnd || "#7fcbe4",
+        visibility: status === "completed" ? visibility : null,
+        liveLink: status === "completed" && visibility === "public" ? liveLink : null,
       })
       .setIfMissing({ completionDate: new Date().toISOString() })
       .commit();
@@ -142,6 +156,8 @@ export async function updateProject(prevState: unknown, formData: FormData) {
         bgEnd: bgEnd || "#7fcbe4",
         imageUrl: previewImage || undefined,
         date: existingDate,
+        visibility: status === "completed" ? visibility : undefined,
+        liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
       }),
     };
   } catch (error: unknown) {
