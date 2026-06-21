@@ -43,7 +43,7 @@ export const publishedProjectsQuery = `*[_type == "project"] | order(completionD
   ${projectFields}
 }`;
 
-export const featuredProjectsQuery = `*[_type == "project" && featured == true] | order(completionDate desc, _createdAt desc) {
+export const featuredProjectsQuery = `*[_type == "project" && featured == true] | order(completionDate desc, _createdAt desc)[0...10] {
   ${projectFields}
 }`;
 
