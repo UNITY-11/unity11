@@ -8,4 +8,6 @@ export interface Project {
   bg: string;
   date: string;
   status: string;
+  visibility?: string;
+  liveLink?: string;
 }
