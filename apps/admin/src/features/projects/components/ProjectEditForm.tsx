@@ -47,6 +47,7 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
 
   const [status, setStatus] = useState(project?.status ?? "new");
   const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [tags, setTags] = useState<string[]>(project?.tags ?? []);
   const [tagInput, setTagInput] = useState("");
   const [startColor, setStartColor] = useState(project?.bgStart ?? "#2052bd");
@@ -130,24 +131,48 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-text-muted">Project Tags</label>
-                <div className="w-full h-[50px] px-3 rounded-xl border border-border-base bg-background flex flex-nowrap gap-2 items-center overflow-x-auto">
-                  {tags.map((tag) => (
-                    <span key={tag} className="bg-surface-active text-text-muted px-3 py-1.5 rounded-full text-sm flex items-center gap-1 border border-border-muted shrink-0">
-                      {tag}
-                      <button type="button" onClick={() => removeTag(tag)} className="hover:text-foreground">×</button>
-                    </span>
-                  ))}
-                  <input
-                    type="text"
-                    value={tagInput}
-                    onChange={(e) => setTagInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className="flex-1 min-w-[120px] bg-transparent text-foreground focus:outline-none"
-                    placeholder={tags.length === 0 ? "Type and press Enter..." : ""}
-                  />
-                </div>
+              <div className="space-y-2 relative">
+                <label className="block text-sm font-medium text-text-muted">Project Type</label>
+                <button
+                  type="button"
+                  onClick={() => setIsTypeOpen(!isTypeOpen)}
+                  className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                >
+                  <span className={tags[0] ? "text-foreground" : "text-text-muted"}>
+                    {tags[0] || "Select Project Type"}
+                  </span>
+                  <svg className={`w-5 h-5 transition-transform ${isTypeOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isTypeOpen && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-surface border border-border-base rounded-xl shadow-xl overflow-hidden z-50 max-h-60 overflow-y-auto">
+                    {[
+                      "Landing Page",
+                      "Corporate Website",
+                      "Portfolio Website",
+                      "eCommerce Platform",
+                      "Web Application",
+                      "Mobile App",
+                      "Desktop App",
+                      "SaaS",
+                      "Admin Dashboard",
+                      "Custom Software",
+                      "Enterprise Solution",
+                      "API Development",
+                      "System Integration",
+                    ].map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => { setTags([type]); setIsTypeOpen(false); }}
+                        className="w-full text-left px-4 py-3 hover:bg-surface-hover"
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="space-y-2 relative">
