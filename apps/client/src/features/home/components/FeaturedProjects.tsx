@@ -17,7 +17,29 @@ interface FeaturedProjectsSectionProps {
 export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
-  const featured = projects.slice(0, 4);
+  const [startIndex, setStartIndex] = useState(0);
+
+  const getVisibleProjects = () => {
+    if (projects.length === 0) return [];
+    const visibleCount = Math.min(4, projects.length);
+    const visible = [];
+    for (let i = 0; i < visibleCount; i++) {
+      visible.push(projects[(startIndex + i) % projects.length]);
+    }
+    return visible;
+  };
+
+  const featured = getVisibleProjects();
+
+  const handleNext = () => {
+    if (projects.length === 0) return;
+    setStartIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const handlePrev = () => {
+    if (projects.length === 0) return;
+    setStartIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
 
   return (
     <section className="w-full py-16 md:py-24 lg:py-32 bg-black">
@@ -54,16 +76,16 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
 
       <div className="mt-10 right-0 flex justify-center text-blue-500">
         <div className="flex justify-between items-center mx-5">
-          <button className="w-10 h-10 rounded-full border-2 flex items-center justify-center">
+          <button onClick={handlePrev} className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all">
             <IoIosArrowBack className="text-lg" />
           </button>
           <button
             onClick={() => router.push("/projects")}
-            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
+            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500 mx-4"
           >
             See More
           </button>
-          <button className="w-10 h-10 rounded-full border-2 flex items-center justify-center">
+          <button onClick={handleNext} className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all">
             <IoIosArrowForward className="text-lg" />
           </button>
         </div>
