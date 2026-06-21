@@ -4,7 +4,7 @@ import Image from "next/image";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 import { FeaturedProject } from "../types";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -18,6 +18,8 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
   const router = useRouter();
   const isMobile = useIsMobile();
   const [startIndex, setStartIndex] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [direction, setDirection] = useState(1);
 
   const getVisibleProjects = () => {
     if (projects.length === 0) return [];
@@ -33,11 +35,15 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
 
   const handleNext = () => {
     if (projects.length === 0) return;
+    setHasInteracted(true);
+    setDirection(1);
     setStartIndex((prev) => (prev + 1) % projects.length);
   };
 
   const handlePrev = () => {
     if (projects.length === 0) return;
+    setHasInteracted(true);
+    setDirection(-1);
     setStartIndex((prev) => (prev - 1 + projects.length) % projects.length);
   };
 
@@ -64,11 +70,28 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
         </motion.div>
 
         {featured.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 lg:gap-8">
-          {featured.map((p, index) => (
-            <ProjectCard key={p.id} index={index} {...p} />
-          ))}
-        </div>
+          <div className="relative p-4 -m-4 w-full">
+            <motion.div 
+              layout
+              className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
+              <AnimatePresence mode="popLayout">
+                {featured.map((p, index) => (
+                  <motion.div 
+                    layout
+                    key={p.id}
+                    initial={hasInteracted ? { opacity: 0, x: direction * 50, scale: 0.95 } : false}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={hasInteracted ? { opacity: 0, x: direction * -50, scale: 0.95 } : undefined}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="w-[85vw] sm:w-[350px] md:w-auto shrink-0 md:shrink snap-center"
+                  >
+                    <ProjectCard index={index} disableAnimation={hasInteracted} {...p} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          </div>
         ) : (
           <p className="text-center text-gray-400">No projects available yet.</p>
         )}

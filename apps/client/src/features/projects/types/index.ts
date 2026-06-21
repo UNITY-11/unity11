@@ -14,6 +14,7 @@ export interface Project {
 
 export interface ProjectCardProps extends Project {
   index?: number;
+  disableAnimation?: boolean;
 }
 
 export interface ProjectsFilterProps {

@@ -14,6 +14,7 @@ export function ProjectCard({
   bg,
   liveLink,
   index = 0,
+  disableAnimation = false,
 }: ProjectCardProps) {
   const isMobile = useIsMobile();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -88,10 +89,10 @@ export function ProjectCard({
   const cardContent = (
     <motion.div
       ref={cardRef}
-      initial={{ y: "30%" }}
+      initial={disableAnimation ? false : { y: "30%" }}
       whileInView={{ y: 0 }}
       viewport={{ once: isMobile }}
-      transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
+      transition={disableAnimation ? { duration: 0 } : { delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
       style={{
         ...(isGradient ? { background: bg } : {}),
         ...(dimensions.width
@@ -139,36 +140,37 @@ export function ProjectCard({
           fill
           className="object-cover group-hover:scale-105 transition-all duration-500"
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg z-50 rounded-full p-[2px]">
-          {/* Gradient border layer on hover */}
-          <div 
-            className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
-            style={{ background: bg }} 
-          />
-          {/* Inner circle */}
-          <div className="relative w-full h-full rounded-full bg-white/20 group-hover:bg-transparent backdrop-blur-md flex items-center justify-center z-10 transition-all duration-300 border border-white/30 group-hover:border-transparent">
-            {(() => {
-              const colorsMatch = bg.match(/(#[a-fA-F0-9]{3,8}|rgba?\([^)]+\))/g);
-              const startColor = colorsMatch ? colorsMatch[0] : "#2052bd";
-              const endColor = colorsMatch && colorsMatch.length > 1 ? colorsMatch[1] : startColor;
-              return (
-                <>
-                  <svg width="0" height="0" className="absolute">
-                    <linearGradient id={`grad-card-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor={startColor} />
-                      <stop offset="100%" stopColor={endColor} />
-                    </linearGradient>
-                  </svg>
-                  <style>{`#arrow-icon-${index} path { fill: url(#grad-card-${index}) !important; }`}</style>
-                  <IoIosArrowForward className="text-4xl -rotate-45 text-white group-hover:opacity-0 absolute transition-opacity duration-300" />
-                  <IoIosArrowForward 
-                    id={`arrow-icon-${index}`}
-                    className="text-4xl -rotate-45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute" 
-                  />
-                </>
-              );
-            })()}
-          </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg z-50 rounded-full flex items-center justify-center backdrop-blur-md bg-transparent">
+          {(() => {
+            const colorsMatch = bg.match(/(#[a-fA-F0-9]{3,8}|rgba?\([^)]+\))/g);
+            const startColor = colorsMatch ? colorsMatch[0] : "#2052bd";
+            const endColor = colorsMatch && colorsMatch.length > 1 ? colorsMatch[1] : startColor;
+            return (
+              <>
+                <svg width="0" height="0" className="absolute">
+                  <linearGradient id={`grad-card-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor={startColor} />
+                    <stop offset="100%" stopColor={endColor} />
+                  </linearGradient>
+                </svg>
+                <style>{`#arrow-icon-${index} path { fill: url(#grad-card-${index}) !important; }`}</style>
+                
+                {/* Default white border */}
+                <div className="absolute inset-0 rounded-full border border-white/30 group-hover:opacity-0 transition-opacity duration-300" />
+                
+                {/* Gradient border on hover */}
+                <svg className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="31" fill="none" stroke={`url(#grad-card-${index})`} strokeWidth="2" />
+                </svg>
+
+                <IoIosArrowForward className="text-4xl -rotate-45 text-white group-hover:opacity-0 absolute transition-opacity duration-300" />
+                <IoIosArrowForward 
+                  id={`arrow-icon-${index}`}
+                  className="text-4xl -rotate-45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute" 
+                />
+              </>
+            );
+          })()}
         </div>
       </motion.div>
     </motion.div>
