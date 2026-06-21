@@ -103,7 +103,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       style={dimensions.width ? { clipPath: `url(#clip-process-${index})` } : { overflow: 'hidden', borderRadius: '2rem' }}
-      className={`group relative text-white px-6 py-12 sm:py-14 md:px-12 md:py-20 min-h-[18rem] md:min-h-[20rem] lg:min-h-[320px] flex flex-col justify-center`}
+      className={`group relative text-white px-6 py-12 sm:py-14 md:p-12 min-h-[18rem] md:min-h-[14rem] md:h-56 lg:h-[260px] flex flex-col justify-center`}
     >
       {pathD_normal && pathD_hover && (
         <svg width="0" height="0" className="absolute pointer-events-none">
