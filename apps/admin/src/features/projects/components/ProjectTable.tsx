@@ -30,7 +30,7 @@ export function ProjectTable({
               <th className="px-6 py-4 font-medium">Project</th>
               <th className="px-6 py-4 font-medium">Featured</th>
               <th className="px-6 py-4 font-medium">Visibility</th>
-              <th className="px-6 py-4 font-medium">Tags</th>
+              <th className="px-6 py-4 font-medium">Type</th>
               <th className="px-6 py-4 font-medium">Status</th>
               <th className="px-6 py-4 font-medium">Date</th>
               <th className="px-6 py-4 font-medium text-right">Actions</th>
