@@ -23,8 +23,8 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
 
   const getVisibleProjects = () => {
     if (projects.length === 0) return [];
-    // Show 1 item on mobile, 4 on desktop
-    const visibleCount = Math.min(isMobile ? 1 : 4, projects.length);
+    // Always render 4 items so mobile can swipe through them natively
+    const visibleCount = Math.min(4, projects.length);
     const visible = [];
     for (let i = 0; i < visibleCount; i++) {
       visible.push(projects[(startIndex + i) % projects.length]);
@@ -74,19 +74,22 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
           <div className="relative p-4 -m-4 w-full">
             <motion.div 
               layout
-              className="flex justify-center md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full"
+              className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-[5vw] sm:px-0"
             >
               <AnimatePresence mode="popLayout">
                 {featured.map((p, index) => (
                   <motion.div 
                     layout
                     key={p.id}
-                    initial={hasInteracted ? { opacity: 0, x: direction * 50, scale: 0.95 } : false}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    initial={hasInteracted ? { opacity: 0, x: direction * 50, scale: 0.95 } : { opacity: 0, y: 30 }}
+                    animate={hasInteracted ? { opacity: 1, x: 0, scale: 1 } : undefined}
+                    whileInView={!hasInteracted ? { opacity: 1, y: 0 } : undefined}
+                    viewport={{ once: true }}
                     exit={hasInteracted ? { opacity: 0, x: direction * -50, scale: 0.95 } : undefined}
-                    className="w-[90vw] sm:w-[350px] md:w-auto shrink-0 md:shrink"
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="w-[90vw] sm:w-[350px] md:w-auto shrink-0 md:shrink snap-center"
                   >
-                    <ProjectCard index={index} disableAnimation={hasInteracted} {...p} />
+                    <ProjectCard index={index} disableAnimation={true} {...p} />
                   </motion.div>
                 ))}
               </AnimatePresence>
