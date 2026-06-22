@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent } from "motion/react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { IoIosArrowForward, IoIosMenu, IoIosClose } from "react-icons/io";
 import Image from "next/image";
 import Link from "next/link";
@@ -198,66 +198,108 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`md:hidden absolute left-5 ${isWhiteBg ? 'text-black' : 'text-white'}`}
+          className="md:hidden absolute left-5"
         >
-          {menuOpen ? <IoIosClose size={40} /> : <IoIosMenu size={28} />}
+          {menuOpen ? (
+            <IoIosClose size={40} className={isWhiteBg ? 'text-black' : 'text-white'} />
+          ) : (
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#2b6deb]">
+              <path d="M4 9H20M4 15H20" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          )}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="md:hidden fixed top-[68px] left-0 w-full h-[calc(100vh-68px)] bg-black/95 backdrop-blur-md border-t border-gray-800 flex flex-col justify-center items-center py-10 z-40 overflow-y-auto"
-        >
-          <ul className="h-full flex flex-col gap-10 items-center justify-center">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <Link
-                  href={link.href}
-                  onClick={() => {
-                    setActiveLink(link.name);
-                    setMenuOpen(false);
-                  }}
-                  className={`text-lg font-medium ${
-                    activeLink === link.name
-                      ? "text-[#7fcbe4]"
-                      : "text-gray-300 hover:text-white"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { delay: 0.2 } }}
+            className="md:hidden fixed top-0 left-0 w-full h-[100dvh] bg-black/95 backdrop-blur-xl z-40 flex flex-col justify-between pt-[100px] pb-10 px-8 overflow-y-auto"
+          >
+            {/* Ambient background glow */}
+            <div className="absolute top-1/4 -left-20 w-64 h-64 bg-[#2b6deb]/20 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute bottom-1/4 -right-20 w-64 h-64 bg-[#7fcbe4]/20 rounded-full blur-[80px] pointer-events-none" />
 
-            {/* CTA Button (Mobile) */}
-            <Link
-              href="/get-started"
-              onClick={() => setMenuOpen(false)}
-              style={{ clipPath: "path('M 12 0 L 60 0 C 64 0, 66 6, 72 6 L 88 6 C 94 6, 96 0, 100 0 L 148 0 A 12 12 0 0 1 160 12 L 160 36 A 12 12 0 0 1 148 48 L 100 48 C 96 48, 94 42, 88 42 L 72 42 C 66 42, 64 48, 60 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z')" }}
-              className="group relative inline-flex h-12 w-[160px] items-center bg-black transition-transform shadow-md"
+            <motion.ul 
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={{
+                open: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+                closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+              }}
+              className="flex flex-col gap-6 relative z-10"
             >
-              <svg className="absolute inset-0 pointer-events-none z-20" width="160" height="48" viewBox="0 0 160 48">
-                <path d="M 12 0 L 60 0 C 64 0, 66 6, 72 6 L 88 6 C 94 6, 96 0, 100 0 L 148 0 A 12 12 0 0 1 160 12 L 160 36 A 12 12 0 0 1 148 48 L 100 48 C 96 48, 94 42, 88 42 L 72 42 C 66 42, 64 48, 60 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z" fill="none" stroke="#2b6deb" strokeWidth="2" />
-              </svg>
-              
-              {/* Dynamic Section */}
-              <div className="flex h-full w-[80%] relative z-10 items-center justify-center rounded-xl bg-transparent group-hover:bg-[#2b6deb] transition-all duration-500 ease-in-out group-hover:w-full">
-                <span className="text-[#2b6deb] group-hover:text-white transition-colors duration-500 text-sm font-bold tracking-tight whitespace-nowrap">
-                  Get started
-                </span>
-              </div>
+              {navLinks.map((link, i) => (
+                <motion.li 
+                  key={link.name}
+                  variants={{
+                    closed: { opacity: 0, x: -20 },
+                    open: { opacity: 1, x: 0 }
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => {
+                      setActiveLink(link.name);
+                      setMenuOpen(false);
+                    }}
+                    className={`block text-4xl sm:text-5xl font-bold tracking-tighter transition-all duration-300 ${
+                      activeLink === link.name
+                        ? "text-transparent bg-clip-text bg-linear-to-r from-[#2b6deb] to-[#7fcbe4] pl-4 border-l-4 border-[#2b6deb]"
+                        : "text-gray-400 hover:text-white hover:pl-2"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.li>
+              ))}
+            </motion.ul>
 
-              {/* Icon Section */}
-              <div className="flex h-full w-[20%] relative z-10 items-center justify-center text-[#2b6deb] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
-                <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ delay: 0.4 }}
+              className="relative z-10 mt-12 flex flex-col gap-8"
+            >
+              <Link
+                href="/get-started"
+                onClick={() => setMenuOpen(false)}
+                style={{ clipPath: "path('M 12 0 L 60 0 C 64 0, 66 6, 72 6 L 88 6 C 94 6, 96 0, 100 0 L 148 0 A 12 12 0 0 1 160 12 L 160 36 A 12 12 0 0 1 148 48 L 100 48 C 96 48, 94 42, 88 42 L 72 42 C 66 42, 64 48, 60 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z')" }}
+                className="group relative inline-flex h-12 w-[160px] items-center bg-black transition-transform shadow-md hover:scale-105"
+              >
+                <svg className="absolute inset-0 pointer-events-none z-20" width="160" height="48" viewBox="0 0 160 48">
+                  <path d="M 12 0 L 60 0 C 64 0, 66 6, 72 6 L 88 6 C 94 6, 96 0, 100 0 L 148 0 A 12 12 0 0 1 160 12 L 160 36 A 12 12 0 0 1 148 48 L 100 48 C 96 48, 94 42, 88 42 L 72 42 C 66 42, 64 48, 60 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z" fill="none" stroke="#2b6deb" strokeWidth="2" />
+                </svg>
+                
+                <div className="flex h-full w-[80%] relative z-10 items-center justify-center rounded-xl bg-transparent group-hover:bg-[#2b6deb] transition-all duration-500 ease-in-out group-hover:w-full">
+                  <span className="text-[#2b6deb] group-hover:text-white transition-colors duration-500 text-sm font-bold tracking-tight whitespace-nowrap">
+                    Get started
+                  </span>
+                </div>
+
+                <div className="flex h-full w-[20%] relative z-10 items-center justify-center text-[#2b6deb] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+                  <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
+                </div>
+              </Link>
+              
+              {/* Footer Links */}
+              <div className="pt-8 border-t border-white/10 flex justify-between items-center text-sm font-medium text-gray-500">
+                <div className="flex gap-4">
+                  <a href="#" className="hover:text-white transition-colors">X (Twitter)</a>
+                  <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
+                </div>
+                <span>© {new Date().getFullYear()}</span>
               </div>
-            </Link>
-          </ul>
-        </motion.div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
