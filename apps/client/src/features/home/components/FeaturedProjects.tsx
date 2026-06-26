@@ -62,23 +62,23 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
             FEATURED PROJECTS
           </p>
 
-          <div className="flex justify-between items-end">
-            <h2 className="text-[40px] md:text-[52px] leading-none mt-3 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4] pb-2">
-              Engineering Real-World
-              <br /> Digital Impact
+          <div className="flex justify-between items-end max-w-xl">
+            <h2 className="text-[30px] md:text-[52px] leading-none mt-3 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4] pb-2">
+              Engineering Real World
+              Digital Impact
             </h2>
           </div>
         </motion.div>
 
         {featured.length > 0 ? (
-          <div className="relative p-4 -m-4 w-full">
-            <motion.div 
+          <div className="relative p-4 w-full">
+            <motion.div
               layout
               className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-[5vw] sm:px-0"
             >
               <AnimatePresence mode="popLayout">
                 {featured.map((p, index) => (
-                  <motion.div 
+                  <motion.div
                     layout
                     key={p.id}
                     initial={hasInteracted ? { opacity: 0, x: direction * 50, scale: 0.95 } : { opacity: 0, y: 30 }}
@@ -100,14 +100,14 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
         )}
       </div>
 
-      <div className="mt-10 right-0 flex justify-center text-blue-500">
-        <div className="flex justify-between items-center mx-5">
+      <div className="mt-14 right-0 flex justify-center text-blue-500">
+        <div className="flex justify-center items-center">
           <button onClick={handlePrev} className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all">
             <IoIosArrowBack className="text-lg" />
           </button>
           <button
             onClick={() => router.push("/projects")}
-            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500 mx-4"
+            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all hover:gap-8 duration-500"
           >
             See More
           </button>
