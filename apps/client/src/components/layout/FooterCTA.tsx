@@ -19,14 +19,14 @@ const FooterCTA: React.FC = () => {
         whileInView={{ y: 0, x: -20, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 3, ease: "easeOut" }}
-        className="absolute w-[200px] h-[200px] rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-yellow-200 via-orange-400 to-orange-600 top-14 left-1/2 -translate-x-1/2 md:left-32 md:-translate-x-0 blur-2xl opacity-90"
+        className="absolute w-[200px] h-[200px] rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-yellow-200 via-orange-400 to-orange-600 sm:top-14 left-1/2 -translate-x-1/2 md:left-32 md:-translate-x-0 blur-2xl opacity-90"
       />
       <motion.div
         initial={{ y: 50 }}
         whileInView={{ y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="absolute top-60 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 overflow-hidden"
+        className="absolute md:top-60 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 overflow-hidden"
       >
         <Particles
           className="absolute inset-0 z-0"
