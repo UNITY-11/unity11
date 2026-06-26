@@ -185,7 +185,12 @@ export const Particles: React.FC<ParticlesProps> = ({
 
       // Clear existing particles and create new ones with exact quantity
       circles.current = []
-      for (let i = 0; i < quantity; i++) {
+      
+      // Reduce particles significantly on mobile devices to improve performance
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      const adjustedQuantity = isMobile ? Math.max(Math.floor(quantity / 3), 10) : quantity;
+      
+      for (let i = 0; i < adjustedQuantity; i++) {
         const circle = circleParams()
         drawCircle(circle)
       }
