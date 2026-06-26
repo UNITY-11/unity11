@@ -129,7 +129,7 @@ const testimonials = [
 ];
 
 const generateCardPath = (width: number, height: number, offset = 1) => {
-  const R = 24; 
+  const R = 24;
   const X = width / 2;
   const NW = 160; // Width of the notch opening
   const FW = 100; // Width of the flat bottom of the notch
@@ -137,18 +137,18 @@ const generateCardPath = (width: number, height: number, offset = 1) => {
   const CS = 25;  // Curve strength for the smooth bend
 
   const topNotch = `
-    L ${X - NW/2} ${offset}
-    C ${X - NW/2 + CS} ${offset}, ${X - FW/2 - CS} ${offset + NH}, ${X - FW/2} ${offset + NH}
-    L ${X + FW/2} ${offset + NH}
-    C ${X + FW/2 + CS} ${offset + NH}, ${X + NW/2 - CS} ${offset}, ${X + NW/2} ${offset}
+    L ${X - NW / 2} ${offset}
+    C ${X - NW / 2 + CS} ${offset}, ${X - FW / 2 - CS} ${offset + NH}, ${X - FW / 2} ${offset + NH}
+    L ${X + FW / 2} ${offset + NH}
+    C ${X + FW / 2 + CS} ${offset + NH}, ${X + NW / 2 - CS} ${offset}, ${X + NW / 2} ${offset}
   `;
 
   const bottomY = height - offset;
   const bottomNotch = `
-    L ${X + NW/2} ${bottomY}
-    C ${X + NW/2 - CS} ${bottomY}, ${X + FW/2 + CS} ${bottomY - NH}, ${X + FW/2} ${bottomY - NH}
-    L ${X - FW/2} ${bottomY - NH}
-    C ${X - FW/2 - CS} ${bottomY - NH}, ${X - NW/2 + CS} ${bottomY}, ${X - NW/2} ${bottomY}
+    L ${X + NW / 2} ${bottomY}
+    C ${X + NW / 2 - CS} ${bottomY}, ${X + FW / 2 + CS} ${bottomY - NH}, ${X + FW / 2} ${bottomY - NH}
+    L ${X - FW / 2} ${bottomY - NH}
+    C ${X - FW / 2 - CS} ${bottomY - NH}, ${X - NW / 2 + CS} ${bottomY}, ${X - NW / 2} ${bottomY}
   `;
 
   return `
@@ -174,11 +174,11 @@ interface TestimonialCardProps {
   cardSize: number;
 }
 
-const TestimonialCard: React.FC<TestimonialCardProps> = ({ 
-  position, 
-  testimonial, 
-  handleMove, 
-  cardSize 
+const TestimonialCard: React.FC<TestimonialCardProps> = ({
+  position,
+  testimonial,
+  handleMove,
+  cardSize
 }) => {
   const isCenter = position === 0;
   const [isHovered, setIsHovered] = useState(false);
@@ -206,14 +206,14 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       }}
     >
       {/* SVG Background with Smooth Frame Curves */}
-      <svg 
-        className="absolute inset-0 w-full h-full pointer-events-none transition-all duration-500" 
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none transition-all duration-500"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ 
-          filter: isCenter 
-            ? 'drop-shadow(0 10px 40px rgba(59,130,246,0.3))' 
-            : isHovered 
-              ? 'drop-shadow(0 15px 50px rgba(0,0,0,0.25))' 
+        style={{
+          filter: isCenter
+            ? 'drop-shadow(0 10px 40px rgba(59,130,246,0.3))'
+            : isHovered
+              ? 'drop-shadow(0 15px 50px rgba(0,0,0,0.25))'
               : 'drop-shadow(0 10px 40px rgba(0,0,0,0.15))'
         }}
       >
@@ -228,7 +228,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </svg>
 
       {/* Content Wrapper */}
-      <div 
+      <div
         className={cn(
           "w-full h-full p-8 pt-10 pb-10 flex flex-col relative z-10",
           isCenter ? "text-white" : "text-slate-900"
@@ -310,7 +310,7 @@ export const StaggerTestimonials = forwardRef<StaggerTestimonialsHandle, React.H
   return (
     <div
       className="relative w-full overflow-hidden bg-transparent"
-      style={{ height: 600 }}
+      style={{ height: 500 }}
     >
       {testimonialsList.map((testimonial, index) => {
         const position = testimonialsList.length % 2
