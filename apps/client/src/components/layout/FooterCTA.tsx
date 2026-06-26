@@ -28,11 +28,11 @@ const FooterCTA: React.FC = () => {
         transition={{ duration: 1 }}
         className="absolute top-60 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 overflow-hidden"
       >
-         <Particles
-        className="absolute inset-0 z-0"
-        quantity={1111}
-        color="#0062ff"
-      />
+        <Particles
+          className="absolute inset-0 z-0"
+          quantity={1111}
+          color="#0062ff"
+        />
         <div className="w-full h-full rounded-full bg-black"></div>
       </motion.div>
       <div className="w-full flex flex-col justify-center items-center pb-[10vh] z-10">
@@ -42,9 +42,9 @@ const FooterCTA: React.FC = () => {
         </h2>
 
         {/* Subheading */}
-          <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-            Ready to transform your ideas into reality? Let&apos;s build something extraordinary together.
-          </p>
+        <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+          Ready to transform your ideas into reality? Let&apos;s build something extraordinary together.
+        </p>
 
         {/* Call to Action Button */}
         <button
