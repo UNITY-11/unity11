@@ -67,7 +67,7 @@ export default function TestimonialSection() {
 
                 </div>
 
-                <div className="w-full relative z-10  md:my-16">
+                <div className="w-full relative z-10 md:my-16">
                     <StaggerTestimonials ref={testimonialsRef} />
                 </div>
                 <div className="mt-10 right-0 flex justify-center text-blue-500 relative z-20 w-full overflow-hidden px-4">
