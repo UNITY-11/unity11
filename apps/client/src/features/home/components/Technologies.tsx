@@ -114,7 +114,7 @@ export default function Technologies() {
         >
           <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
           className="col-span-2 row-span-2  bg-slate-950 shadow-blue-500/80 shadow-md w-full h-full rounded-2xl flex justify-center items-center">
@@ -129,7 +129,7 @@ export default function Technologies() {
           <div className="grid grid-cols-2 grid-rows-2 col-span-2 row-span-2 w-full h-full gap-2">
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -146,7 +146,7 @@ export default function Technologies() {
             </div>
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}} 
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -160,7 +160,7 @@ export default function Technologies() {
             </motion.div>
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
 
@@ -178,7 +178,7 @@ export default function Technologies() {
             <div className="col-span-1 row-span-1"></div>
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -196,7 +196,7 @@ export default function Technologies() {
           <div className="grid grid-cols-2 grid-rows-2 col-span-2 row-span-2 w-full h-full gap-2">
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -210,7 +210,7 @@ export default function Technologies() {
             </motion.div>{" "}
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -224,7 +224,7 @@ export default function Technologies() {
             </motion.div>{" "}
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
