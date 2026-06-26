@@ -51,10 +51,8 @@ const VerticalPillar = ({ text, delay, gradientDirection }: { text: string; dela
   useEffect(() => {
     const updateSize = () => {
       if (pillarRef.current) {
-        setDimensions({
-          width: pillarRef.current.offsetWidth,
-          height: pillarRef.current.offsetHeight,
-        });
+        const { offsetWidth, offsetHeight } = pillarRef.current;
+        setDimensions(prev => prev.width === offsetWidth && prev.height === offsetHeight ? prev : { width: offsetWidth, height: offsetHeight });
       }
     };
     
@@ -173,10 +171,8 @@ const HeroCard = ({ children, delay, variant, className, xOffset, pathBorderColo
   useEffect(() => {
     const updateSize = () => {
       if (cardRef.current) {
-        setDimensions({
-          width: cardRef.current.offsetWidth,
-          height: cardRef.current.offsetHeight,
-        });
+        const { offsetWidth, offsetHeight } = cardRef.current;
+        setDimensions(prev => prev.width === offsetWidth && prev.height === offsetHeight ? prev : { width: offsetWidth, height: offsetHeight });
       }
     };
     
@@ -390,7 +386,7 @@ export const Hero: React.FC = () => {
             <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex items-center gap-1.5 md:gap-2 text-white/90 text-[10px] md:text-xs z-10">
               <motion.div
                 className="w-6 h-6 rounded-full bg-blue-200/80 flex items-center justify-center"
-                animate={{ rotate: 360 }}
+                animate={isInView ? { rotate: 360 } : { rotate: 0 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 style={{ willChange: "transform" }} 
               >
@@ -421,7 +417,7 @@ export const Hero: React.FC = () => {
             <div className="relative h-full flex flex-col justify-between p-4 z-10 overflow-hidden">
               <motion.div
                 className="absolute inset-[-50%] bg-[url('/images/home/heroImg2.jpg?v=2')] bg-cover bg-center z-0"
-                animate={{ rotate: 360 }}
+                animate={isInView ? { rotate: 360 } : { rotate: 0 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
               />
               <HeroCard
