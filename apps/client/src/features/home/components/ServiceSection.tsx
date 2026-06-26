@@ -18,10 +18,8 @@ const CustomServiceCard = ({ service, index }: { service: any; index: number }) 
   useEffect(() => {
     const updateSize = () => {
       if (cardRef.current) {
-        setDimensions({
-          width: cardRef.current.offsetWidth,
-          height: cardRef.current.offsetHeight,
-        });
+        const { offsetWidth, offsetHeight } = cardRef.current;
+        setDimensions(prev => prev.width === offsetWidth && prev.height === offsetHeight ? prev : { width: offsetWidth, height: offsetHeight });
       }
     };
     
@@ -140,10 +138,8 @@ const MarqueeImageCard = ({ src, alt, i, direction }: { src: string; alt: string
   useEffect(() => {
     const updateSize = () => {
       if (cardRef.current) {
-        setDimensions({
-          width: cardRef.current.offsetWidth,
-          height: cardRef.current.offsetHeight,
-        });
+        const { offsetWidth, offsetHeight } = cardRef.current;
+        setDimensions(prev => prev.width === offsetWidth && prev.height === offsetHeight ? prev : { width: offsetWidth, height: offsetHeight });
       }
     };
     
