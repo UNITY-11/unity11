@@ -20,25 +20,25 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
         setDimensions(prev => prev.width === offsetWidth && prev.height === offsetHeight ? prev : { width: offsetWidth, height: offsetHeight });
       }
     };
-    
+
     updateSize();
     const observer = new ResizeObserver(updateSize);
     if (cardRef.current) {
       observer.observe(cardRef.current);
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
   const generateCardPath = (width: number, height: number, isEven: boolean) => {
     if (!width || !height) return "";
-    
-    const R = 32; 
+
+    const R = 32;
     const CW = width > 400 ? 200 : 120; // Cutout width from edge
     const SW = 70; // S-curve width
     const NH = 35;  // Depth of the step
-    const CS = 30;  
-    
+    const CS = 30;
+
     const align = isEven ? 'left' : 'right';
 
     if (align === 'right') {
@@ -107,7 +107,7 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
         <svg width="0" height="0" className="absolute pointer-events-none">
           <defs>
             <clipPath id={`clip-process-${index}`}>
-              <motion.path 
+              <motion.path
                 initial={false}
                 animate={{ d: isHovered ? pathD_hover : pathD_normal }}
                 transition={{ duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] }}
@@ -119,17 +119,17 @@ const ProcessCard = ({ step, index }: { step: any; index: number }) => {
 
       {pathD_normal && pathD_hover && (
         <svg width={dimensions.width} height={dimensions.height} className="absolute inset-0 pointer-events-none z-10" viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
-          <motion.path 
+          <motion.path
             initial={false}
             animate={{ d: isHovered ? pathD_hover : pathD_normal }}
             transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-            fill="rgba(59, 130, 246, 0.05)" 
-            stroke="#2b6deb" 
-            strokeWidth="1.5" 
+            fill="rgba(59, 130, 246, 0.05)"
+            stroke="#2b6deb"
+            strokeWidth="1.5"
           />
         </svg>
       )}
-      
+
       <div className="absolute inset-0 bg-[#2b6deb] group-hover:bg-blue-600 transition-colors duration-300 -z-10" />
 
       <div className="relative z-10 w-full h-full flex flex-col justify-between md:justify-center">
@@ -197,15 +197,15 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative bg-black text-white py-16 md:py-24 lg:py-32 overflow-hidden"
+      className="relative bg-black text-white py-24 lg:py-32 overflow-hidden"
     >
       {/* Top Notched Border */}
       <div className="absolute top-0 left-0 w-full flex items-start pointer-events-none z-20">
         <div className="flex-1 border-t-[1.5px] border-[#2b6deb]" />
         <svg viewBox="0 0 480 60" className="w-[280px] sm:w-[380px] md:w-[480px] shrink-0 -mx-[0.5px]">
-          <path 
-            d="M 0 0.75 C 48 0.75, 72 56.75, 144 56.75 L 336 56.75 C 408 56.75, 432 0.75, 480 0.75" 
-            fill="none" stroke="#2b6deb" strokeWidth="1.5" 
+          <path
+            d="M 0 0.75 C 48 0.75, 72 56.75, 144 56.75 L 336 56.75 C 408 56.75, 432 0.75, 480 0.75"
+            fill="none" stroke="#2b6deb" strokeWidth="1.5"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
@@ -216,9 +216,9 @@ export default function ProcessSection() {
       <div className="absolute bottom-0 left-0 w-full flex items-end pointer-events-none z-20">
         <div className="flex-1 border-b-[1.5px] border-[#2b6deb]" />
         <svg viewBox="0 0 480 60" className="w-[280px] sm:w-[380px] md:w-[480px] shrink-0 -mx-[0.5px]">
-          <path 
-            d="M 0 59.25 C 48 59.25, 72 3.25, 144 3.25 L 336 3.25 C 408 3.25, 432 59.25, 480 59.25" 
-            fill="none" stroke="#2b6deb" strokeWidth="1.5" 
+          <path
+            d="M 0 59.25 C 48 59.25, 72 3.25, 144 3.25 L 336 3.25 C 408 3.25, 432 59.25, 480 59.25"
+            fill="none" stroke="#2b6deb" strokeWidth="1.5"
             vectorEffect="non-scaling-stroke"
           />
         </svg>
