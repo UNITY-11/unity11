@@ -10,7 +10,6 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       duration: 1.5,
       smoothWheel: true,
       wheelMultiplier: 1,
-      syncTouch: true,
     }}>
       {children}
     </ReactLenis>
