@@ -171,7 +171,9 @@ const Navbar: React.FC = () => {
         </div>
 
         <Link
-          href="/get-started"
+          href="https://wa.me/9846200211"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{ clipPath: "path('M 12 0 L 50 0 C 54 0, 56 6, 62 6 L 78 6 C 84 6, 86 0, 90 0 L 128 0 A 12 12 0 0 1 140 12 L 140 28 A 12 12 0 0 1 128 40 L 90 40 C 86 40, 84 34, 78 34 L 62 34 C 56 34, 54 40, 50 40 L 12 40 A 12 12 0 0 1 0 28 L 0 12 A 12 12 0 0 1 12 0 Z')" }}
           className={`hidden sm:inline-flex group relative h-10 w-[140px] items-center transition-transform ${isWhiteBg ? 'bg-white' : 'bg-black'}`}
         >
@@ -264,7 +266,9 @@ const Navbar: React.FC = () => {
               className="relative z-10 mt-12 flex flex-col gap-8"
             >
               <Link
-                href="/get-started"
+                href="https://wa.me/9846200211"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
                 style={{ clipPath: "path('M 12 0 L 60 0 C 64 0, 66 6, 72 6 L 88 6 C 94 6, 96 0, 100 0 L 148 0 A 12 12 0 0 1 160 12 L 160 36 A 12 12 0 0 1 148 48 L 100 48 C 96 48, 94 42, 88 42 L 72 42 C 66 42, 64 48, 60 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z')" }}
                 className="group relative inline-flex h-12 w-[160px] items-center bg-black transition-transform shadow-md hover:scale-105"
