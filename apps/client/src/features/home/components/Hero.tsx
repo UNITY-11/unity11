@@ -69,58 +69,36 @@ const VerticalPillar = ({ text, delay, gradientDirection }: { text: string; dela
     if (!width || !height) return "";
 
     const isHorizontal = width > height;
-    // Set a fixed 12px border radius for sharper corners
-    const R = 12;
+    const R = 12; // Radius for non-slanted corners
+    
+    // Size of the diagonal cut (chamfer)
+    const C = isHorizontal ? Math.min(24, height / 2.5) : Math.min(24, width / 2.5);
 
-    // Notch length is 50% of the item's long dimension
-    const notchLen = isHorizontal ? width * 0.5 : height * 0.5;
-    // Reduced depth as requested
-    const notchDepth = 5;
-    // Size of the smooth rounded curve at the notch corners
-    const curveSize = 10;
+    const variant = gradientDirection === "to-t" ? "tr-bl" : "tl-br";
 
-    if (isHorizontal) {
-      const cx = width / 2;
+    if (variant === "tr-bl") {
       return `
         M ${R} 0
-        L ${cx - notchLen / 2} 0
-        C ${cx - notchLen / 2 + curveSize / 2} 0, ${cx - notchLen / 2 + curveSize / 2} ${notchDepth}, ${cx - notchLen / 2 + curveSize} ${notchDepth}
-        L ${cx + notchLen / 2 - curveSize} ${notchDepth}
-        C ${cx + notchLen / 2 - curveSize / 2} ${notchDepth}, ${cx + notchLen / 2 - curveSize / 2} 0, ${cx + notchLen / 2} 0
-        L ${width - R} 0
-        A ${R} ${R} 0 0 1 ${width} ${R}
+        L ${width - C} 0
+        L ${width} ${C}
         L ${width} ${height - R}
         A ${R} ${R} 0 0 1 ${width - R} ${height}
-        L ${cx + notchLen / 2} ${height}
-        C ${cx + notchLen / 2 - curveSize / 2} ${height}, ${cx + notchLen / 2 - curveSize / 2} ${height - notchDepth}, ${cx + notchLen / 2 - curveSize} ${height - notchDepth}
-        L ${cx - notchLen / 2 + curveSize} ${height - notchDepth}
-        C ${cx - notchLen / 2 + curveSize / 2} ${height - notchDepth}, ${cx - notchLen / 2 + curveSize / 2} ${height}, ${cx - notchLen / 2} ${height}
-        L ${R} ${height}
-        A ${R} ${R} 0 0 1 0 ${height - R}
+        L ${C} ${height}
+        L 0 ${height - C}
         L 0 ${R}
         A ${R} ${R} 0 0 1 ${R} 0
         Z
       `.replace(/\s+/g, ' ').trim();
     } else {
-      const cy = height / 2;
       return `
-        M ${R} 0
+        M ${C} 0
         L ${width - R} 0
         A ${R} ${R} 0 0 1 ${width} ${R}
-        L ${width} ${cy - notchLen / 2}
-        C ${width} ${cy - notchLen / 2 + curveSize / 2}, ${width - notchDepth} ${cy - notchLen / 2 + curveSize / 2}, ${width - notchDepth} ${cy - notchLen / 2 + curveSize}
-        L ${width - notchDepth} ${cy + notchLen / 2 - curveSize}
-        C ${width - notchDepth} ${cy + notchLen / 2 - curveSize / 2}, ${width} ${cy + notchLen / 2 - curveSize / 2}, ${width} ${cy + notchLen / 2}
-        L ${width} ${height - R}
-        A ${R} ${R} 0 0 1 ${width - R} ${height}
+        L ${width} ${height - C}
+        L ${width - C} ${height}
         L ${R} ${height}
         A ${R} ${R} 0 0 1 0 ${height - R}
-        L 0 ${cy + notchLen / 2}
-        C 0 ${cy + notchLen / 2 - curveSize / 2}, ${notchDepth} ${cy + notchLen / 2 - curveSize / 2}, ${notchDepth} ${cy + notchLen / 2 - curveSize}
-        L ${notchDepth} ${cy - notchLen / 2 + curveSize}
-        C ${notchDepth} ${cy - notchLen / 2 + curveSize / 2}, 0 ${cy - notchLen / 2 + curveSize / 2}, 0 ${cy - notchLen / 2}
-        L 0 ${R}
-        A ${R} ${R} 0 0 1 ${R} 0
+        L 0 ${C}
         Z
       `.replace(/\s+/g, ' ').trim();
     }
