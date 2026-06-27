@@ -101,18 +101,49 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
       </div>
 
       <div className="mt-14 right-0 flex justify-center text-blue-500">
-        <div className="flex justify-center items-center">
-          <button onClick={handlePrev} className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all">
-            <IoIosArrowBack className="text-lg" />
+        <div className="flex justify-center items-center gap-4">
+          <button 
+            onClick={handlePrev} 
+            className="group relative flex items-center justify-center w-10 h-10 text-[#0062ff] transition-colors duration-300"
+          >
+            <svg className="absolute inset-0 z-0" width="40" height="40" viewBox="0 0 40 40">
+              <path 
+                d="M 1 1 L 27 1 L 39 13 L 39 39 L 13 39 L 1 27 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <IoIosArrowBack className="relative z-10 text-lg transition-colors duration-300 group-hover:text-white" />
           </button>
+
           <button
             onClick={() => router.push("/projects")}
-            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all hover:gap-8 duration-500"
+            className="group relative flex items-center justify-center w-56 h-10 text-[#0062ff] transition-colors duration-300"
           >
-            See More
+            <svg className="absolute inset-0 z-0" width="224" height="40" viewBox="0 0 224 40">
+              <path 
+                d="M 17 1 L 223 1 L 223 23 L 207 39 L 1 39 L 1 17 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <span className="relative z-10 font-semibold tracking-wide transition-colors duration-300 group-hover:text-white">
+              See More
+            </span>
           </button>
-          <button onClick={handleNext} className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all">
-            <IoIosArrowForward className="text-lg" />
+
+          <button 
+            onClick={handleNext} 
+            className="group relative flex items-center justify-center w-10 h-10 text-[#0062ff] transition-colors duration-300"
+          >
+            <svg className="absolute inset-0 z-0" width="40" height="40" viewBox="0 0 40 40">
+              <path 
+                d="M 13 1 L 39 1 L 39 27 L 27 39 L 1 39 L 1 13 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <IoIosArrowForward className="relative z-10 text-lg transition-colors duration-300 group-hover:text-white" />
           </button>
         </div>
       </div>
