@@ -98,9 +98,18 @@ export default function Technologies() {
           </p>
           <Link
             href="/technologies"
-            className="inline-block px-6 py-3 bg-primary border-blue-500 border rounded-full  text-blue-500 font-medium hover:shadow-lg transition-transform hover:-translate-y-1"
+            className="group relative inline-flex items-center justify-center w-64 h-10 text-[#0062ff] transition-colors duration-300"
           >
-            Explore Technologies
+            <svg className="absolute inset-0 z-0" width="256" height="40" viewBox="0 0 256 40">
+              <path 
+                d="M 17 1 L 255 1 L 255 23 L 239 39 L 1 39 L 1 17 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <span className="relative z-10 font-semibold tracking-wide transition-colors duration-300 group-hover:text-white">
+              Explore Technologies
+            </span>
           </Link>
         </div>
 
