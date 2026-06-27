@@ -174,6 +174,7 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                       "UI/UX Design",
                       "Landing Page",
                       "Corporate Website",
+                      "Portfolio",
                       "Portfolio Website",
                       "eCommerce Platform",
                       "Web Application",
