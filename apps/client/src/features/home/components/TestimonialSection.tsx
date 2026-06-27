@@ -71,22 +71,22 @@ export default function TestimonialSection() {
                     <StaggerTestimonials ref={testimonialsRef} />
                 </div>
                 <div className="mt-10 right-0 flex justify-center text-blue-500 relative z-20 w-full overflow-hidden px-4">
-                    <div className="flex justify-between items-center w-full max-w-md mx-auto">
+                    <div className="flex justify-center items-center">
                         <button
                             onClick={() => testimonialsRef.current?.handleMove(-1)}
-                            className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center border-blue-500/30 text-blue-500 hover:bg-blue-500 hover:text-white transition-all"
+                            className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"
                         >
                             <IoIosArrowBack className="text-lg" />
                         </button>
                         <button
                             onClick={() => router.push("/about")}
-                            className="flex items-center justify-center rounded-full bg-linear-to-r px-8 sm:px-12 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-2 sm:gap-4 hover:gap-8 duration-500 flex-1 whitespace-nowrap"
+                            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all hover:gap-8 duration-500"
                         >
                             See More
                         </button>
                         <button
                             onClick={() => testimonialsRef.current?.handleMove(1)}
-                            className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center border-blue-500/30 text-blue-500 hover:bg-blue-500 hover:text-white transition-all"
+                            className="w-10 h-10 rounded-full border-2 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"
                         >
                             <IoIosArrowForward className="text-lg" />
                         </button>
