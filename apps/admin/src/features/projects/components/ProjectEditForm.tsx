@@ -78,7 +78,16 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) setPreviewImage(URL.createObjectURL(file));
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Image must be less than 2MB.");
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+        return;
+      }
+      setPreviewImage(URL.createObjectURL(file));
+    }
   };
 
   const handleDelete = async () => {
@@ -92,6 +101,13 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const file = fileInputRef.current?.files?.[0];
+    if (file && file.size > 2 * 1024 * 1024) {
+      e.preventDefault();
+      alert("Image must be less than 2MB.");
+      return;
+    }
+
     if (title.length > TITLE_LIMIT) {
       e.preventDefault();
       alert(`Title exceeds the ${TITLE_LIMIT} character limit.`);
@@ -175,7 +191,6 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                       "Landing Page",
                       "Corporate Website",
                       "Portfolio",
-                      "Portfolio Website",
                       "eCommerce Platform",
                       "Web Application",
                       "Mobile App",
