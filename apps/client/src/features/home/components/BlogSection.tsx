@@ -150,18 +150,43 @@ export default function BlogSection({ posts }: BlogSectionProps) {
         </div>
       </div>
       <div className="mt-12 md:mt-16 lg:mt-20 right-0 flex justify-center text-blue-500 w-full overflow-hidden px-4">
-        <div className="flex justify-between items-center w-full max-w-md mx-auto">
-          <button className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
-            <IoIosArrowBack className="text-lg" />
+        <div className="flex justify-center items-center gap-4 w-full max-w-md mx-auto">
+          <button className="group relative flex items-center justify-center w-10 h-10 shrink-0 text-[#0062ff] transition-colors duration-300">
+            <svg className="absolute inset-0 z-0" width="40" height="40" viewBox="0 0 40 40">
+              <path 
+                d="M 1 1 L 27 1 L 39 13 L 39 39 L 13 39 L 1 27 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <IoIosArrowBack className="relative z-10 text-lg transition-colors duration-300 group-hover:text-white" />
           </button>
+
           <button
             onClick={() => router.push("/blog")}
-            className="flex items-center justify-center rounded-full border-2 border-blue-500 px-8 sm:px-12 py-2 text-[#2052bd] shadow-lg transition-all gap-2 sm:gap-4 hover:gap-8 duration-500 flex-1 whitespace-nowrap font-semibold"
+            className="group relative flex items-center justify-center w-56 h-10 text-[#0062ff] transition-colors duration-300"
           >
-            See More
+            <svg className="absolute inset-0 z-0" width="224" height="40" viewBox="0 0 224 40">
+              <path 
+                d="M 17 1 L 223 1 L 223 23 L 207 39 L 1 39 L 1 17 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <span className="relative z-10 font-semibold tracking-wide transition-colors duration-300 group-hover:text-white">
+              See More
+            </span>
           </button>
-          <button className="w-10 h-10 shrink-0 rounded-full border-2 flex items-center justify-center border-blue-500 text-blue-500 hover:bg-blue-600 hover:text-white transition-all">
-            <IoIosArrowForward className="text-lg" />
+
+          <button className="group relative flex items-center justify-center w-10 h-10 shrink-0 text-[#0062ff] transition-colors duration-300">
+            <svg className="absolute inset-0 z-0" width="40" height="40" viewBox="0 0 40 40">
+              <path 
+                d="M 13 1 L 39 1 L 39 27 L 27 39 L 1 39 L 1 13 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <IoIosArrowForward className="relative z-10 text-lg transition-colors duration-300 group-hover:text-white" />
           </button>
         </div>
       </div>
