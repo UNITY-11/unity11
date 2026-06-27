@@ -138,7 +138,7 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
           >
             <svg className="absolute inset-0 z-0" width="40" height="40" viewBox="0 0 40 40">
               <path 
-                d="M 13 1 L 39 1 L 39 27 L 27 39 L 1 39 L 1 13 Z" 
+                d="M 1 1 L 27 1 L 39 13 L 39 39 L 13 39 L 1 27 Z" 
                 className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
                 strokeWidth="2" 
               />
