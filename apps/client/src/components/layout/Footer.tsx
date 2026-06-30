@@ -54,7 +54,7 @@ const socialLinks: SocialLink[] = [
 const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-gray-300">
-      <FooterCTA/>
+      <FooterCTA />
       <div className="container mx-auto pt-16 px-4">
         {/* Top section: Brand and Links */}
         <div className="flex flex-col md:flex-row justify-between gap-12">
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-12 sm:gap-16 md:gap-20">
             {/* Column 1: Explore */}
             <div>
-              <h3 className="text-lg bg-linear-to-t from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent uppercase tracking-wider">
+              <h3 className="text-lg text-[#0062ff] uppercase tracking-wider font-semibold">
                 Explore
               </h3>
               <ul className="mt-4 space-y-3">
@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
 
             {/* Column 2: Support */}
             <div>
-              <h3 className="text-lg bg-linear-to-t from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent uppercase tracking-wider">
+              <h3 className="text-lg text-[#0062ff] uppercase tracking-wider font-semibold">
                 Support
               </h3>
               <ul className="mt-4 space-y-3">
@@ -135,7 +135,7 @@ const Footer: React.FC = () => {
 
             {/* Column 3: Connect */}
             <div>
-              <h3 className="text-lg bg-linear-to-t from-[#2052bd] to-[#7fcbe4] bg-clip-text text-transparent uppercase tracking-wider">
+              <h3 className="text-lg text-[#0062ff] uppercase tracking-wider font-semibold">
                 Connect
               </h3>
               <ul className="mt-4 space-y-3">
@@ -148,7 +148,7 @@ const Footer: React.FC = () => {
                       rel="noopener noreferrer"
                       className="group flex items-center gap-3 text-gray-300 hover:text-[#2052bd] transition-colors duration-200"
                     >
-                      <span className="text-blue-400"> {link.icon}</span>
+                      <span> {link.icon}</span>
                       <span>{link.name}</span>
                       <IoIosArrowForward className="opacity-0 group-hover:opacity-100 text-[#2052bd] transition-opacity duration-200" />
                     </a>
@@ -167,7 +167,7 @@ const Footer: React.FC = () => {
               duration: 1.4,
               ease: [0.25, 1, 0.5, 1],
             }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             className="flex justify-center w-full"
           >
             <Image

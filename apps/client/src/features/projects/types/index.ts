@@ -7,10 +7,14 @@ export interface Project {
   image: string;
   bg: string;
   date: string; // ISO date string for sorting
+  visibility?: string;
+  liveLink?: string;
+  featured?: boolean;
 }
 
 export interface ProjectCardProps extends Project {
   index?: number;
+  disableAnimation?: boolean;
 }
 
 export interface ProjectsFilterProps {

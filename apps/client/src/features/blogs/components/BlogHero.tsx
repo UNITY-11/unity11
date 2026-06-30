@@ -5,7 +5,7 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export const BlogHero = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-black pt-32 pb-20 md:pt-40 md:pb-32 px-4 sm:px-6 lg:px-8 border-b border-white/5">
+    <section className="relative w-full overflow-hidden bg-black pt-32 pb-20 md:pt-40 md:pb-32 px-2 sm:px-4 lg:px-4 border-b border-white/5">
       <BackgroundBeams />
       {/* Decorative Background Gradients */}
       <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-[#2052bd]/5 to-transparent pointer-events-none" />

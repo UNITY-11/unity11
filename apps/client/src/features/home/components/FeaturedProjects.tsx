@@ -4,7 +4,7 @@ import Image from "next/image";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 import { FeaturedProject } from "../types";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -17,15 +17,44 @@ interface FeaturedProjectsSectionProps {
 export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
-  const featured = projects.slice(0, 4);
+  const [startIndex, setStartIndex] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [direction, setDirection] = useState(1);
+
+  const getVisibleProjects = () => {
+    if (projects.length === 0) return [];
+    // Always render 4 items so mobile can swipe through them natively
+    const visibleCount = Math.min(4, projects.length);
+    const visible = [];
+    for (let i = 0; i < visibleCount; i++) {
+      visible.push(projects[(startIndex + i) % projects.length]);
+    }
+    return visible;
+  };
+
+  const featured = getVisibleProjects();
+
+  const handleNext = () => {
+    if (projects.length === 0) return;
+    setHasInteracted(true);
+    setDirection(1);
+    setStartIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const handlePrev = () => {
+    if (projects.length === 0) return;
+    setHasInteracted(true);
+    setDirection(-1);
+    setStartIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
 
   return (
     <section className="w-full py-16 md:py-24 lg:py-32 bg-black">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl">
         <motion.div
           initial={{ y: "30%" }}
           whileInView={{ y: 0 }}
-          viewport={{ once: isMobile }}
+          viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="mb-12 md:mb-16 lg:mb-20 flex flex-col justify-center items-center text-center"
         >
@@ -33,38 +62,88 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
             FEATURED PROJECTS
           </p>
 
-          <div className="flex justify-between items-end">
-            <h2 className="text-[40px] md:text-[52px] leading-none mt-3 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4] pb-2">
-              Engineering Real-World
-              <br /> Digital Impact
+          <div className="flex justify-between items-end max-w-xl">
+            <h2 className="text-[30px] md:text-[52px] leading-none mt-3 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4] pb-2">
+              Engineering Real World
+              Digital Impact
             </h2>
           </div>
         </motion.div>
 
         {featured.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 lg:gap-8">
-          {featured.map((p, index) => (
-            <ProjectCard key={p.id} index={index} {...p} />
-          ))}
-        </div>
+          <div className="relative p-4 w-full">
+            <motion.div
+              layout
+              className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-[5vw] sm:px-0"
+            >
+              <AnimatePresence mode="popLayout">
+                {featured.map((p, index) => (
+                  <motion.div
+                    layout
+                    key={p.id}
+                    initial={hasInteracted ? { opacity: 0, x: direction * 50, scale: 0.95 } : { opacity: 0, y: 30 }}
+                    animate={hasInteracted ? { opacity: 1, x: 0, scale: 1 } : undefined}
+                    whileInView={!hasInteracted ? { opacity: 1, y: 0 } : undefined}
+                    viewport={{ once: true }}
+                    exit={hasInteracted ? { opacity: 0, x: direction * -50, scale: 0.95 } : undefined}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="w-[90vw] sm:w-[350px] md:w-auto shrink-0 md:shrink snap-center"
+                  >
+                    <ProjectCard index={index} disableAnimation={true} {...p} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          </div>
         ) : (
           <p className="text-center text-gray-400">No projects available yet.</p>
         )}
       </div>
 
-      <div className="mt-10 right-0 flex justify-center text-blue-500">
-        <div className="flex justify-between items-center mx-5">
-          <button className="w-10 h-10 rounded-full border-2 flex items-center justify-center">
-            <IoIosArrowBack className="text-lg" />
+      <div className="mt-14 right-0 flex justify-center text-blue-500">
+        <div className="flex justify-center items-center gap-4">
+          <button 
+            onClick={handlePrev} 
+            className="group relative flex items-center justify-center w-10 h-10 text-[#0062ff] transition-colors duration-300"
+          >
+            <svg className="absolute inset-0 z-0" width="40" height="40" viewBox="0 0 40 40">
+              <path 
+                d="M 1 1 L 27 1 L 39 13 L 39 39 L 13 39 L 1 27 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <IoIosArrowBack className="relative z-10 text-lg transition-colors duration-300 group-hover:text-white" />
           </button>
+
           <button
             onClick={() => router.push("/projects")}
-            className="flex items-center rounded-full bg-linear-to-r px-20 py-2 text-[#2052bd] border-2 border-blue-500 shadow-lg transition-all gap-4 hover:gap-8 duration-500"
+            className="group relative flex items-center justify-center w-56 h-10 text-[#0062ff] transition-colors duration-300"
           >
-            See More
+            <svg className="absolute inset-0 z-0" width="224" height="40" viewBox="0 0 224 40">
+              <path 
+                d="M 17 1 L 223 1 L 223 23 L 207 39 L 1 39 L 1 17 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <span className="relative z-10 font-semibold tracking-wide transition-colors duration-300 group-hover:text-white">
+              See More
+            </span>
           </button>
-          <button className="w-10 h-10 rounded-full border-2 flex items-center justify-center">
-            <IoIosArrowForward className="text-lg" />
+
+          <button 
+            onClick={handleNext} 
+            className="group relative flex items-center justify-center w-10 h-10 text-[#0062ff] transition-colors duration-300"
+          >
+            <svg className="absolute inset-0 z-0" width="40" height="40" viewBox="0 0 40 40">
+              <path 
+                d="M 1 1 L 27 1 L 39 13 L 39 39 L 13 39 L 1 27 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <IoIosArrowForward className="relative z-10 text-lg transition-colors duration-300 group-hover:text-white" />
           </button>
         </div>
       </div>
@@ -72,132 +151,4 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
   );
 }
 
-function ProjectCard({
-  tag1,
-  tag2,
-  title,
-  description,
-  image,
-  bg,
-  index,
-}: FeaturedProject) {
-  const isMobile = useIsMobile();
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const isGradient = bg.startsWith("linear-gradient");
-
-  useEffect(() => {
-    const updateSize = () => {
-      if (cardRef.current) {
-        setDimensions({
-          width: cardRef.current.offsetWidth,
-          height: cardRef.current.offsetHeight,
-        });
-      }
-    };
-
-    updateSize();
-    const observer = new ResizeObserver(updateSize);
-    if (cardRef.current) observer.observe(cardRef.current);
-
-    return () => observer.disconnect();
-  }, []);
-
-  const generateCardPath = (width: number, height: number) => {
-    if (!width || !height) return "";
-    const R = 32;
-
-    let CW = width > 400 ? 200 : 120;
-    let SW = width > 400 ? 70 : 50;
-    const NH = 35;
-    let CS = 30;
-
-    if (width < CW + R + 20) {
-      CW = width - R - 20;
-      SW = Math.max(CW - 30, 20);
-      CS = SW * 0.45;
-    }
-
-    const cx = width / 2;
-    const NW = width > 400 ? 180 : 140;
-    const N_SW = width > 400 ? 50 : 40;
-    const N_CS = N_SW * 0.5;
-    const N_Depth = 20;
-
-    return `
-      M ${R} 0
-      L ${width - CW} 0
-      C ${width - CW + CS} 0, ${width - CW + SW - CS} ${NH}, ${width - CW + SW} ${NH}
-      L ${width - R} ${NH}
-      A ${R} ${R} 0 0 1 ${width} ${NH + R}
-      L ${width} ${height - R}
-      A ${R} ${R} 0 0 1 ${width - R} ${height}
-      L ${cx + NW/2} ${height}
-      C ${cx + NW/2 - N_CS} ${height}, ${cx + NW/2 - N_SW + N_CS} ${height - N_Depth}, ${cx + NW/2 - N_SW} ${height - N_Depth}
-      L ${cx - NW/2 + N_SW} ${height - N_Depth}
-      C ${cx - NW/2 + N_SW - N_CS} ${height - N_Depth}, ${cx - NW/2 + N_CS} ${height}, ${cx - NW/2} ${height}
-      L ${R} ${height}
-      A ${R} ${R} 0 0 1 0 ${height - R}
-      L 0 ${R}
-      A ${R} ${R} 0 0 1 ${R} 0
-      Z
-    `.replace(/\s+/g, " ").trim();
-  };
-
-  const pathD = generateCardPath(dimensions.width, dimensions.height);
-
-  return (
-    <motion.div
-      ref={cardRef}
-      initial={{ y: "30%" }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: isMobile }}
-      transition={{ delay: (index ?? 0) * 0.3, duration: 1, ease: "easeOut" }}
-      style={{
-        ...(isGradient ? { background: bg } : {}),
-        ...(dimensions.width
-          ? { clipPath: `url(#clip-project-${index})` }
-          : { overflow: "hidden", borderRadius: "2rem" }),
-      }}
-      className={`group ${isGradient ? "" : bg} w-full shadow-sm flex flex-col justify-between z-40 relative`}
-    >
-      {pathD && (
-        <svg width="0" height="0" className="absolute pointer-events-none">
-          <defs>
-            <clipPath id={`clip-project-${index}`}>
-              <path d={pathD} />
-            </clipPath>
-          </defs>
-        </svg>
-      )}
-      <motion.div className="p-5">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs bg- px-3 py-1.5 rounded-full  text-white bg-white/40 backdrop-blur-3xl">
-            {tag1}
-          </span>
-          <span className="text-xs bg- px-3 py-1.5 rounded-full  text-white bg-white/40 backdrop-blur-3xl">
-            {tag2}
-          </span>
-        </div>
-
-        <h3 className="text-2xl font-semibold mb-2 text-white">{title}</h3>
-        <p className="text-sm text-gray-100">{description}</p>
-      </motion.div>
-
-      <motion.div
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="relative w-full h-[200px] rounded-t-4xl overflow-hidden"
-      >
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover group-hover:scale-105 transition-all duration-500"
-        />
-        <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white hover:bg-white hover:text-black opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg z-50">
-          <IoIosArrowForward className="text-4xl -rotate-45" />
-        </button>
-      </motion.div>
-    </motion.div>
-  );
-}
+import { ProjectCard } from "@/features/projects/components/ProjectCard";

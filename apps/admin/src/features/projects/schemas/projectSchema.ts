@@ -74,5 +74,21 @@ export const projectSchema = defineType({
       title: 'Completion Date',
       type: 'datetime',
     }),
+    defineField({
+      name: 'visibility',
+      title: 'Visibility',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Public', value: 'public' },
+          { title: 'Private', value: 'private' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'liveLink',
+      title: 'Live Link',
+      type: 'url',
+    }),
   ],
 })

@@ -19,6 +19,8 @@ function buildProjectListItem(
     mainImage?: { asset: { _ref: string } } | null;
     imageUrl?: string;
     date?: string;
+    visibility?: string;
+    liveLink?: string;
   }
 ): Project {
   const tags: string[] = fields.tags ?? [];
@@ -35,6 +37,8 @@ function buildProjectListItem(
         : "linear-gradient(to right, #2052bd, #7fcbe4)",
     date: fields.date ?? new Date().toISOString(),
     status: mapProjectStatus(fields.status),
+    visibility: fields.visibility,
+    liveLink: fields.liveLink,
   };
 }
 
@@ -48,8 +52,11 @@ export async function createProject(prevState: unknown, formData: FormData) {
     const tags = tagsRaw ? JSON.parse(tagsRaw) : [];
     const bgStart = formData.get("bgStart") as string;
     const bgEnd = formData.get("bgEnd") as string;
+    const visibility = formData.get("visibility") as string;
+    const liveLink = formData.get("liveLink") as string;
     const image = formData.get("image") as File | null;
     const previewImage = (formData.get("previewImage") as string) || "";
+    const existingDate = (formData.get("existingDate") as string) || new Date().toISOString();
 
     if (!title) return { error: "Title is required" };
 
@@ -65,7 +72,9 @@ export async function createProject(prevState: unknown, formData: FormData) {
       tags,
       bgStart: bgStart || "#2052bd",
       bgEnd: bgEnd || "#7fcbe4",
-      completionDate: new Date().toISOString(),
+      visibility: status === "completed" ? visibility : undefined,
+      liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
+      completionDate: status === "completed" ? new Date(existingDate).toISOString() : new Date().toISOString(),
       ...(imageAsset && { mainImage: imageRef(imageAsset._id) }),
     });
 
@@ -86,7 +95,9 @@ export async function createProject(prevState: unknown, formData: FormData) {
         bgStart: bgStart || "#2052bd",
         bgEnd: bgEnd || "#7fcbe4",
         imageUrl: previewImage || undefined,
-        date: created.completionDate ?? new Date().toISOString(),
+        date: created.completionDate ?? existingDate,
+        visibility: status === "completed" ? visibility : undefined,
+        liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
       }),
     };
   } catch (error: unknown) {
@@ -107,6 +118,8 @@ export async function updateProject(prevState: unknown, formData: FormData) {
     const tags = tagsRaw ? JSON.parse(tagsRaw) : [];
     const bgStart = formData.get("bgStart") as string;
     const bgEnd = formData.get("bgEnd") as string;
+    const visibility = formData.get("visibility") as string;
+    const liveLink = formData.get("liveLink") as string;
     const image = formData.get("image") as File | null;
     const previewImage = (formData.get("previewImage") as string) || "";
     const existingDate = (formData.get("existingDate") as string) || new Date().toISOString();
@@ -126,6 +139,9 @@ export async function updateProject(prevState: unknown, formData: FormData) {
         tags,
         bgStart: bgStart || "#2052bd",
         bgEnd: bgEnd || "#7fcbe4",
+        visibility: status === "completed" ? visibility : null,
+        liveLink: status === "completed" && visibility === "public" ? liveLink : null,
+        ...(status === "completed" ? { completionDate: new Date(existingDate).toISOString() } : {}),
       })
       .setIfMissing({ completionDate: new Date().toISOString() })
       .commit();
@@ -145,6 +161,8 @@ export async function updateProject(prevState: unknown, formData: FormData) {
         bgEnd: bgEnd || "#7fcbe4",
         imageUrl: previewImage || undefined,
         date: existingDate,
+        visibility: status === "completed" ? visibility : undefined,
+        liveLink: status === "completed" && visibility === "public" ? liveLink : undefined,
       }),
     };
   } catch (error: unknown) {
@@ -176,6 +194,25 @@ export async function updateProjectStatus(id: string, status: string) {
     return { success: true, id, status };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to update project status.";
+    return { error: message };
+  }
+}
+
+export async function toggleProjectFeatured(id: string, featured: boolean) {
+  try {
+    if (featured) {
+      const { readClient } = await import("@/sanity/lib/client");
+      const count = await readClient.fetch(`count(*[_type == "project" && featured == true])`);
+      if (count >= 10) {
+        return { error: "Maximum of 10 projects can be featured. Please un-star an existing project first." };
+      }
+    }
+
+    const writeClient = getWriteClient();
+    await writeClient.patch(id).set({ featured }).commit();
+    return { success: true, id, featured };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to toggle featured status.";
     return { error: message };
   }
 }

@@ -17,20 +17,22 @@ const FooterCTA: React.FC = () => {
       <motion.div
         initial={{ y: "100%", x: "100%", opacity: 0 }}
         whileInView={{ y: 0, x: -20, opacity: 1 }}
+        viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 3, ease: "easeOut" }}
-        className="absolute w-[200px] h-[200px] rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-yellow-200 via-orange-400 to-orange-600 top-14 left-1/2 -translate-x-1/2 md:left-32 md:-translate-x-0 blur-2xl opacity-90"
+        className="absolute w-[200px] h-[200px] rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-yellow-200 via-orange-400 to-orange-600 sm:top-14 left-1/2 -translate-x-1/2 md:left-32 md:-translate-x-0 blur-2xl opacity-90"
       />
       <motion.div
         initial={{ y: 50 }}
         whileInView={{ y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="absolute top-60 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 overflow-hidden"
+        className="absolute md:top-60 w-[150vw] h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 overflow-hidden"
       >
-         <Particles
-        className="absolute inset-0 z-0"
-        quantity={1111}
-        color="#0062ff"
-      />
+        <Particles
+          className="absolute inset-0 z-0"
+          quantity={1111}
+          color="#0062ff"
+        />
         <div className="w-full h-full rounded-full bg-black"></div>
       </motion.div>
       <div className="w-full flex flex-col justify-center items-center pb-[10vh] z-10">
@@ -40,24 +42,32 @@ const FooterCTA: React.FC = () => {
         </h2>
 
         {/* Subheading */}
-          <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-            Ready to transform your ideas into reality? Let&apos;s build something extraordinary together.
-          </p>
+        <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+          Ready to transform your ideas into reality? Let&apos;s build something extraordinary together.
+        </p>
 
         {/* Call to Action Button */}
-        <button
-          className="
-           text-[#1a7ae1] hover:bg-linear-to-tr from-[#2052bd] to-[#7fcbe4] hover:text-white font-semibold
-          py-3 px-6 rounded-full
-          transition-all duration-300 
-          z-10 flex justify-center items-center gap-2 hover:gap-4 border-2 hover:border-black
-        "
+        <a
+          href="https://wa.me/9846200211"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ clipPath: "path('M 12 0 L 80 0 C 84 0, 86 6, 92 6 L 108 6 C 114 6, 116 0, 120 0 L 188 0 A 12 12 0 0 1 200 12 L 200 36 A 12 12 0 0 1 188 48 L 120 48 C 116 48, 114 42, 108 42 L 92 42 C 86 42, 84 48, 80 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z')" }}
+          className="group relative inline-flex h-12 w-[200px] z-10 items-center bg-black transition-transform shadow-md"
         >
-          Start Your Project
-          <span className="text-2xl">
-            <IoIosArrowForward />
-          </span>
-        </button>
+          <svg className="absolute inset-0 pointer-events-none z-20" width="200" height="48" viewBox="0 0 200 48">
+            <path d="M 12 0 L 80 0 C 84 0, 86 6, 92 6 L 108 6 C 114 6, 116 0, 120 0 L 188 0 A 12 12 0 0 1 200 12 L 200 36 A 12 12 0 0 1 188 48 L 120 48 C 116 48, 114 42, 108 42 L 92 42 C 86 42, 84 48, 80 48 L 12 48 A 12 12 0 0 1 0 36 L 0 12 A 12 12 0 0 1 12 0 Z" fill="none" stroke="#2b6deb" strokeWidth="2" />
+          </svg>
+
+          <div className="flex h-full w-[80%] relative z-10 items-center justify-center rounded-xl bg-transparent group-hover:bg-[#2b6deb] transition-all duration-500 ease-in-out group-hover:w-full">
+            <span className="text-[#2b6deb] group-hover:text-white transition-colors duration-500 text-sm sm:text-base font-bold tracking-tight whitespace-nowrap">
+              Start Your Project
+            </span>
+          </div>
+
+          <div className="flex h-full w-[20%] relative z-10 items-center justify-center text-[#2b6deb] overflow-hidden transition-all duration-300 ease-in-out group-hover:w-0 group-hover:opacity-0">
+            <IoIosArrowForward className="h-5 w-5 flex-shrink-0" />
+          </div>
+        </a>
         {/* <div className="container absolute left-o bottom-0 h-[10vh] rounded-b-full bg-linear-to-t from-[#2052bd] via-[#207ebd] to-transparent"></div> */}
       </div>
     </div>

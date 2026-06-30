@@ -5,7 +5,7 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export const ContactHero = () => {
   return (
-    <section className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden bg-black px-4 sm:px-6 lg:px-8 pt-20">
+    <section className="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden bg-black px-2 sm:px-4 lg:px-4 pt-20">
       <BackgroundBeams />
       {/* Decorative Background Gradients */}
       <div className="absolute top-0 inset-x-0 h-64 bg-gradient-to-b from-[#2052bd]/5 to-transparent pointer-events-none" />

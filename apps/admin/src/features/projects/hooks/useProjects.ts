@@ -89,6 +89,24 @@ export function useProjects(initialProjects: Project[] = []) {
     [projects, removeItem, updateItem]
   );
 
+  const handleFeaturedToggle = useCallback(
+    async (id: string, featured: boolean) => {
+      const existing = projects.find((p) => p.id === id);
+      if (!existing) return;
+
+      const optimistic = { ...existing, featured };
+      updateItem(optimistic);
+
+      const { toggleProjectFeatured } = await import("../actions/createProject");
+      const result = await toggleProjectFeatured(id, featured);
+      if (result?.error) {
+        updateItem(existing);
+        alert(result.error);
+      }
+    },
+    [projects, updateItem]
+  );
+
   return {
     viewMode,
     setViewMode,
@@ -107,5 +125,6 @@ export function useProjects(initialProjects: Project[] = []) {
     filteredAndSortedProjects,
     handleStatusChange,
     handleDelete,
+    handleFeaturedToggle,
   };
 }

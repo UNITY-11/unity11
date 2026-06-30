@@ -27,6 +27,8 @@ export default async function EditProjectPage({
         bgEnd: project.bgEnd ?? "#7fcbe4",
         date: project.completionDate ?? project._createdAt ?? new Date().toISOString(),
         image: getImageUrl(project.mainImage, "/images/blog/blog2.png"),
+        visibility: project.visibility,
+        liveLink: project.liveLink,
       }}
     />
   );

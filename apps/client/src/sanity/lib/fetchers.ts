@@ -6,10 +6,17 @@ import {
   clientsQuery,
   publishedBlogsQuery,
   publishedProjectsQuery,
+  featuredProjectsQuery,
 } from "./queries";
 
 export async function fetchPublishedProjects() {
   const docs = await client.fetch(publishedProjectsQuery);
+  console.log("Fetched raw projects from Sanity:", docs);
+  return docs.map(mapSanityProject);
+}
+
+export async function fetchFeaturedProjects() {
+  const docs = await client.fetch(featuredProjectsQuery);
   return docs.map(mapSanityProject);
 }
 

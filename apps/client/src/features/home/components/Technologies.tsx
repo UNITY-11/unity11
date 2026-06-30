@@ -85,8 +85,8 @@ const techIcons = [
 
 export default function Technologies() {
   return (
-    <section id="technologies" className="relative min-h-[100svh] lg:h-screen py-16 md:py-24 lg:py-32 overflow-hidden bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl h-full flex flex-col lg:flex-row items-center justify-between gap-10">
+    <section id="technologies" className="relative lg:h-screen py-16 md:py-24 lg:py-32 overflow-hidden bg-white">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl h-full flex flex-col lg:flex-row items-center justify-between gap-10">
         {/* Left side text */}
         <div className="flex-1 text-center lg:text-left sm:w-[50%]">
           <h2 className="text-3xl md:text-6xl leading-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-[#2052bd] to-[#7fcbe4]">
@@ -98,9 +98,18 @@ export default function Technologies() {
           </p>
           <Link
             href="/technologies"
-            className="inline-block px-6 py-3 bg-primary border-blue-500 border rounded-full  text-blue-500 font-medium hover:shadow-lg transition-transform hover:-translate-y-1"
+            className="group relative inline-flex items-center justify-center w-64 h-10 text-[#0062ff] transition-colors duration-300"
           >
-            Explore Technologies
+            <svg className="absolute inset-0 z-0" width="256" height="40" viewBox="0 0 256 40">
+              <path 
+                d="M 17 1 L 255 1 L 255 23 L 239 39 L 1 39 L 1 17 Z" 
+                className="fill-transparent stroke-current group-hover:fill-current transition-colors duration-300" 
+                strokeWidth="2" 
+              />
+            </svg>
+            <span className="relative z-10 font-semibold tracking-wide transition-colors duration-300 group-hover:text-white">
+              Explore Technologies
+            </span>
           </Link>
         </div>
 
@@ -114,7 +123,7 @@ export default function Technologies() {
         >
           <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
           className="col-span-2 row-span-2  bg-slate-950 shadow-blue-500/80 shadow-md w-full h-full rounded-2xl flex justify-center items-center">
@@ -129,7 +138,7 @@ export default function Technologies() {
           <div className="grid grid-cols-2 grid-rows-2 col-span-2 row-span-2 w-full h-full gap-2">
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -146,7 +155,7 @@ export default function Technologies() {
             </div>
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}} 
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -160,7 +169,7 @@ export default function Technologies() {
             </motion.div>
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
 
@@ -178,7 +187,7 @@ export default function Technologies() {
             <div className="col-span-1 row-span-1"></div>
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -196,7 +205,7 @@ export default function Technologies() {
           <div className="grid grid-cols-2 grid-rows-2 col-span-2 row-span-2 w-full h-full gap-2">
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -210,7 +219,7 @@ export default function Technologies() {
             </motion.div>{" "}
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -224,7 +233,7 @@ export default function Technologies() {
             </motion.div>{" "}
             <motion.div 
             initial={{scale:0.3, x:20}}
-            whileInView={{scale:1, x:0}}
+            whileInView={{scale:1, x:0} viewport={{ once: true }}}
             whileHover={{scale:0.9}}
             transition={{duration:0.5}}
             className="col-span-1 row-span-1  bg-slate-950 shadow-blue-500/80 shadow-md rounded-2xl flex justify-center items-center">
@@ -240,7 +249,7 @@ export default function Technologies() {
           </div>
         </motion.div> */}
 
-        <div className="relative overflow-hidden sm:w-[50%] sm:-mr-40">
+        <div className="relative w-full max-w-lg mx-auto flex justify-center items-center lg:w-[50%] lg:max-w-[500px] lg:justify-end">
           <IconCloud icons={techIcons} />
         </div>
       </div>

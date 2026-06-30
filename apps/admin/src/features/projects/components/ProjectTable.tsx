@@ -15,9 +15,11 @@ function formatProjectDate(date: string) {
 export function ProjectTable({
   projects,
   onStatusChange,
+  onFeaturedToggle,
 }: {
   projects: Project[];
   onStatusChange: (id: string, status: string) => void;
+  onFeaturedToggle: (id: string, featured: boolean) => void;
 }) {
   return (
     <div className="bg-surface rounded-t-[24px] rounded-b-none border-b-0 shadow-sm border border-border-base flex flex-col flex-1 min-h-0">
@@ -26,7 +28,9 @@ export function ProjectTable({
           <thead className="bg-surface z-30 border-b border-border-base sticky top-0">
             <tr className="text-foreground font-semibold text-sm uppercase tracking-wider">
               <th className="px-6 py-4 font-medium">Project</th>
-              <th className="px-6 py-4 font-medium">Category</th>
+              <th className="px-6 py-4 font-medium">Featured</th>
+              <th className="px-6 py-4 font-medium">Visibility</th>
+              <th className="px-6 py-4 font-medium">Type</th>
               <th className="px-6 py-4 font-medium">Status</th>
               <th className="px-6 py-4 font-medium">Date</th>
               <th className="px-6 py-4 font-medium text-right">Actions</th>
@@ -45,11 +49,35 @@ export function ProjectTable({
                   </div>
                 </td>
                 <td className="px-6 py-4">
+                  <button
+                    onClick={() => onFeaturedToggle(project.id, !project.featured)}
+                    className={`p-2 rounded-full transition-colors ${
+                      project.featured ? "text-blue-500 hover:text-blue-600 hover:bg-blue-500/10" : "text-text-muted hover:text-blue-500 hover:bg-blue-500/10"
+                    }`}
+                    title={project.featured ? "Unfeature project" : "Feature project"}
+                  >
+                    <svg className="w-6 h-6" fill={project.featured ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                  </button>
+                </td>
+                <td className="px-6 py-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium border ${
+                    project.visibility?.toLowerCase() === 'public' ? 'bg-green-500/10 text-green-500 border-green-500/20' : 
+                    project.visibility?.toLowerCase() === 'private' ? 'bg-orange-500/10 text-orange-500 border-orange-500/20' : 
+                    'bg-surface-hover text-text-muted border-border-muted'
+                  }`}>
+                    {project.visibility ? project.visibility.charAt(0).toUpperCase() + project.visibility.slice(1) : "N/A"}
+                  </span>
+                </td>
+                <td className="px-6 py-4">
                   <div className="flex gap-1 flex-wrap">
-                    <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
-                      {project.tag1}
-                    </span>
-                    {project.tag2 && (
+                    {project.tag1 && project.tag1.toLowerCase() !== project.visibility?.toLowerCase() && (
+                      <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
+                        {project.tag1}
+                      </span>
+                    )}
+                    {project.tag2 && project.tag2.toLowerCase() !== project.visibility?.toLowerCase() && (
                       <span className="bg-surface-hover px-3 py-1 rounded-full text-xs text-text-muted border border-border-muted">
                         {project.tag2}
                       </span>

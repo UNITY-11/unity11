@@ -19,6 +19,9 @@ export function mapSanityProject(doc: {
   bgEnd?: string;
   mainImage?: Parameters<typeof getImageUrl>[0];
   completionDate?: string;
+  visibility?: string;
+  liveLink?: string;
+  featured?: boolean;
   _createdAt?: string;
 }): Project {
   const tags: string[] = doc.tags ?? [];
@@ -31,11 +34,14 @@ export function mapSanityProject(doc: {
     id: doc._id,
     title: doc.title ?? "Untitled",
     description: doc.description ?? "",
-    tag1: tags[0] ?? "General",
-    tag2: tags[1] ?? "",
+    tag1: doc.visibility ? doc.visibility.charAt(0).toUpperCase() + doc.visibility.slice(1) : (tags[0] ?? ""),
+    tag2: doc.visibility ? (tags[0] ?? "") : (tags[1] ?? ""),
     image: getImageUrl(doc.mainImage, "/images/blog/blog1.png"),
     bg,
     date: doc.completionDate ?? doc._createdAt ?? new Date().toISOString(),
+    visibility: doc.visibility,
+    liveLink: doc.liveLink,
+    featured: doc.featured ?? false,
   };
 }
 

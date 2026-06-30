@@ -29,7 +29,7 @@ export default function ContactPage() {
       />
       <ContactHero />
       
-      <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 mb-20">
+      <section className="relative w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-4 py-12 md:py-20 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
           {/* Contact Info (Left column on desktop) */}
           <div className="lg:col-span-5 xl:col-span-4 h-full">

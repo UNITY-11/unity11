@@ -49,8 +49,8 @@ export function mapSanityProject(doc: any): Project {
     id: doc._id,
     title: doc.title ?? "Untitled",
     description: doc.description ?? "",
-    tag1: tags[0] ?? "General",
-    tag2: tags[1] ?? "",
+    tag1: doc.visibility ? doc.visibility.charAt(0).toUpperCase() + doc.visibility.slice(1) : (tags[0] ?? ""),
+    tag2: doc.visibility ? (tags[0] ?? "") : (tags[1] ?? ""),
     image: getImageUrl(doc.mainImage, "/images/blog/blog1.png"),
     bg:
       doc.bgStart && doc.bgEnd
@@ -58,6 +58,9 @@ export function mapSanityProject(doc: any): Project {
         : "linear-gradient(to right, #2052bd, #7fcbe4)",
     date: doc.completionDate ?? doc._createdAt ?? new Date().toISOString(),
     status: mapProjectStatus(doc.status),
+    visibility: doc.visibility,
+    liveLink: doc.liveLink,
+    featured: doc.featured ?? false,
   };
 }
 

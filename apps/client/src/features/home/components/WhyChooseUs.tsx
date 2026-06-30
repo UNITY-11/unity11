@@ -22,38 +22,37 @@ const ReasonItem: React.FC<ReasonItemProps> = ({ item, index }) => {
   const isMobile = useIsMobile();
 
   const textAnimation = (index: number) => ({
-    initial: {opacity: 0, y:50, x: index % 2 === 0 ? 30 : -30 },
-    whileInView: { opacity: 1, y:0, x: 0 },
+    initial: { opacity: 0, y: 50, x: index % 2 === 0 ? 30 : -30 },
+    whileInView: { opacity: 1, y: 0, x: 0 },
     transition: { duration: 1 },
   });
 
   const imageAnimation = (index: number) => ({
-    initial: { opacity: 0, y:50, x: index % 2 === 0 ? -30 : 30 },
-    whileInView: { opacity: 1, y:0, x: 0 },
+    initial: { opacity: 0, y: 50, x: index % 2 === 0 ? -30 : 30 },
+    whileInView: { opacity: 1, y: 0, x: 0 },
     transition: { duration: 1 },
   });
 
   return (
     <div
-      className={`flex flex-col md:flex-row items-center justify-between gap-8 ${
-        isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
-      }`}
+      className={`flex flex-col md:flex-row items-center justify-between gap-8 ${isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
+        }`}
     >
       <motion.div
         {...imageAnimation(index)}
-        viewport={{ once: isMobile }}
+        viewport={{ once: true }}
         className="w-full md:w-1/2 p-4 flex justify-center relative group"
       >
         <div className="relative w-full max-w-sm aspect-square flex items-center justify-center cursor-crosshair">
-          <ParticleIcon 
-            icon={item.icon} 
-            size={item.title === "Long-Term Partnership" ? 360 : 300} 
-            color="#3b82f6" 
+          <ParticleIcon
+            icon={item.icon}
+            size={item.title === "Long-Term Partnership" ? 360 : 300}
+            color="#3b82f6"
           />
         </div>
       </motion.div>
 
-      <motion.div {...textAnimation(index)} viewport={{ once: isMobile }} className="w-full md:w-1/2 md:p-8">
+      <motion.div {...textAnimation(index)} viewport={{ once: true }} className="w-full md:w-1/2 md:p-8">
         <div className="flex items-center justify-center text-center mb-4">
           <h3 className="text-3xl md:text-5xl text-transparent text-nowrap pb-2 bg-clip-text bg-linear-to-r from-blue-700 to-cyan-500 text-center">
             {item.title}
@@ -116,37 +115,37 @@ export default function WhyChooseUs() {
 
   return (
     <section id="why-choose-us" className="relative py-16 md:py-24 lg:py-32 overflow-clip">
-      
+
       {/* Background Curved Border (Rendered first so it sits behind particles and text) */}
       <motion.div
         initial={{ y: 50 }}
         whileInView={{ y: 0 }}
-        viewport={{ once: isMobile }}
+        viewport={{ once: true }}
         transition={{ duration: 1 }}
         className="absolute top-[340px] sm:top-72 md:top-60 left-1/2 -translate-x-1/2 w-[200vw] md:w-[150vw] h-[200vw] md:h-[150vw] rounded-full scale-120 bg-linear-to-r from-blue-700 to-cyan-400 pt-3 z-0 pointer-events-none"
       >
         <div className="w-full h-full rounded-full bg-black"></div>
       </motion.div>
-      
+
       {/* Sticky Background Particles for the entire section */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <Particles 
-            className="absolute inset-0" 
+          <Particles
+            className="absolute inset-0"
             quantity={300}
             color="#0062ff"
             colors={["#0062ff", "#0062ff", "#0062ff", "#0062ff", "#0062ff", "#0062ff", "#06b6d4", "#06b6d4", "#ffffff"]}
             ease={15}
-            staticity={20} 
+            staticity={20}
           />
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 mt-10">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-4 max-w-7xl relative z-10 sm:mt-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: isMobile }}
+          viewport={{ once: true }}
           transition={{ duration: 1 }}
           className="text-center mb-12 md:mb-16 lg:mb-20"
         >

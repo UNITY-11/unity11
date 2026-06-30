@@ -23,6 +23,8 @@ type ProjectEditData = {
   bgEnd: string;
   image: string;
   date?: string;
+  visibility?: "public" | "private";
+  liveLink?: string;
 };
 
 export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
@@ -43,14 +45,23 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
     }
   }, [state, router, isEdit]);
 
+  const [title, setTitle] = useState(project?.title ?? "");
+  const [description, setDescription] = useState(project?.description ?? "");
   const [status, setStatus] = useState(project?.status ?? "new");
+  const [date, setDate] = useState(project?.date ? new Date(project.date).toISOString().split("T")[0] : "");
   const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [tags, setTags] = useState<string[]>(project?.tags ?? []);
   const [tagInput, setTagInput] = useState("");
   const [startColor, setStartColor] = useState(project?.bgStart ?? "#2052bd");
   const [endColor, setEndColor] = useState(project?.bgEnd ?? "#7fcbe4");
+  const [visibility, setVisibility] = useState<"public" | "private">(project?.visibility ?? "public");
+  const [liveLink, setLiveLink] = useState(project?.liveLink ?? "");
   const [previewImage, setPreviewImage] = useState<string | null>(project?.image ?? null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const TITLE_LIMIT = 30;
+  const DESC_LIMIT = 150;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" || e.key === ",") {
@@ -67,7 +78,16 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) setPreviewImage(URL.createObjectURL(file));
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Image must be less than 2MB.");
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+        return;
+      }
+      setPreviewImage(URL.createObjectURL(file));
+    }
   };
 
   const handleDelete = async () => {
@@ -77,6 +97,26 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
     else {
       stashListMutation("projects", { op: "remove", id: project.id });
       router.push("/projects");
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const file = fileInputRef.current?.files?.[0];
+    if (file && file.size > 2 * 1024 * 1024) {
+      e.preventDefault();
+      alert("Image must be less than 2MB.");
+      return;
+    }
+
+    if (title.length > TITLE_LIMIT) {
+      e.preventDefault();
+      alert(`Title exceeds the ${TITLE_LIMIT} character limit.`);
+      return;
+    }
+    if (description.length > DESC_LIMIT) {
+      e.preventDefault();
+      alert(`Description exceeds the ${DESC_LIMIT} character limit.`);
+      return;
     }
   };
 
@@ -98,50 +138,81 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
           </div>
         )}
 
-        <form action={formAction} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <form action={formAction} onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {isEdit && <input type="hidden" name="id" value={project?.id} />}
           <input type="hidden" name="status" value={status} />
           <input type="hidden" name="tags" value={JSON.stringify(tags)} />
           <input type="hidden" name="bgStart" value={startColor} />
           <input type="hidden" name="bgEnd" value={endColor} />
+          <input type="hidden" name="visibility" value={visibility} />
+          <input type="hidden" name="liveLink" value={liveLink} />
           <input type="hidden" name="previewImage" value={previewImage ?? ""} />
-          {isEdit && (
-            <input type="hidden" name="existingDate" value={project?.date ?? ""} />
-          )}
 
           <div className="lg:col-span-2 space-y-6 bg-surface rounded-[24px] border border-border-base p-8 shadow-xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="col-span-1 md:col-span-2 space-y-2">
-                <label htmlFor="title" className="block text-sm font-medium text-text-muted">Project Title</label>
+                <div className="flex justify-between items-center">
+                  <label htmlFor="title" className="block text-sm font-medium text-text-muted">Project Title</label>
+                  <span className={`text-xs ${title.length > TITLE_LIMIT ? "text-red-500" : "text-text-dim"}`}>
+                    {TITLE_LIMIT - title.length} characters left
+                  </span>
+                </div>
                 <input
                   required
                   type="text"
                   id="title"
                   name="title"
-                  defaultValue={project?.title}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  maxLength={TITLE_LIMIT}
                   className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                   placeholder="e.g. Modern E-Commerce Platform"
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-text-muted">Project Tags</label>
-                <div className="w-full h-[50px] px-3 rounded-xl border border-border-base bg-background flex flex-nowrap gap-2 items-center overflow-x-auto">
-                  {tags.map((tag) => (
-                    <span key={tag} className="bg-surface-active text-text-muted px-3 py-1.5 rounded-full text-sm flex items-center gap-1 border border-border-muted shrink-0">
-                      {tag}
-                      <button type="button" onClick={() => removeTag(tag)} className="hover:text-foreground">×</button>
-                    </span>
-                  ))}
-                  <input
-                    type="text"
-                    value={tagInput}
-                    onChange={(e) => setTagInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className="flex-1 min-w-[120px] bg-transparent text-foreground focus:outline-none"
-                    placeholder={tags.length === 0 ? "Type and press Enter..." : ""}
-                  />
-                </div>
+              <div className="space-y-2 relative">
+                <label className="block text-sm font-medium text-text-muted">Project Type</label>
+                <button
+                  type="button"
+                  onClick={() => setIsTypeOpen(!isTypeOpen)}
+                  className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                >
+                  <span className={tags[0] ? "text-foreground" : "text-text-muted"}>
+                    {tags[0] || "Select Project Type"}
+                  </span>
+                  <svg className={`w-5 h-5 transition-transform ${isTypeOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isTypeOpen && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-surface border border-border-base rounded-xl shadow-xl overflow-hidden z-50 max-h-60 overflow-y-auto">
+                    {[
+                      "UI/UX Design",
+                      "Landing Page",
+                      "Corporate Website",
+                      "Portfolio",
+                      "eCommerce Platform",
+                      "Web Application",
+                      "Mobile App",
+                      "Desktop App",
+                      "SaaS",
+                      "Admin Dashboard",
+                      "Custom Software",
+                      "Enterprise Solution",
+                      "API Development",
+                      "System Integration",
+                    ].map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => { setTags([type]); setIsTypeOpen(false); }}
+                        className="w-full text-left px-4 py-3 hover:bg-surface-hover"
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="space-y-2 relative">
@@ -169,13 +240,67 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
                 )}
               </div>
 
+              {status === "completed" && (
+                <div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-text-muted">Visibility</label>
+                    <div className="flex gap-6 px-4 py-3 border border-border-base rounded-xl bg-background">
+                      <label className="flex items-center gap-2 cursor-pointer text-foreground">
+                        <input
+                          type="radio"
+                          name="visibility_radio"
+                          value="public"
+                          checked={visibility === "public"}
+                          onChange={() => setVisibility("public")}
+                          className="accent-primary"
+                        />
+                        Public
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer text-foreground">
+                        <input
+                          type="radio"
+                          name="visibility_radio"
+                          value="private"
+                          checked={visibility === "private"}
+                          onChange={() => setVisibility("private")}
+                          className="accent-primary"
+                        />
+                        Private
+                      </label>
+                    </div>
+                  </div>
+
+                  {visibility === "public" && (
+                    <div className="space-y-2">
+                      <label htmlFor="liveLink_input" className="block text-sm font-medium text-text-muted">Project Live Link</label>
+                      <input
+                        type="url"
+                        id="liveLink_input"
+                        value={liveLink}
+                        onChange={(e) => setLiveLink(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                        placeholder="https://yourproject.com"
+                      />
+                    </div>
+                  )}
+
+                </div>
+              )}
+
               <div className="col-span-1 md:col-span-2 space-y-2">
-                <label htmlFor="description" className="block text-sm font-medium text-text-muted">Description</label>
+                <div className="flex justify-between items-center">
+                  <label htmlFor="description" className="block text-sm font-medium text-text-muted">Description</label>
+                  <span className={`text-xs ${description.length > DESC_LIMIT ? "text-red-500" : "text-text-dim"}`}>
+                    {DESC_LIMIT - description.length} characters left
+                  </span>
+                </div>
                 <textarea
                   id="description"
                   name="description"
                   rows={5}
-                  defaultValue={project?.description}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  maxLength={DESC_LIMIT}
                   className="w-full px-4 py-3 rounded-xl border border-border-base bg-background text-foreground focus:outline-none resize-none"
                 />
               </div>
@@ -198,9 +323,9 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
 
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-surface rounded-[24px] border border-border-base p-6 shadow-xl space-y-4">
-              <label className="block text-sm font-medium text-text-muted">Project Image (4:3)</label>
+              <label className="block text-sm font-medium text-text-muted">Project Image (16:9)</label>
               <div
-                className="border-2 border-dashed border-border-muted rounded-[16px] cursor-pointer aspect-[4/3] relative overflow-hidden"
+                className="border-2 border-dashed border-border-muted rounded-[16px] cursor-pointer aspect-video relative overflow-hidden"
                 onClick={() => fileInputRef.current?.click()}
               >
                 <input type="file" name="image" ref={fileInputRef} onChange={handleImageChange} accept="image/*" className="hidden" />
@@ -226,3 +351,4 @@ export function ProjectEditForm({ project }: { project?: ProjectEditData }) {
     </div>
   );
 }
+

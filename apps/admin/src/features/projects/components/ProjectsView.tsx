@@ -15,6 +15,7 @@ export function ProjectsView({ projects }: { projects: import("../types").Projec
     total, completed, newProjects, pending, workingOn,
     availableTags,
     handleStatusChange,
+    handleFeaturedToggle,
     filteredAndSortedProjects
   } = useProjects(projects);
 
@@ -45,9 +46,9 @@ export function ProjectsView({ projects }: { projects: import("../types").Projec
           <p className="text-text-muted">Try adjusting your search query or filters.</p>
         </div>
       ) : viewMode === 'table' ? (
-        <ProjectTable projects={filteredAndSortedProjects} onStatusChange={handleStatusChange} />
+        <ProjectTable projects={filteredAndSortedProjects} onStatusChange={handleStatusChange} onFeaturedToggle={handleFeaturedToggle} />
       ) : (
-        <ProjectGrid projects={filteredAndSortedProjects} />
+        <ProjectGrid projects={filteredAndSortedProjects} onFeaturedToggle={handleFeaturedToggle} />
       )}
     </div>
   );
