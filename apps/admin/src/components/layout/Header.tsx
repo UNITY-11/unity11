@@ -4,13 +4,12 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 
 export function Header({ profileAvatar, unreadNotifications }: { profileAvatar: string; unreadNotifications: number }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-
-  if (pathname === '/login' || pathname.startsWith('/studio')) return null;
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -102,6 +101,7 @@ export function Header({ profileAvatar, unreadNotifications }: { profileAvatar: 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={profileAvatar} alt="Admin" className="w-full h-full object-cover" />
         </Link>
+        <LogoutButton />
       </div>
     </header>
   );

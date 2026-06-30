@@ -4,6 +4,7 @@ import { getWriteClient } from "@/sanity/lib/writeClient";
 import { imageRef, slugify, uploadImage } from "@/sanity/lib/helpers";
 import { mapProjectStatus, mapProjectStatusToValue } from "@/sanity/lib/mappers";
 import { createNotification } from "@/features/notifications/actions/notificationActions";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import type { Project } from "../types";
 
 function buildProjectListItem(
@@ -38,6 +39,7 @@ function buildProjectListItem(
 }
 
 export async function createProject(prevState: unknown, formData: FormData) {
+  await requireAdmin();
   try {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
@@ -94,6 +96,7 @@ export async function createProject(prevState: unknown, formData: FormData) {
 }
 
 export async function updateProject(prevState: unknown, formData: FormData) {
+  await requireAdmin();
   const id = formData.get("id") as string;
 
   try {
@@ -151,6 +154,7 @@ export async function updateProject(prevState: unknown, formData: FormData) {
 }
 
 export async function deleteProject(id: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient.delete(id);
@@ -162,6 +166,7 @@ export async function deleteProject(id: string) {
 }
 
 export async function updateProjectStatus(id: string, status: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient

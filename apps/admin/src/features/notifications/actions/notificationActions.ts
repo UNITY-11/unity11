@@ -1,8 +1,10 @@
 "use server";
 
 import { getWriteClient } from "@/sanity/lib/writeClient";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 export async function markNotificationRead(id: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient.patch(id).set({ isRead: true }).commit();
@@ -14,6 +16,7 @@ export async function markNotificationRead(id: string) {
 }
 
 export async function markAllNotificationsRead() {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     const ids: string[] = await writeClient.fetch(
@@ -32,6 +35,7 @@ export async function markAllNotificationsRead() {
 }
 
 export async function deleteNotification(id: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient.delete(id);
@@ -48,6 +52,7 @@ export async function createNotification(data: {
   message: string;
   link?: string;
 }) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient.create({

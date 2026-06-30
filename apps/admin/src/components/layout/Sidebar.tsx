@@ -29,9 +29,6 @@ export function Sidebar() {
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  if (pathname === '/login' || pathname.startsWith('/studio')) return null;
-
-  // Set mounted state
   useEffect(() => {
     setMounted(true);
   }, []);

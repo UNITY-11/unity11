@@ -8,21 +8,46 @@ import { cn } from "@/lib/utils";
 export const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
     setIsSubmitting(true);
-    
-    // Mock API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error ?? "Failed to send message.");
+        return;
+      }
+
       setIsSubmitted(true);
-      
-      // Reset after showing success
+      form.reset();
+
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
-    }, 1500);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -38,14 +63,25 @@ export const ContactForm = () => {
             onSubmit={handleSubmit}
             className="flex flex-col justify-between h-full gap-6 relative z-10"
           >
+            {error && (
+              <div
+                role="alert"
+                className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+              >
+                {error}
+              </div>
+            )}
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label htmlFor="firstName" className="text-sm font-medium text-gray-300">First name</label>
                 <input
                   type="text"
                   id="firstName"
+                  name="firstName"
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none disabled:opacity-60"
                   placeholder="John"
                 />
               </div>
@@ -54,8 +90,10 @@ export const ContactForm = () => {
                 <input
                   type="text"
                   id="lastName"
+                  name="lastName"
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none disabled:opacity-60"
                   placeholder="Doe"
                 />
               </div>
@@ -66,8 +104,10 @@ export const ContactForm = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 required
-                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none"
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none disabled:opacity-60"
                 placeholder="john@example.com"
               />
             </div>
@@ -76,9 +116,11 @@ export const ContactForm = () => {
               <label htmlFor="message" className="text-sm font-medium text-gray-300">Message</label>
               <textarea
                 id="message"
+                name="message"
                 required
                 rows={4}
-                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none resize-none"
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:bg-white/10 focus:border-[#7fcbe4] focus:ring-2 focus:ring-[#7fcbe4]/20 transition-all outline-none resize-none disabled:opacity-60"
                 placeholder="Tell us about your project..."
               />
             </div>
@@ -91,7 +133,6 @@ export const ContactForm = () => {
                 isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-gray-900 hover:bg-[#2052bd]"
               )}
             >
-              {/* Background gradient effect on hover */}
               <div className="absolute inset-0 w-full h-full bg-gradient-to-tr from-[#2052bd] to-[#7fcbe4] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               
               <span className="relative z-10 flex items-center gap-2">
@@ -127,7 +168,6 @@ export const ContactForm = () => {
         )}
       </AnimatePresence>
 
-      {/* Decorative Blob */}
       <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-gradient-to-tr from-[#2052bd]/5 to-[#7fcbe4]/10 rounded-full blur-3xl pointer-events-none" />
     </div>
   );

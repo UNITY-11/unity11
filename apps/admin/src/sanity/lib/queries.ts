@@ -162,6 +162,12 @@ export const adminProfileQuery = `*[_type == "adminProfile"][0] {
   avatar
 }`;
 
+export const adminByEmailQuery = `*[_type == "adminProfile" && lower(email) == $email][0] {
+  _id,
+  email,
+  passwordHash
+}`;
+
 export const unreadNotificationsCountQuery = `count(*[_type == "notification" && isRead != true])`;
 
 export const recentActivityQuery = `{

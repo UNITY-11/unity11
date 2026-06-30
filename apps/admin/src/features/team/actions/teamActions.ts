@@ -3,6 +3,7 @@
 import { getWriteClient } from "@/sanity/lib/writeClient";
 import { imageRef, uploadImage } from "@/sanity/lib/helpers";
 import { createNotification } from "@/features/notifications/actions/notificationActions";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import type { TeamMember } from "../types";
 
 function buildTeamListItem(
@@ -34,6 +35,7 @@ function buildTeamListItem(
 }
 
 export async function createTeamMember(prevState: unknown, formData: FormData) {
+  await requireAdmin();
   try {
     const name = formData.get("name") as string;
     const role = formData.get("role") as string;
@@ -90,6 +92,7 @@ export async function createTeamMember(prevState: unknown, formData: FormData) {
 }
 
 export async function updateTeamMember(prevState: unknown, formData: FormData) {
+  await requireAdmin();
   try {
     const id = formData.get("id") as string;
     const name = formData.get("name") as string;
@@ -145,6 +148,7 @@ export async function updateTeamMember(prevState: unknown, formData: FormData) {
 }
 
 export async function deleteTeamMember(id: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient.delete(id);

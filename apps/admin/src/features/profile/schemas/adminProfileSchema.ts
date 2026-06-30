@@ -18,6 +18,14 @@ export const adminProfileSchema = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'passwordHash',
+      title: 'Password Hash',
+      type: 'string',
+      description: 'Bcrypt hash — set via seed script or change-password action only.',
+      hidden: true,
+      readOnly: true,
+    }),
+    defineField({
       name: 'role',
       title: 'Role',
       type: 'string',

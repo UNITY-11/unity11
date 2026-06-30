@@ -2,9 +2,11 @@
 
 import { getWriteClient } from "@/sanity/lib/writeClient";
 import { imageRef, uploadImage } from "@/sanity/lib/helpers";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import type { AdminProfile } from "../types";
 
 export async function updateAdminProfile(prevState: unknown, formData: FormData) {
+  await requireAdmin();
   try {
     const id = formData.get("id") as string;
     const name = formData.get("name") as string;

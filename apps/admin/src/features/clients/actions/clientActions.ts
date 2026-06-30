@@ -3,6 +3,7 @@
 import { getWriteClient } from "@/sanity/lib/writeClient";
 import { imageRef, uploadImage } from "@/sanity/lib/helpers";
 import { createNotification } from "@/features/notifications/actions/notificationActions";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import type { Client } from "../types";
 
 function buildClientListItem(
@@ -43,6 +44,7 @@ function buildClientListItem(
 }
 
 export async function createClient(prevState: unknown, formData: FormData) {
+  await requireAdmin();
   try {
     const name = formData.get("name") as string;
     const logoUrl = formData.get("logo") as string;
@@ -104,6 +106,7 @@ export async function createClient(prevState: unknown, formData: FormData) {
 }
 
 export async function updateClient(prevState: unknown, formData: FormData) {
+  await requireAdmin();
   try {
     const id = formData.get("id") as string;
     const name = formData.get("name") as string;
@@ -161,6 +164,7 @@ export async function updateClient(prevState: unknown, formData: FormData) {
 }
 
 export async function deleteClient(id: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient.delete(id);
@@ -172,6 +176,7 @@ export async function deleteClient(id: string) {
 }
 
 export async function updateClientDetails(id: string, detailsJson: string) {
+  await requireAdmin();
   try {
     const details = JSON.parse(detailsJson);
     const writeClient = getWriteClient();
