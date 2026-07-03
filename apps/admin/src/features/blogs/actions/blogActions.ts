@@ -4,6 +4,7 @@ import { getWriteClient } from "@/sanity/lib/writeClient";
 import { imageRef, slugify, uploadImage, normalizeBlogTags } from "@/sanity/lib/helpers";
 import { mapSanityBlog } from "@/sanity/lib/mappers";
 import { createNotification } from "@/features/notifications/actions/notificationActions";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import type { Blog } from "../types";
 
 function buildBlogListItem(
@@ -38,6 +39,7 @@ function buildBlogListItem(
 }
 
 export async function createBlog(formData: FormData) {
+  await requireAdmin();
   try {
     const title = formData.get("title") as string;
     const slug = (formData.get("slug") as string) || slugify(title);
@@ -103,6 +105,7 @@ export async function createBlog(formData: FormData) {
 }
 
 export async function updateBlog(formData: FormData) {
+  await requireAdmin();
   const id = formData.get("id") as string;
   const existingViews = Number(formData.get("existingViews") || 0);
   const existingLikes = Number(formData.get("existingLikes") || 0);
@@ -174,6 +177,7 @@ export async function updateBlog(formData: FormData) {
 }
 
 export async function deleteBlog(id: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient.delete(id);
@@ -185,6 +189,7 @@ export async function deleteBlog(id: string) {
 }
 
 export async function updateBlogStatus(id: string, status: string) {
+  await requireAdmin();
   try {
     const writeClient = getWriteClient();
     await writeClient

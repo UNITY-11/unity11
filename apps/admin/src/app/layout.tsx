@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Comfortaa } from "next/font/google";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { HeaderShell } from "@/components/layout/HeaderShell";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
@@ -36,16 +34,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${comfortaa.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning className="h-full flex bg-background font-sans text-foreground overflow-hidden">
+      <body
+        suppressHydrationWarning
+        className="h-full bg-background font-sans text-foreground"
+      >
         <ThemeProvider attribute="class" defaultTheme="dark">
-        <Sidebar />
-        <div className="flex-1 flex flex-col min-w-0 relative">
-          
-          <HeaderShell />
-          <main className="flex-1 overflow-y-auto relative z-10">
-            {children}
-          </main>
-        </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
